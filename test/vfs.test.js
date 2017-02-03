@@ -16,6 +16,7 @@ const vfsTests = {
 }
 const testFunctions = {
     vfsReadTest: function (t, fs, cb) {
+        const testFileContents = 'ÜÄ✓✗\n'
         const testFilePath = '/lib/file2.txt'
         fs.once('sync', () => async.waterfall([
             cb => t.test('stat', t => {
@@ -57,16 +58,24 @@ const testFunctions = {
                     return cb()
                 }
                 const stream = fs.createReadStream(testFilePath)
-                stream.on('data', (data) => t.equals(data.toString(), 'ÜÄ✓✗\n'))
+                stream.on('data', (data) => t.equals(data.toString(), testFileContents))
                 stream.on('end', () => {
                     t.end()
                     return cb()
                 })
             }),
-            cb => t.test('readFile', t => {
+            cb => t.test('readFile/string', t => {
+                fs.readFile(testFilePath, {encoding:'utf8'}, (err, buf) => {
+                    t.deepEquals(err, undefined, 'no error')
+                    t.equals(buf, testFileContents)
+                    t.end()
+                    return cb()
+                })
+            }),
+            cb => t.test('readFile/Buffer', t => {
                 fs.readFile(testFilePath, (err, buf) => {
                     t.deepEquals(err, undefined, 'no error')
-                    t.equals(buf.toString(), 'ÜÄ✓✗\n')
+                    t.deepEquals(buf, new Buffer(testFileContents))
                     t.end()
                     return cb()
                 })
@@ -75,15 +84,6 @@ const testFunctions = {
             // cb => t.test('writeFile', t => {
             //     vfs.writeFile(dummyPath, dummyData, (err) => {
             //         t.deepEquals(err, undefined, 'writeFile/String: no error')
-            //         t.end()
-            //         return cb()
-            //     })
-            // }),
-            // cb => t.test('readFile/ArrayBuffer', t => {
-            //     vfs.readFile(dummyPath, (err, data) => {
-            //         t.deepEquals(err, undefined, 'no error')
-            //         t.ok(data instanceof ArrayBuffer, 'is an arraybuffer')
-            //         t.equals(data.byteLength, 7, `7 bytes long`)
             //         t.end()
             //         return cb()
             //     })
