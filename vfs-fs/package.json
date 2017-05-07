@@ -1,0 +1,19 @@
+{
+  "name": "@kba/vfs-fs",
+  "version": "0.0.1",
+  "description": "Virtual File Systems with a node fs-like API - fs adapter",
+  "main": "vfs-fs.js",
+  "scripts": {
+    "test": "tap -Rspec test/*.test.js"
+  },
+  "repository": "github:kba/fsvfs",
+  "author": "Konstantin Baierer <unixprog@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "tap": "^10.0.0"
+  },
+  "dependencies": {
+    "@kba/vfs": "0.0.1",
+    "async": "^2.1.4"
+  }
+}
