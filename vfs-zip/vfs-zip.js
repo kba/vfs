@@ -4,9 +4,7 @@ const Path = require('path')
 const JSZip = require("jszip");
 const {Readable} = require('stream')
 
-const base = require('./base')
-const errors = require('./errors')
-const Node = require('./node')
+const {base, errors, Node} = require('@kba/vfs')
 
 /** 
  * A VFS over ZIP content
@@ -20,7 +18,7 @@ class zipvfs extends base {
 
     constructor(options={}) {
         if (!options.location) throw new Error("Must set 'location'")
-        if (!(options.location instanceof Node)) throw new Error("'location' must be a vfs.node")
+        if (!(options.location instanceof Node)) throw new Error("'location' must be a vfs.Node")
         super(options)
     }
 
