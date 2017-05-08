@@ -1,7 +1,7 @@
 const tap = require('tap')
 const Path = require('path')
 const async = require('async')
-const fs = require('@kba/vfs-fs')
+const vfsFile = new(require('@kba/vfs-file'))({chroot: Path.join(__dirname, 'fixtures')})
 
 // const vfsTests = {
 //     'file': [
@@ -62,10 +62,16 @@ function vfsReadTest(t, fs, cb) {
             }
             const stream = fs.createReadStream(testFilePath)
             stream.on('data', (data) => t.equals(data.toString(), testFileContents))
+            stream.on('error', (err) => {
+                t.comment("Error " + err)
+                t.end()
+                return cb()
+            })
             stream.on('end', () => {
                 t.end()
                 return cb()
             })
+            stream.read()
         }),
         cb => t.test('readFile/string', t => {
             fs.readFile(testFilePath, {encoding:'utf8'}, (err, buf) => {
@@ -148,10 +154,9 @@ function testVfs(vfsClass, scheme, tests) {
         }
         async.eachSeries(tests, ([options, fns], done) => {
             if ('location' in options) {
-                const fixtureName = Path.join(__dirname, 'fixtures', options.location)
-                vfsFile.stat(fixtureName, (err, location) => {
+                vfsFile.stat(options.location, (err, location) => {
                     if (err) throw err
-                    t.notOk(err, `read ${fixtureName}`)
+                    t.notOk(err, `read ${options.location}`)
                     options.location = location
                     runTests(options, fns, done)
                 })

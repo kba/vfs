@@ -1,4 +1,4 @@
-const {vfsReadTest, testVfs} = require('@kba/vfs/test')
+const {vfsReadTest, testVfs} = require('@kba/vfs-test')
 
 testVfs(
     require('./vfs-zip'),

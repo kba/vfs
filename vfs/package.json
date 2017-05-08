@@ -22,11 +22,7 @@
     "tap-only": "0.0.5"
   },
   "dependencies": {
-    "ar-async": "^0.1.4",
     "async": "^2.1.4",
-    "mime-types": "^2.1.14",
-    "tar-stream": "^1.5.2",
-    "unbzip2-stream": "^1.0.10",
-    "xz": "^1.2.2"
+    "mime-types": "^2.1.14"
   }
 }

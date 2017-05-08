@@ -83,13 +83,17 @@ class zipvfs extends base {
 
     createReadStream(path, options) {
         if (!(Path.isAbsolute(path))) throw errors.PathNotAbsoluteError(path)
-        path = Path.normalize(path.substr(1))
-        if (!(path in this.zipRoot.files)) throw errors.NoSuchFileError(path)
+        const relpath = Path.normalize(path.substr(1))
+        if (!(relpath in this.zipRoot.files)) throw errors.NoSuchFileError(path)
         var self = this
         return new Readable({
             read(size) {
                 self.readFile(path, (err, buf) => {
+                    if (err)
+                        throw(err)
+                        // return this.emit('error', err)
                     this.push(buf)
+                    // this.emit('end')
                 })
             }
         })

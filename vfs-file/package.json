@@ -1,8 +1,8 @@
 {
-  "name": "@kba/vfs-fs",
+  "name": "@kba/vfs-file",
   "version": "0.0.1",
   "description": "Virtual File Systems with a node fs-like API - fs adapter",
-  "main": "vfs-fs.js",
+  "main": "vfs-file.js",
   "scripts": {
     "test": "tap -Rspec test/*.test.js"
   },

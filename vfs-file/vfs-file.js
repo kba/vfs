@@ -1,7 +1,6 @@
 const fs = require('fs')
 const Path = require('path')
-const base = require('./base')
-const Node = require('./node')
+const {base, Node} = require('@kba/vfs')
 
 /** 
  * A VFS over the local filesystem.
@@ -34,7 +33,7 @@ class vfsFile extends base {
     }
 
     _resolvePath(path) {
-        return Path.join(this.options.chroot, Path.resolve(path))
+        return Path.resolve(Path.join(this.options.chroot, path))
     }
 
     sync() { this.emit('sync') }
