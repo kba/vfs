@@ -15,6 +15,6 @@
   },
   "dependencies": {
     "@kba/vfs": "0.0.1",
-    "async": "^2.1.4"
+    "async": "^2.4.0"
   }
 }
