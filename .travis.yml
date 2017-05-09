@@ -12,6 +12,6 @@ addons:
     packages:
       - g++-4.8
 before_script:
-  - ./node_modules/.bin/lerna bootstrap
+  - make bootstrap
 script:
   - make test:all
