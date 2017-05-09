@@ -2,6 +2,8 @@
   "lerna": "2.0.0-beta.38",
   "packages": [
     "test",
+    "errors",
+    "util",
     "vfs*"
   ],
   "version": "0.0.1"

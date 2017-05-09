@@ -81,19 +81,19 @@ class zipvfs extends base {
         return cb(null, ret)
     }
 
-    createReadStream(path, options) {
+    createReadStream(path, options={}) {
         if (!(Path.isAbsolute(path))) throw errors.PathNotAbsoluteError(path)
         const relpath = Path.normalize(path.substr(1))
         if (!(relpath in this.zipRoot.files)) throw errors.NoSuchFileError(path)
         var self = this
+        var read = 0
         return new Readable({
             read(size) {
-                self.readFile(path, (err, buf) => {
-                    if (err)
-                        throw(err)
-                        // return this.emit('error', err)
+                if (read > 0) return
+                self.readFile(path, options, (err, buf) => {
+                    read = buf.length
                     this.push(buf)
-                    // this.emit('end')
+                    this.push(null)
                 })
             }
         })
@@ -105,8 +105,10 @@ class zipvfs extends base {
         path = path.substr(1)
         const format = options.encoding ? 'string' : 'arraybuffer'
         this.zipRoot.file(path).async(format)
-            .then(data => cb(null, format === 'string' ? data : new Buffer(data)))
-            .catch(err => cb(err))
+            .then(data => {
+                cb(null, format === 'string' ? data : new Buffer(data))
+            })
+            .catch(cb)
     }
 
     writeFile(path, data, options, cb) {

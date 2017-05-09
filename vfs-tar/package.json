@@ -10,11 +10,14 @@
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@kba/vfs-test": "0.0.1",
+    "@kba/vfs-file": "0.0.1",
     "tap": "^10.0.0"
   },
   "dependencies": {
     "@kba/vfs": "0.0.1",
-    "async": "^2.1.4",
+    "@kba/vfs-util": "0.0.1",
+    "async": "^2.4.0",
     "tar-stream": "^1.5.2"
   }
 }

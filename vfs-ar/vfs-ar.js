@@ -4,9 +4,8 @@ const Path = require('path')
 const ar = require("ar-async");
 const compression = require('./compression')
 
-const base = require('./base')
-const errors = require('./errors')
-const Node = require('./node')
+const {base, Node} = require('@kba/vfs')
+const errors = require('@kba/vfs-errors')
 
 /** 
  * A VFS over UNIX archives, e.g. Debian packages

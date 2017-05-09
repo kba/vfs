@@ -1,7 +1,6 @@
 const tap = require('tap')
 const Path = require('path')
 const async = require('async')
-const vfsFile = new(require('@kba/vfs-file'))({chroot: Path.join(__dirname, 'fixtures')})
 
 // const vfsTests = {
 //     'file': [
@@ -64,14 +63,14 @@ function vfsReadTest(t, fs, cb) {
             stream.on('data', (data) => t.equals(data.toString(), testFileContents))
             stream.on('error', (err) => {
                 t.comment("Error " + err)
+                console.log(err)
                 t.end()
-                return cb()
+                return cb(err)
             })
             stream.on('end', () => {
                 t.end()
                 return cb()
             })
-            stream.read()
         }),
         cb => t.test('readFile/string', t => {
             fs.readFile(testFilePath, {encoding:'utf8'}, (err, buf) => {
@@ -89,7 +88,6 @@ function vfsReadTest(t, fs, cb) {
                 return cb()
             })
         }),
-        cb => cb(),
     ], cb))
     fs.init()
 }
@@ -141,7 +139,7 @@ function vfsReadTest(t, fs, cb) {
 //     fs.init()
 // }
 
-function testVfs(vfsClass, scheme, tests) {
+function testVfs(vfsClass, vfsFile, scheme, tests) {
     tap.test(`${scheme} vfs`, t => {
         t.equals(vfsClass.scheme, scheme, `scheme is ${scheme}`)
         const runTests = (options, fns, done) => {

@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "@kba/vfs-test": "0.0.1",
+    "@kba/vfs-file": "0.0.1",
     "tap": "^10.0.0"
   },
   "dependencies": {

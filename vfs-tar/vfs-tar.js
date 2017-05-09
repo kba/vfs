@@ -1,12 +1,9 @@
 const async = require('async')
-const fs = require('fs')
 const Path = require('path')
 const tar = require("tar-stream");
 
-const base = require('./base')
-const errors = require('./errors')
-const Node = require('./node')
-const {hasDecompressor, getDecompressor, createReadableWrapper} = require('./util')
+const {base, errors, Node} = require('@kba/vfs')
+const {hasDecompressor, getDecompressor, createReadableWrapper} = require('@kba/vfs-util')
 
 /** 
  * A VFS over tarballs
