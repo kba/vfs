@@ -1,13 +1,16 @@
 MAKEFLAGS += --no-print-directory --silent
+PATH := ./node_modules/.bin:$(PATH)
 REPORTER = spec
 
 bootstrap:
-	./node_modules/.bin/lerna bootstrap --loglevel silly
+	lerna bootstrap --loglevel silly
 
-test\:all:
-	$(MAKE) test:vfs-file test:vfs-zip test:vfs-tar
+.PHONY: test
+test:
+	$(MAKE) bootstrap
+	tap */*.test.js
 
 .PHONY: %
 test\:%: %
-	-$(MAKE) bootstrap
+	$(MAKE) bootstrap
 	tap -R$(REPORTER) "$</"*.test.js "$</"*.test.js

@@ -1,19 +1,20 @@
 const tap = require('tap')
 const Path = require('path')
 const async = require('async')
-const vfs = require('../lib')
+const vfs = require('.')
+const vfsFile = require('@kba/vfs-file')
 
 const vfsTests = {
-    'file': [
+    '@kba/vfs-file': [
         [{chroot: Path.join(__dirname, 'fixtures/folder')}, ['vfsReadTest']]
     ],
-    'tar': [
+    '@kba/vfs-tar': [
         [{location: 'folder.tar'}, ['vfsReadTest']],
         [{location: 'folder.tar.gz', compression: 'gzip'}, ['vfsReadTest']],
         [{location: 'folder.tar.bz2', compression: 'bzip2'}, ['vfsReadTest']],
         [{location: 'folder.tar.xz', compression: 'xz'}, ['vfsReadTest']],
     ],
-    'zip': [
+    '@kba/vfs-zip': [
         [{location: 'folder.zip'}, ['vfsReadTest']]
     ]
 }
