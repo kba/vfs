@@ -4,9 +4,7 @@
   "description": "Virtual File Systems with a node fs-like API",
   "main": "lib/index.js",
   "scripts": {
-    "test": "tap -Rspec test/*.test.js",
-    "docs:html": "rm -rf docs/api ; jsdoc --template ./node_modules/minami -d docs/api lib/*.js",
-    "docs:watch": "nodemon -w lib -x npm run docs:html"
+    "test": "tap -Rspec test/*.test.js"
   },
   "repository": {
     "url": "https://github.com/kba/node-vfs",
@@ -15,13 +13,11 @@
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "jsdoc": "^3.4.3",
-    "minami": "^1.1.1",
-    "nodemon": "^1.11.0",
     "tap": "^10.0.0",
     "tap-only": "0.0.5"
   },
   "dependencies": {
+    "@kba/vfs-errors": "^0.0.1",
     "async": "^2.1.4",
     "mime-types": "^2.1.14"
   }

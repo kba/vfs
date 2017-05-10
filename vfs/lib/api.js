@@ -1,5 +1,5 @@
 const mimeTypes = require('mime-types')
-const errors = require('./errors')
+const errors = require('@kba/vfs-errors')
 const Path = require('path')
 
 const NODE_TYPES = [

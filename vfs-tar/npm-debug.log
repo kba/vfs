@@ -1,0 +1,185 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/kb/.nvm/versions/node/v7.3.0/bin/node',
+1 verbose cli   '/home/kb/.nvm/versions/node/v7.3.0/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@3.10.10
+3 info using node@v7.3.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly fetchNamedPackageData @kba/vfs
+20 silly mapToRegistry name @kba/vfs
+21 silly mapToRegistry scope (from package name) @kba
+22 verbose mapToRegistry no registry URL found in name for scope @kba
+23 silly mapToRegistry using default registry
+24 silly mapToRegistry registry https://registry.npmjs.com/
+25 silly mapToRegistry data Result {
+25 silly mapToRegistry   raw: '@kba/vfs',
+25 silly mapToRegistry   scope: '@kba',
+25 silly mapToRegistry   escapedName: '@kba%2fvfs',
+25 silly mapToRegistry   name: '@kba/vfs',
+25 silly mapToRegistry   rawSpec: '',
+25 silly mapToRegistry   spec: 'latest',
+25 silly mapToRegistry   type: 'tag' }
+26 silly mapToRegistry uri https://registry.npmjs.com/@kba%2fvfs
+27 silly fetchNamedPackageData @kba/vfs-util
+28 silly mapToRegistry name @kba/vfs-util
+29 silly mapToRegistry scope (from package name) @kba
+30 verbose mapToRegistry no registry URL found in name for scope @kba
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry https://registry.npmjs.com/
+33 silly mapToRegistry data Result {
+33 silly mapToRegistry   raw: '@kba/vfs-util',
+33 silly mapToRegistry   scope: '@kba',
+33 silly mapToRegistry   escapedName: '@kba%2fvfs-util',
+33 silly mapToRegistry   name: '@kba/vfs-util',
+33 silly mapToRegistry   rawSpec: '',
+33 silly mapToRegistry   spec: 'latest',
+33 silly mapToRegistry   type: 'tag' }
+34 silly mapToRegistry uri https://registry.npmjs.com/@kba%2fvfs-util
+35 verbose request uri https://registry.npmjs.com/@kba%2fvfs
+36 verbose request no auth needed
+37 info attempt registry request try #1 at 10:27:37 PM
+38 verbose request using bearer token for auth
+39 verbose request id 2d0d583ec12772dc
+40 http request GET https://registry.npmjs.com/@kba%2fvfs
+41 verbose request uri https://registry.npmjs.com/@kba%2fvfs-util
+42 verbose request no auth needed
+43 info attempt registry request try #1 at 10:27:37 PM
+44 verbose request using bearer token for auth
+45 http request GET https://registry.npmjs.com/@kba%2fvfs-util
+46 http 404 https://registry.npmjs.com/@kba%2fvfs
+47 verbose headers { 'content-type': 'application/json',
+47 verbose headers   'cache-control': 'max-age=0',
+47 verbose headers   'content-length': '21',
+47 verbose headers   'accept-ranges': 'bytes',
+47 verbose headers   date: 'Wed, 10 May 2017 20:27:40 GMT',
+47 verbose headers   via: '1.1 varnish',
+47 verbose headers   connection: 'keep-alive',
+47 verbose headers   'x-served-by': 'cache-hhn1550-HHN',
+47 verbose headers   'x-cache': 'MISS',
+47 verbose headers   'x-cache-hits': '0',
+47 verbose headers   'x-timer': 'S1494448058.776254,VS0,VE2524' }
+48 silly get cb [ 404,
+48 silly get   { 'content-type': 'application/json',
+48 silly get     'cache-control': 'max-age=0',
+48 silly get     'content-length': '21',
+48 silly get     'accept-ranges': 'bytes',
+48 silly get     date: 'Wed, 10 May 2017 20:27:40 GMT',
+48 silly get     via: '1.1 varnish',
+48 silly get     connection: 'keep-alive',
+48 silly get     'x-served-by': 'cache-hhn1550-HHN',
+48 silly get     'x-cache': 'MISS',
+48 silly get     'x-cache-hits': '0',
+48 silly get     'x-timer': 'S1494448058.776254,VS0,VE2524' } ]
+49 silly fetchPackageMetaData Error: Not found : @kba/vfs
+49 silly fetchPackageMetaData     at makeError (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+49 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+49 silly fetchPackageMetaData     at Request._callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+49 silly fetchPackageMetaData     at Request.self.callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:187:22)
+49 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+49 silly fetchPackageMetaData     at Request.emit (events.js:191:7)
+49 silly fetchPackageMetaData     at Request.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+49 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+49 silly fetchPackageMetaData     at Request.emit (events.js:188:7)
+49 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:969:12)
+49 silly fetchPackageMetaData  error for @kba/vfs@0.0.1 { Error: Not found : @kba/vfs
+49 silly fetchPackageMetaData     at makeError (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+49 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+49 silly fetchPackageMetaData     at Request._callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+49 silly fetchPackageMetaData     at Request.self.callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:187:22)
+49 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+49 silly fetchPackageMetaData     at Request.emit (events.js:191:7)
+49 silly fetchPackageMetaData     at Request.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+49 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+49 silly fetchPackageMetaData     at Request.emit (events.js:188:7)
+49 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:969:12) pkgid: '@kba/vfs', statusCode: 404, code: 'E404' }
+50 http 404 https://registry.npmjs.com/@kba%2fvfs-util
+51 verbose headers { 'content-type': 'application/json',
+51 verbose headers   'cache-control': 'max-age=0',
+51 verbose headers   'content-length': '21',
+51 verbose headers   'accept-ranges': 'bytes',
+51 verbose headers   date: 'Wed, 10 May 2017 20:27:40 GMT',
+51 verbose headers   via: '1.1 varnish',
+51 verbose headers   connection: 'keep-alive',
+51 verbose headers   'x-served-by': 'cache-hhn1542-HHN',
+51 verbose headers   'x-cache': 'MISS',
+51 verbose headers   'x-cache-hits': '0',
+51 verbose headers   'x-timer': 'S1494448058.772151,VS0,VE2643' }
+52 silly get cb [ 404,
+52 silly get   { 'content-type': 'application/json',
+52 silly get     'cache-control': 'max-age=0',
+52 silly get     'content-length': '21',
+52 silly get     'accept-ranges': 'bytes',
+52 silly get     date: 'Wed, 10 May 2017 20:27:40 GMT',
+52 silly get     via: '1.1 varnish',
+52 silly get     connection: 'keep-alive',
+52 silly get     'x-served-by': 'cache-hhn1542-HHN',
+52 silly get     'x-cache': 'MISS',
+52 silly get     'x-cache-hits': '0',
+52 silly get     'x-timer': 'S1494448058.772151,VS0,VE2643' } ]
+53 silly fetchPackageMetaData Error: Not found : @kba/vfs-util
+53 silly fetchPackageMetaData     at makeError (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+53 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+53 silly fetchPackageMetaData     at Request._callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+53 silly fetchPackageMetaData     at Request.self.callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:187:22)
+53 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+53 silly fetchPackageMetaData     at Request.emit (events.js:191:7)
+53 silly fetchPackageMetaData     at Request.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+53 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+53 silly fetchPackageMetaData     at Request.emit (events.js:188:7)
+53 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:969:12)
+53 silly fetchPackageMetaData  error for @kba/vfs-util@0.0.1 { Error: Not found : @kba/vfs-util
+53 silly fetchPackageMetaData     at makeError (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+53 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+53 silly fetchPackageMetaData     at Request._callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+53 silly fetchPackageMetaData     at Request.self.callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:187:22)
+53 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+53 silly fetchPackageMetaData     at Request.emit (events.js:191:7)
+53 silly fetchPackageMetaData     at Request.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+53 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+53 silly fetchPackageMetaData     at Request.emit (events.js:188:7)
+53 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:969:12) pkgid: '@kba/vfs-util', statusCode: 404, code: 'E404' }
+54 silly rollbackFailedOptional Starting
+55 silly rollbackFailedOptional Finishing
+56 silly runTopLevelLifecycles Finishing
+57 silly install printInstalled
+58 verbose stack Error: Not found : @kba/vfs
+58 verbose stack     at makeError (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+58 verbose stack     at CachingRegistryClient.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+58 verbose stack     at Request._callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+58 verbose stack     at Request.self.callback (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:187:22)
+58 verbose stack     at emitTwo (events.js:106:13)
+58 verbose stack     at Request.emit (events.js:191:7)
+58 verbose stack     at Request.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+58 verbose stack     at emitOne (events.js:96:13)
+58 verbose stack     at Request.emit (events.js:188:7)
+58 verbose stack     at IncomingMessage.<anonymous> (/home/kb/.nvm/versions/node/v7.3.0/lib/node_modules/npm/node_modules/request/request.js:969:12)
+59 verbose statusCode 404
+60 verbose pkgid @kba/vfs
+61 verbose cwd /home/kb/build/github.com/kba/vfs/vfs-tar
+62 error Linux 4.6.0-1-amd64
+63 error argv "/home/kb/.nvm/versions/node/v7.3.0/bin/node" "/home/kb/.nvm/versions/node/v7.3.0/bin/npm" "install"
+64 error node v7.3.0
+65 error npm  v3.10.10
+66 error code E404
+67 error 404 Not found : @kba/vfs
+68 error 404
+69 error 404 '@kba/vfs' is not in the npm registry.
+70 error 404 You should bug the author to publish it (or use the name yourself!)
+71 error 404 It was specified as a dependency of '@kba/vfs-zip'
+72 error 404 Note that you can also install from a
+73 error 404 tarball, folder, http url, or git url.
+74 verbose exit [ 1, true ]

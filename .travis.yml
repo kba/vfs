@@ -14,4 +14,4 @@ addons:
 before_script:
   - make bootstrap
 script:
-  - make test:all
+  - make test
