@@ -2,24 +2,9 @@ const tap = require('tap')
 const Path = require('path')
 const async = require('async')
 const vfs = require('.')
-const vfsFile = require('@kba/vfs-file')
 
-const vfsTests = {
-    '@kba/vfs-file': [
-        [{chroot: Path.join(__dirname, 'fixtures/folder')}, ['vfsReadTest']]
-    ],
-    '@kba/vfs-tar': [
-        [{location: 'folder.tar'}, ['vfsReadTest']],
-        [{location: 'folder.tar.gz', compression: 'gzip'}, ['vfsReadTest']],
-        [{location: 'folder.tar.bz2', compression: 'bzip2'}, ['vfsReadTest']],
-        [{location: 'folder.tar.xz', compression: 'xz'}, ['vfsReadTest']],
-    ],
-    '@kba/vfs-zip': [
-        [{location: 'folder.zip'}, ['vfsReadTest']]
-    ]
-}
-const testFunctions = {
-    vfsReadTest: function (t, fs, cb) {
+module.exports = {
+    vfsReadTest(t, fs, cb) {
         const testFileContents = 'ÜÄ✓✗\n'
         const testFilePath = '/lib/file2.txt'
         fs.once('sync', () => async.waterfall([
@@ -127,34 +112,3 @@ const testFunctions = {
     }
 }
 
-Object.keys(vfsTests).forEach(vfsName => {
-    const fileVfs = new(vfs.file)()
-    tap.test(`${vfsName} vfs`, t => {
-        const vfsClass = vfs[vfsName]
-        t.equals(vfsClass.scheme, vfsName, `scheme is ${vfsName}`)
-        const runTests = (options, fns, done) => {
-            fns.forEach(fn => {
-                testFunctions[fn](t, new(vfs[vfsName])(options), err => {
-                    if (err) return done(err)
-                    return done()
-                })
-            })
-        }
-        async.eachSeries(vfsTests[vfsName], ([options, fns], done) => {
-            if ('location' in options) {
-                const fixtureName = Path.join(__dirname, 'fixtures', options.location)
-                fileVfs.stat(fixtureName, (err, location) => {
-                    if (err) throw err
-                    t.notOk(err, `read ${fixtureName}`)
-                    options.location = location
-                    runTests(options, fns, done)
-                })
-            } else {
-                runTests(options, fns, done)
-            }
-        }, (err) => {
-            if (err) t.fail(":-(")
-            t.end()
-        })
-    })
-})

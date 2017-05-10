@@ -4,7 +4,7 @@ const Node = require('./node')
 const Path = require('path')
 
 const api = require('./api')
-const errors = require('./errors')
+const errors = require('@kba/vfs-errors')
 
 const NODE_TYPES = [
     // 'File',

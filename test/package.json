@@ -3,15 +3,17 @@
   "name": "@kba/vfs-test",
   "version": "0.0.1",
   "description": "Virtual File Systems with a node fs-like API - Tests",
-  "main": "index.js",
   "scripts": {
-    "test": "tap -Rspec test/*.test.js"
+    "test": "tap -Rspec *.test.js"
   },
   "repository": "github:kba/fsvfs",
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@kba/vfs": "0.0.1",
+    "@kba/vfs-file": "0.0.1",
+    "@kba/vfs-zip": "0.0.1",
+    "@kba/vfs-tar": "0.0.1",
     "async": "^2.4.0",
     "tap": "^10.0.0"
   }

@@ -1,5 +1,7 @@
 {
     "scripts": {
+        "bootstrap": "lerna bootstrap --loglevel silly",
+        "postinstall": "npm run bootstrap",
         "test": "make test:all"
     },
     "devDependencies": {

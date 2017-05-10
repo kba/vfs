@@ -1,20 +1,14 @@
 {
-  "name": "@kba/vfs-zip",
+  "name": "@kba/vfs-tar",
   "version": "0.0.1",
   "description": "Virtual File Systems with a node fs-like API - ZIP adapter",
-  "main": "vfs-zip.js",
+  "main": "vfs-tar.js",
   "scripts": {
     "test": "tap -Rspec *.test.js"
   },
   "repository": "github:kba/fsvfs",
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "@kba/vfs-file": "0.0.1",
-    "@kba/vfs-test": "0.0.1",
-    "tap": "^10.0.0",
-    "tar-stream": "^1.5.2"
-  },
   "dependencies": {
     "@kba/vfs": "0.0.1",
     "@kba/vfs-util": "0.0.1",

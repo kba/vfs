@@ -8,9 +8,9 @@ bootstrap:
 .PHONY: test
 test:
 	$(MAKE) bootstrap
-	tap */*.test.js
+	tap test/index.js
 
-.PHONY: %
-test\:%: %
-	$(MAKE) bootstrap
-	tap -R$(REPORTER) "$</"*.test.js "$</"*.test.js
+# .PHONY: %
+# test\:%: %
+#     $(MAKE) bootstrap
+#     tap -R$(REPORTER) "$</"*.test.js "$</"*.test.js
