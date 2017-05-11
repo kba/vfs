@@ -153,8 +153,9 @@ class base extends api {
         return async.each(plugins, (plugin, done) => {return plugin[fn](...args, done)}, cb)
     }
 
-    stat(path, cb) {
-        this._stat(path, (err, node) => {
+    stat(path, options, cb) {
+        if (typeof options === 'function') [cb, options] = [options, {}]
+        this._stat(path, options, (err, node) => {
             if (err) return cb(err)
             this._applyPlugins('stat', [node], (err) => {
                 return cb(err, node)

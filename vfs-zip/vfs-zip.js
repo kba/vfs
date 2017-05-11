@@ -57,7 +57,7 @@ class zipvfs extends base {
         })
     }
 
-    _stat(path, cb) {
+    _stat(path, options, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         path = Path.normalize(path.substr(1))
         if (!(path in this.zipRoot.files)) path += '/'

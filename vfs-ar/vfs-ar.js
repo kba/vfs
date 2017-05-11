@@ -97,7 +97,7 @@ class arvfs extends base {
         return ret
     }
 
-    stat(path, cb) {
+    _stat(path, options, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         if (!this._files.has(path)) return cb(errors.NoSuchFileError(path))
         return cb(null, this._files.get(path))
