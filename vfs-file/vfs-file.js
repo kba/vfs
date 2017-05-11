@@ -27,7 +27,7 @@ class vfsFile extends base {
 
     _fsStatsToAttr(path, stats) {
         base.NODE_TYPES.forEach(type => stats[`is${type}`] = stats[`is${type}`]())
-        stats.path = path.substr(this.options.chroot.length)
+        stats.path = path.substr(this.options.chroot.length) || '/'
         stats.vfs = this
         return new Node(stats)
     }

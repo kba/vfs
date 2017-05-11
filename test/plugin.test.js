@@ -1,8 +1,7 @@
 const tap = require('tap')
-const VfsPlugin = require('../lib/plugin')
-const vfslib = require('../lib')
+const vfsFile = require('@kba/vfs-file')
 
-class TestPlugin extends VfsPlugin {
+class TestPlugin {
 
     stat(node, cb) {
         node.foo = '42'
@@ -12,7 +11,7 @@ class TestPlugin extends VfsPlugin {
 }
 
 tap.test('plugin loading', t => {
-    const vfs = new vfslib.file({chroot: __dirname + '/fixtures'})
+    const vfs = new vfsFile({chroot: __dirname + '/fixtures'})
     vfs.use(TestPlugin, {})
     t.equals(vfs.plugins.length, 1, 'one plugin loaded')
     vfs.stat('/', (err, node) => {

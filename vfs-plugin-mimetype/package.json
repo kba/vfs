@@ -1,0 +1,15 @@
+{
+  "name": "@kba/vfs-plugin-checksum",
+  "version": "0.0.1",
+  "description": "Virtual File Systems with a node fs-like API - MIME type plugin",
+  "main": "vfs-plugin-checksum.js",
+  "scripts": {
+    "test": "tap -Rspec test/*.test.js"
+  },
+  "repository": "github:kba/fsvfs",
+  "author": "Konstantin Baierer <unixprog@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mime-types": "^2.1.14"
+  }
+}

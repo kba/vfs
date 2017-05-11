@@ -1,6 +1,6 @@
 const mimeTypes = require('mime-types')
 
-class ChecksumPlugin {
+class MimetypePlugin {
 
     constructor(options={}) {
         this.options = options
@@ -15,4 +15,4 @@ class ChecksumPlugin {
     }
 
 }
-module.exports = ChecksumPlugin
+module.exports = MimetypePlugin

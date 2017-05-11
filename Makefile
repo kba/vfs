@@ -1,14 +1,15 @@
 MAKEFLAGS += --no-print-directory --silent
 PATH := ./node_modules/.bin:$(PATH)
-REPORTER = spec
+REPORTER = tap
+TAP = tap -R$(REPORTER)
 
 bootstrap:
-	lerna bootstrap --loglevel silly
+	lerna bootstrap --loglevel info
 
 .PHONY: test
 test:
 	$(MAKE) bootstrap
-	tap test/index.js
+	$(TAP) test/*.test.js
 
 # .PHONY: %
 # test\:%: %
