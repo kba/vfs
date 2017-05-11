@@ -32,16 +32,15 @@ class base extends api {
         Object.getOwnPropertyNames(this.prototype)
             // .filter(prop => !(prop.indexOf('_') === 0))
             .filter(prop => !(toSkip.has(prop)))
-            .map(prop => ret.add(prop))
+            .map(prop => ret.add(prop.replace(/^_/, '')))
         const deps = {
-            'stat':           ['_stat'],
-            'getdir':         ['_stat', 'readdir'],
-            'find':           ['_stat', 'readdir'],
-            'mkdirRecursive': ['_stat', 'mkdir'],
-            'du':             ['_stat', 'readdir'],
-            'readFile':       ['_stat', 'createReadStream'],
-            'writeFile':      ['_stat', 'writeFile'],
-            'copyFile':       ['_stat', 'readFile', 'writeFile'],
+            'getdir':         ['stat', 'readdir'],
+            'find':           ['stat', 'readdir'],
+            'mkdirRecursive': ['stat', 'mkdir'],
+            'du':             ['stat', 'readdir'],
+            'readFile':       ['stat', 'createReadStream'],
+            'writeFile':      ['stat', 'writeFile'],
+            'copyFile':       ['stat', 'readFile', 'writeFile'],
         }
         Object.getOwnPropertyNames(base.prototype)
             // .filter(prop => prop.indexOf('_') === 0)

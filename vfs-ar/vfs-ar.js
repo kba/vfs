@@ -56,22 +56,24 @@ class arvfs extends base {
         }
     }
 
-    sync() {
+    _sync() {
         this._extract({
             entry: (header, stream, next) => {
                 const node = this._tarEntryToVfsNode(header)
                 this._files.set(node.path, node)
+                console.log("FILES", this._files)
                 stream.on('end', next)
                 stream.resume() // just auto drain the stream 
             },
             finish: () => {
                 // all entries read 
+                console.log(this._files)
                 this.emit('sync')
             }
         })
     }
 
-    createReadStream(path, options) {
+    _createReadStream(path, options) {
         if (!Path.isAbsolute(path)) throw errors.PathNotAbsoluteError(path)
         if (!this._files.has(path)) throw errors.NoSuchFileError(path)
         const ret = new Readable({
@@ -103,7 +105,7 @@ class arvfs extends base {
         return cb(null, this._files.get(path))
     }
 
-    readdir(path, cb) {
+    _readdir(path, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         return cb(null, Array.from(this._files.keys())
             .filter(filePath => filePath.indexOf(path) === 0)

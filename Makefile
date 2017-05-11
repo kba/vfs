@@ -11,7 +11,8 @@ test:
 	$(MAKE) bootstrap
 	$(TAP) test/*.test.js test/*/*.test.js
 
-# .PHONY: %
-# test\:%: %
-#     $(MAKE) bootstrap
-#     tap -R$(REPORTER) "$</"*.test.js "$</"*.test.js
+TEST =
+.PHONY: %
+test-one: %
+	$(MAKE) bootstrap
+	tap -R$(REPORTER) $(TEST)

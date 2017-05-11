@@ -45,7 +45,7 @@ class zipvfs extends base {
         return new Node(_attr)
     }
 
-    sync() {
+    _sync() {
         const new_zip = new JSZip();
         const location = this.options.location
         location.vfs.readFile(location.path, (err, content) => {
@@ -69,7 +69,7 @@ class zipvfs extends base {
         return cb(null, this._zipEntryToVfsNode(entry))
     }
 
-    readdir(dir, cb) {
+    _readdir(dir, cb) {
         if (!(Path.isAbsolute(dir))) return cb(errors.PathNotAbsoluteError(dir))
         dir = this._removeTrailingSep(dir)
         var ret = Object.keys(this.zipRoot.files)
@@ -81,7 +81,7 @@ class zipvfs extends base {
         return cb(null, ret)
     }
 
-    createReadStream(path, options={}) {
+    _createReadStream(path, options={}) {
         if (!(Path.isAbsolute(path))) throw errors.PathNotAbsoluteError(path)
         const relpath = Path.normalize(path.substr(1))
         if (!(relpath in this.zipRoot.files)) throw errors.NoSuchFileError(path)
@@ -99,7 +99,7 @@ class zipvfs extends base {
         })
     }
 
-    readFile(path, options, cb) {
+    _readFile(path, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         path = path.substr(1)
@@ -111,7 +111,7 @@ class zipvfs extends base {
             .catch(cb)
     }
 
-    writeFile(path, data, options, cb) {
+    _writeFile(path, data, options, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         path = path.substr(1)
         if (typeof options === 'function') [cb, options] = [options, {}]
@@ -120,7 +120,7 @@ class zipvfs extends base {
         return cb(null)
     }
 
-    unlink(path, cb) {
+    _unlink(path, cb) {
         this.stat(path, (err, file) => {
             if (err) return cb(null)
             if (file.isDirectory) return cb(new Error("Cannot unlink directory, use 'rmdir'"))

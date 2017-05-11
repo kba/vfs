@@ -36,7 +36,7 @@ class vfsFile extends base {
         return Path.resolve(Path.join(this.options.chroot, path))
     }
 
-    sync() { this.emit('sync') }
+    _sync() { this.emit('sync') }
 
     _stat(path, opts, cb) {
         if (!cb && typeof opts == 'function') [cb, opts] = [opts, {}]
@@ -47,13 +47,13 @@ class vfsFile extends base {
         })
     }
 
-    unlink(path, ...args)            { return fs.unlink(this._resolvePath(path), ...args) }
-    mkdir(path, ...args)             { return fs.mkdir(this._resolvePath(path), ...args) }
-    createReadStream(path, ...args)  { return fs.createReadStream(this._resolvePath(path), ...args) }
-    createWriteStream(path, ...args) { return fs.createWriteStream(this._resolvePath(path), ...args) }
-    readdir(path, ...args)           { return fs.readdir(this._resolvePath(path), ...args) }
-    readFile(path, ...args)          { return fs.readFile(this._resolvePath(path), ...args) }
-    writeFile(path, ...args)         { return fs.writeFile(this._resolvePath(path), ...args) }
+    _unlink(path, ...args)            { return fs.unlink(this._resolvePath(path), ...args) }
+    _mkdir(path, ...args)             { return fs.mkdir(this._resolvePath(path), ...args) }
+    _createReadStream(path, ...args)  { return fs.createReadStream(this._resolvePath(path), ...args) }
+    _createWriteStream(path, ...args) { return fs.createWriteStream(this._resolvePath(path), ...args) }
+    _readdir(path, ...args)           { return fs.readdir(this._resolvePath(path), ...args) }
+    _readFile(path, ...args)          { return fs.readFile(this._resolvePath(path), ...args) }
+    _writeFile(path, ...args)         { return fs.writeFile(this._resolvePath(path), ...args) }
 }
 
 module.exports = vfsFile

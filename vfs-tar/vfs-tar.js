@@ -53,7 +53,7 @@ class tarvfs extends base {
         }
     }
 
-    sync() {
+    _sync() {
         this._extract({
             entry: (header, stream, next) => {
                 const node = this._tarEntryToVfsNode(header)
@@ -67,7 +67,7 @@ class tarvfs extends base {
         })
     }
 
-    createReadStream(path, options) {
+    _createReadStream(path, options) {
         if (!Path.isAbsolute(path)) throw errors.PathNotAbsoluteError(path)
         if (!this._files.has(path)) throw errors.NoSuchFileError(path)
         const wrapper = createReadableWrapper()
@@ -85,13 +85,13 @@ class tarvfs extends base {
         return wrapper
     }
 
-    _stat(path, options, cb) {
+    _stat(path, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         if (!this._files.has(path)) return cb(errors.NoSuchFileError(path))
         return cb(null, this._files.get(path))
     }
 
-    readdir(path, cb) {
+    _readdir(path, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         return cb(null, Array.from(this._files.keys())
             .filter(filePath => filePath.indexOf(path) === 0)
