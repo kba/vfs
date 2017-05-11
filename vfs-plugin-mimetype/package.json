@@ -1,8 +1,8 @@
 {
-  "name": "@kba/vfs-plugin-checksum",
+  "name": "@kba/vfs-plugin-mimetype",
   "version": "0.0.1",
   "description": "Virtual File Systems with a node fs-like API - MIME type plugin",
-  "main": "vfs-plugin-checksum.js",
+  "main": "vfs-plugin-mimetype.js",
   "scripts": {
     "test": "tap -Rspec test/*.test.js"
   },

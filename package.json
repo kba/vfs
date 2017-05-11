@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "bootstrap": "lerna bootstrap --loglevel silly",
+        "bootstrap": "lerna bootstrap",
         "postinstall": "npm run bootstrap",
         "test": "make test"
     },
