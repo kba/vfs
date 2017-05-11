@@ -1,8 +1,8 @@
 const async = require('async')
-const fs = require('fs')
+const Readable = require('stream').Readable;
 const Path = require('path')
 const ar = require("ar-async");
-const compression = require('./compression')
+const util = require('@kba/vfs-util')
 
 const {base, Node} = require('@kba/vfs')
 const errors = require('@kba/vfs-errors')
@@ -49,7 +49,7 @@ class arvfs extends base {
             extract.on(event, handlers[event])
         })
         if (this.options.compression !== undefined) {
-            const decompress = decompressors[this.options.compression]()
+            const decompress = util.getDecompressor(this.options.compression)()
             inStream.pipe(decompress).pipe(extract)
         } else {
             inStream.pipe(extract)
@@ -112,4 +112,4 @@ class arvfs extends base {
     }
 
 }
-module.exports = tarvfs
+module.exports = arvfs

@@ -1,8 +1,8 @@
 {
-  "name": "@kba/vfs-zip",
+  "name": "@kba/vfs-ar",
   "version": "0.0.1",
   "description": "Virtual File Systems with a node fs-like API - ZIP adapter",
-  "main": "vfs-zip.js",
+  "main": "vfs-ar.js",
   "scripts": {
     "test": "tap -Rspec test/*.test.js"
   },
@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@kba/vfs": "0.0.1",
+    "@kba/vfs-util": "0.0.1",
+    "@kba/vfs-errors": "0.0.1",
     "async": "^2.1.4",
     "ar-async": "^0.1.4"
   }

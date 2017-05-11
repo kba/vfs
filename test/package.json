@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@kba/vfs": "0.0.1",
+    "@kba/vfs-ar": "0.0.1",
     "@kba/vfs-file": "0.0.1",
     "@kba/vfs-zip": "0.0.1",
     "@kba/vfs-tar": "0.0.1",

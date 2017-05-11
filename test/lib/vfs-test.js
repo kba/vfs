@@ -1,6 +1,9 @@
+const tap = require('tap')
+const Path = require('path')
 const async = require('async')
+const vfsFile = require('@kba/vfs-file')
 
-module.exports = {
+const testFunctions = module.exports = {
     vfsReadTest(t, fs, cb) {
         const testFileContents = 'ÜÄ✓✗\n'
         const testFilePath = '/lib/file2.txt'
@@ -109,4 +112,35 @@ module.exports = {
     }
 }
 
+testFunctions.testVfs = function(vfsName, tests) {
+    const fileVfs = new vfsFile()
+    tap.test(`${vfsName} vfs`, t => {
+        const vfsClass = require(`@kba/vfs-${vfsName}`)
+        t.equals(vfsClass.scheme, vfsName, `scheme is ${vfsName}`)
+        const runTests = (options, fns, done) => {
+            fns.forEach(fn => {
+                testFunctions[fn](t, new(vfsClass)(options), err => {
+                    if (err) return done(err)
+                    return done()
+                })
+            })
+        }
+        async.eachSeries(tests, ([options, fns], done) => {
+            if ('location' in options) {
+                const fixtureName = Path.join(__dirname, '..', 'fixtures', options.location)
+                fileVfs.stat(fixtureName, (err, location) => {
+                    if (err) throw err
+                    t.notOk(err, `read ${fixtureName}`)
+                    options.location = location
+                    runTests(options, fns, done)
+                })
+            } else {
+                runTests(options, fns, done)
+            }
+        }, (err) => {
+            if (err) t.fail(":-(")
+            t.end()
+        })
+    })
+}
 

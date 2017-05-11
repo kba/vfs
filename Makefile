@@ -9,7 +9,7 @@ bootstrap:
 .PHONY: test
 test:
 	$(MAKE) bootstrap
-	$(TAP) test/*.test.js
+	$(TAP) test/*.test.js test/*/*.test.js
 
 # .PHONY: %
 # test\:%: %

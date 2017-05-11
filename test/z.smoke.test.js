@@ -13,7 +13,7 @@ function rightPad(str, pad) {
 
 tap.test('summarize capabilities', t => {
     t.plan(0)
-    const vfsNames = ['zip', 'file', 'tar']
+    const vfsNames = ['zip', 'file', 'tar', 'ar']
     console.log('\t' + ' '.repeat(WIDTH_CAP) + vfsNames.map(
         str => rightPad(str, WIDTH_VFS)).join(''))
     Object.getOwnPropertyNames(vfs.api.prototype).forEach(prop => {
