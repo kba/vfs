@@ -1,5 +1,6 @@
 MAKEFLAGS += --no-print-directory --silent
 PATH := ./node_modules/.bin:$(PATH)
+PATH := ./test/node_modules/.bin:$(PATH)
 REPORTER = tap
 TAP = tap -R$(REPORTER)
 

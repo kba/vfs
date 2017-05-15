@@ -14,6 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@kba/vfs-errors": "^0.0.1",
-    "async": "^2.1.4"
+    "async": "^2.1.4",
+    "mime-types": "^2.1.15"
   }
 }
