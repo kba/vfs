@@ -41,6 +41,15 @@
 			* [`%base`](#base)
 			* [`%ext`](#ext)
 			* [`%name`](#name)
+	* [CompressionUtils](#compressionutils)
+		* [`(static) hasDecompressor(format)`](#static-hasdecompressorformat)
+		* [`(static) getDecompressor(format)`](#static-getdecompressorformat)
+	* [PathUtils](#pathutils)
+		* [`(static) removeTrailingSep(path)`](#static-removetrailingseppath)
+	* [StreamUtils](#streamutils)
+		* [`(static) createReadableWrapper()`](#static-createreadablewrapper)
+		* [`ReadableWrapper`](#readablewrapper)
+			* [`wrapStream(stream)`](#wrapstreamstream)
 
 <!-- END-MARKDOWN-TOC -->
 
@@ -57,20 +66,7 @@ fs module](http://nodejs.org/api/fs.html).
 * `tar` - a VFS on top of tarball content (compressions: gzip, bzip2, xz)
 
 <!-- BEGIN-EVAL nodejs test/z.smoke.test.js|sed -e 's/\x1b.[0-9]*m//g' -e '1,3d' |head -n -4 -->
-	                    zip  file tar  ar   
-	stat                 ✓    ✓    ✓    ✓   
-	mkdir                ✗    ✓    ✗    ✗   
-	createReadStream     ✓    ✓    ✓    ✓   
-	createWriteStream    ✗    ✓    ✗    ✗   
-	readFile             ✓    ✓    ✓    ✓   
-	writeFile            ✓    ✓    ✗    ✗   
-	unlink               ✓    ✓    ✗    ✗   
-	mkdirRecursive       ✗    ✓    ✗    ✗   
-	copyFile             ✓    ✓    ✗    ✗   
-	getdir               ✓    ✓    ✓    ✓   
-	find                 ✓    ✓    ✓    ✓   
-	du                   ✓    ✓    ✓    ✓   
-	readdir              ✓    ✓    ✓    ✓   
+
 
 <!-- END-EVAL -->
 
@@ -231,5 +227,50 @@ See [path.parse(path)](https://nodejs.org/api/path.html#path_path_parse_path)
 See [path.parse(path)](https://nodejs.org/api/path.html#path_path_parse_path)
 ##### `%name`
 See [path.parse(path)](https://nodejs.org/api/path.html#path_path_parse_path)
+
+<!-- END-RENDER -->
+
+<!-- BEGIN-RENDER ./vfs-util-compression/util-compression.js -->
+### CompressionUtils
+#### `(static) hasDecompressor(format)`
+
+Whether a decompression format is supported
+#### `(static) getDecompressor(format)`
+
+Instantiate a decompression stream
+@memberof util
+
+<!-- END-RENDER -->
+
+<!-- BEGIN-RENDER ./vfs-util-path/util-path.js -->
+### PathUtils
+Enhancing [path](https://nodejs.org/api/path.html)
+```js
+const PathUtils = require('@kba/vfs-util-path')
+PathUtils.removeTrailingSep('/foo/') // '/foo'
+// or
+const {removeTrailingSep} = require('@kba/vfs-util-path')
+removeTrailingSep('/foo/') // '/foo'
+```
+#### `(static) removeTrailingSep(path)`
+
+Remove trailing separators (slashes) from `path`.
+
+<!-- END-RENDER -->
+
+<!-- BEGIN-RENDER ./vfs-util-stream/util-stream.js -->
+### StreamUtils
+#### `(static) createReadableWrapper()`
+Wraps another ReadableStream to allow synchronously returning a stream
+that will become readable only later.
+```js
+const {createReadableWrapper} = require('@kba/vfs-util-stream')
+const readable = createReadableWrapper()
+// TODO, see vfs-tar
+```
+#### `ReadableWrapper`
+TODO
+##### `wrapStream(stream)`
+TODO
 
 <!-- END-RENDER -->

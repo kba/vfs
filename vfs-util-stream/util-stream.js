@@ -1,11 +1,18 @@
 const Readable = require('stream').Readable;
-
 /**
+ * ### StreamUtils
+ *
+ * #### `(static) createReadableWrapper()`
+ *
  * Wraps another ReadableStream to allow synchronously returning a stream
  * that will become readable only later.
  *
- * @memberof util
- * @static
+ * ```js
+ * const {createReadableWrapper} = require('@kba/vfs-util-stream')
+ * const readable = createReadableWrapper()
+ * // TODO, see vfs-tar
+ * ```
+ *
  */
 function createReadableWrapper() {
     const ret = new Readable({
@@ -13,6 +20,15 @@ function createReadableWrapper() {
             if (this._wrapped) this._wrapped.read(...args)
         }
     })
+    /**
+     * #### `ReadableWrapper`
+     *
+     * TODO
+     *
+     * ##### `wrapStream(stream)`
+     *
+     * TODO
+     */
     ret.wrapStream = (stream) => {
         ret._wrapped = stream
         ;['close', 'data', 'end', 'error'].forEach(event => {
@@ -24,7 +40,5 @@ function createReadableWrapper() {
 }
 
 module.exports = { 
-    hasDecompressor,
-    getDecompressor,
     createReadableWrapper,
 }

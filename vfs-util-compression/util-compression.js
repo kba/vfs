@@ -7,7 +7,7 @@ const decompress = {
 }
 
 /**
- * ### `CompressionUtils`
+ * ### CompressionUtils
  *
  */
 
