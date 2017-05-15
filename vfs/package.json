@@ -7,7 +7,7 @@
     "test": "tap -Rspec test/*.test.js"
   },
   "repository": {
-    "url": "https://github.com/kba/node-vfs",
+    "url": "https://github.com/kba/vfs",
     "type": "git"
   },
   "author": "Konstantin Baierer <unixprog@gmail.com>",

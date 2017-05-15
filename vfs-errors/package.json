@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tap -Rspec test/*.test.js"
   },
-  "repository": "github:kba/node-vfs",
+  "repository": "github:kba/vfs",
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT"
 }
