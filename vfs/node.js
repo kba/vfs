@@ -2,44 +2,41 @@ const Path = require('path')
 const mimeTypes = require('mime-types')
 
 /**
- * Class representing file metadatax
  *
- * Properties
- *   - vfs
- *   - mimetype
- *   - mtime
- *   - mode
+ * ### vfs.Node
  *
- * @memberof fsvfs
- * @example
+ * ```js
  * new fsvfs.Node({path: "/...", vfs: vfsInstance})
+ * ```
+ * 
+ * Class representing file metadata
+ * #### Constructor
+ *
+ * - `@param {object} options` Options that will be passed
+ * - `@param {string} options.path` Absolute path to the node
+ * - `@param {fsvfs} options.vfs` Instance of a {@link fsvfs}
+ * 
+ * #### Properties
+ * ##### `vfs`
+ * Parent vfs instance, e.g. a [file](./vfs-file)
+ * ##### `mtime`
+ * Date of last modification
+ * ##### `mode`
+ * ##### `mimetype`
+ * MIME type of this node
+ * ##### `%root`
+ * See [path.parse(path)](https://nodejs.org/api/path.html#path_path_parse_path)
+ * ##### `%dir`
+ * See [path.parse(path)](https://nodejs.org/api/path.html#path_path_parse_path)
+ * ##### `%base`
+ * See [path.parse(path)](https://nodejs.org/api/path.html#path_path_parse_path)
+ * ##### `%ext`
+ * See [path.parse(path)](https://nodejs.org/api/path.html#path_path_parse_path)
+ * ##### `%name`
+ * See [path.parse(path)](https://nodejs.org/api/path.html#path_path_parse_path)
  *
  */
 class Node {
-
-    // Properties
-
-    /** 
-     * MIME type of the node as determined by its path.
-     * 
-     * @name fsvfs.Node#mimetype
-     * @type {string}
-     */
-
-    /** 
-     * Date of last modification
-     * 
-     * @type {Date}
-     * @name fsvfs.Node#mtime
-     */
-
-    /**
-     * Create a {@link Node}.
-     *
-     * @param {object} options Options that will be passed
-     * @param {string} options.path Absolute path to the node
-     * @param {fsvfs} options.vfs Instance of a {@link fsvfs}
-     */
     constructor(options) {
         if (!(options.path)) throw new Error("Must set 'path'")
         if (!Path.isAbsolute(options.path)) throw new Error(`'path' must be absolute: ${options.path}`)

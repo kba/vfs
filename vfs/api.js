@@ -6,12 +6,15 @@ const Path = require('path')
 const _EVENT = Symbol('event')
 
 /** 
- * Base class of all vfs
- * @implements api
- * @interface
+ * ### vfs.api
+ * Interface of all vfs
+ *
  */
 class api {
 
+    /**
+     * #### Constructor
+     */
     constructor(options={}) {
         this.options = options
         // TODO plugins
@@ -32,17 +35,12 @@ class api {
     }
 
     /**
-     * Result of stat-ing a file
-     *
-     * @callback statCallback
-     * @param {Error} err if file could not be found/accessed
-     * @param {Node} node the {@link vfs.Node}
-     */
-    /**
+     * #### `stat(path, options, callback)`
+     * 
      * Get metadata about a node in the vfs.
      *
-     * @param {string} path absolute path to the file
-     * @param {statCallback} cb error or {@link Node}
+     * - `@param {String} path` absolute path to the file
+     * - `@param {Function} callback` error or {@link Node}
      *
      */
     stat(path, options, cb) {
@@ -56,6 +54,7 @@ class api {
     }
 
     /**
+     * #### `mkdir(path, mode, callback)`
      * @param {string} path absolute path to the folder
      * @param {errorCallback} cb
      * @see {@link https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback fs#mkdir}
@@ -66,8 +65,10 @@ class api {
     }
 
     /**
+     * #### `init()`
+     * 
      * Initialize the filesystem.
-     *
+     * 
      * By default only calls #sync and emits {@link 'ready'} on {@link 'sync'}
      */
     init() {
@@ -76,6 +77,8 @@ class api {
     }
 
     /**
+     * #### `sync(options)`
+     * 
      * Sync the filesystem.
      *
      */
@@ -84,6 +87,10 @@ class api {
     }
 
     /**
+     * #### `createReadStream(path, options)`
+     *
+     * See [fs.createReadStream](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options)
+     *
      * Create a ReadableStream from a file
      *
      * @param {string} path absolute path to the file
@@ -93,7 +100,11 @@ class api {
     }
 
     /**
+     * #### `createWriteStream(path, options)`
+     * 
      * Create a WritableStream to a file
+     * 
+     * See [fs.createWriteStream](https://nodejs.org/api/fs.html#fs_fs_createwritestream_path_options).
      *
      * @param {string} path absolute path to the file
      */
@@ -107,11 +118,14 @@ class api {
      * @param {Buffer|String} data the file data as a buffer or stream
      */
     /**
-     * @param {string} path absolute path to the file
-     * @param {object} options
-     * @param {object} options.encoding=undefined Encoding of the data. Setting this will return a String
-     * @param {readFileCallback} cb
+     * #### `readFile(path, options, callback)`
+     * 
      * @see {@link https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback fs#readFile}
+     * 
+     * - `@param {string} path` absolute path to the file
+     * - `@param {object} options`
+     * - `@param {object} options.encoding=undefined` Encoding of the data. Setting this will return a String
+     * - `@param {readFileCallback} cb`
      */
     readFile(path, options, cb){
         if (typeof options === 'function') [cb, options] = [options, {}]
@@ -119,17 +133,13 @@ class api {
     }
 
     /**
-     * Only contains an exception as the first argument in case of failure
-     *
-     * @callback errorCallback
-     * @param err {undefined|Error} If undefined, operation was successful, if
-     *      an Error: the reason for failure
-     */
-    /**
-     * @param {string} path absolute path to the file
-     * @param {object} options
-     * @param {errorCallback} cb
+     * #### `writeFile(path, data, options, callback)`
+     * 
      * @see {@link https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback fs#writeFile}
+     * 
+     * - `@param {string} path` absolute path to the file
+     * - `@param {object} options`
+     * - `@param {function(err)}` cb
      */
     writeFile(path, data, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
@@ -137,6 +147,8 @@ class api {
     }
 
     /**
+     * #### `unlink(path, options, cb)`
+     * 
      * @param {string} path absolute path to the folder
      * @param {errorCallback} cb
      * @see {@link https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback fs#unlink}
@@ -146,7 +158,10 @@ class api {
     }
 
     /**
+     * #### `mkdirRecursive(path, cb)`
+     * 
      * mkdir -p
+     * 
      * @param {string} path absolute path to the folder to create
      * @param {errorCallback} cb
      */
@@ -161,7 +176,10 @@ class api {
     }
 
     /**
+     * #### `copyFile(from, to, options, cb)`
+     * 
      * Copy file, possibly across different VFS.
+     * 
      * @param {string|Node} from
      * @param {string|Node} to
      * @param {errorCallback} cb
@@ -172,6 +190,8 @@ class api {
     }
 
     /**
+     * #### `getdir(dir, options, callback)`
+     * 
      * Get directory contents as {@link Node} objects.
      *
      * Essentially a shortcut for {@link api#stat} applied to {@link api#getdir}.
@@ -185,7 +205,10 @@ class api {
         return this._getdir(dir, options, cb)
     }
 
+    // TODO should accept options
     /**
+     * #### `find(path, callback)`
+     * 
      * List recursive folder contents
      *
      * @param path string path
@@ -213,7 +236,11 @@ class api {
         })
     }
 
+    
+    // TODO should accept options
     /**
+     * #### `du(path, callback)`
+     * 
      * Recursive size of a node.
      *
      * @param {string} path absolute path to the file
@@ -228,18 +255,16 @@ class api {
     }
 
     /**
-     * Result of listing directory contents
-     *
-     * @callback readdirCallback
-     * @param {Error} err
-     * @param {array} filenames list of relative path names in this folder
-     */
-    /**
+     * #### `readdir(path, options, callback)`
+     * 
      * List the nodes in a folder.
      *
-     * @param {string} path absolute path to the folder
-     * @param {readdirCallback} cb
-     * @see {@link https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback fs#readdir}
+     * @see [fs#readdir](https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback).
+     *
+     * - `@param {string} path` absolute path to the folder
+     * - `@param {function(err, filenames)} callback`
+     *   - `@param {Error} err`
+     *   - `@param {array} filenames` list of relative path names in this folder
      */
     readdir(path, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]

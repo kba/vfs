@@ -18,29 +18,35 @@ const NODE_TYPES = [
 
 const _EVENT = Symbol('event')
 
-/** 
+/**
+ * ### vfs.base
+ * 
  * Base class of all vfs
- * @implements api
- * @interface
+ * 
+ * Provides default implementations for [some api methods](#vfsapi).
+ * 
  */
 class base extends api {
 
     static get Node() { return Node }
 
     /**
+     * #### `(static) NODE_TYPES`
+     * 
      * Types a {@link Node} can have.
-     *
+     * 
      * Currently:
-     *  - Directory
-     *  - SymbolicLink
+     *  - `Directory`
+     *  - `SymbolicLink`
      *
-     *  @static
      */
     static get NODE_TYPES() { return NODE_TYPES }
 
     /**
+     * #### `(static) capabilities`
+     * 
      * Lists the capabilities of a VFS, i.e. which methods are available
-     *
+     * 
      * @return {Set} set of available methods
      * @static
      */
@@ -65,7 +71,7 @@ class base extends api {
             .map(prop => ret.add(prop))
         return ret
     }
-    /* to utils TODO */
+    // to utils TODO 
     _removeTrailingSep(path) {
         return path.replace(/\/$/, '')
     }
@@ -77,7 +83,7 @@ class base extends api {
     }
 
 
-    /* default implementation */
+    /* readFile default implementation */
     _readFile(path, options, cb) {
         if (!Path.isAbsolute(path)) return cb(errors.PathNotAbsoluteError(path))
         try {
@@ -96,7 +102,7 @@ class base extends api {
         }
     }
 
-    /* default implementation */
+    /* getdir default implementation */
     _getdir(dir, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
         this.readdir(dir, (err, filenames) => {
@@ -122,7 +128,7 @@ class base extends api {
         })
     }
 
-    /* default implementation */
+    /* copyFile default implementation */
     _copyFile(from, to, options, cb) {
         [from, to] = [from, to].map(arg => {
             if (typeof arg === 'string') { arg = {vfs: this, path: arg} }
