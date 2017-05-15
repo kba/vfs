@@ -1,5 +1,6 @@
 const tap = require('tap')
 const vfs = require('@kba/vfs')
+const api = require('@kba/vfs/api')
 
 const RESET = '\x1b[0m'
 const OK = '\x1b[32m✓'
@@ -16,14 +17,14 @@ tap.test('summarize capabilities', t => {
     const vfsNames = ['zip', 'file', 'tar', 'ar']
     console.log('\t' + ' '.repeat(WIDTH_CAP) + vfsNames.map(
         str => rightPad(str, WIDTH_VFS)).join(''))
-    Object.getOwnPropertyNames(vfs.api.prototype).forEach(prop => {
+    Object.getOwnPropertyNames(api.prototype).forEach(prop => {
         vfsNames.forEach(vfsName => {
             const vfsClass = require(`@kba/vfs-${vfsName}`)
             if (prop !== 'constructor' && vfsClass.prototype.hasOwnProperty(prop)) {
                 throw new Error(`vfs-${vfsName} should not override ${prop}`)
             }
         })
-        if (['constructor', 'sync', 'init'].indexOf(prop) > -1) return
+        if (['constructor', 'use', 'sync', 'init'].indexOf(prop) > -1) return
         var row = [RESET, rightPad(prop, WIDTH_CAP)]
         vfsNames.forEach(vfsName => {
             const vfsClass = require(`@kba/vfs-${vfsName}`)

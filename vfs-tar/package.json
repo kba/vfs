@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@kba/vfs": "0.0.1",
+    "@kba/vfs-errors": "0.0.1",
     "@kba/vfs-util": "0.0.1",
     "async": "^2.4.0",
     "tar-stream": "^1.5.2"

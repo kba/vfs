@@ -69,7 +69,7 @@ class zipvfs extends base {
         return cb(null, this._zipEntryToVfsNode(entry))
     }
 
-    _readdir(dir, cb) {
+    _readdir(dir, options, cb) {
         if (!(Path.isAbsolute(dir))) return cb(errors.PathNotAbsoluteError(dir))
         dir = this._removeTrailingSep(dir)
         var ret = Object.keys(this.zipRoot.files)
@@ -120,7 +120,7 @@ class zipvfs extends base {
         return cb(null)
     }
 
-    _unlink(path, cb) {
+    _unlink(path, options, cb) {
         this.stat(path, (err, file) => {
             if (err) return cb(null)
             if (file.isDirectory) return cb(new Error("Cannot unlink directory, use 'rmdir'"))

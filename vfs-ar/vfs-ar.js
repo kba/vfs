@@ -67,8 +67,8 @@ class arvfs extends base {
             },
             finish: () => {
                 // all entries read 
-                console.log(this._files)
-                this.emit('sync')
+                // console.log(this._files)
+                // this.emit('sync')
             }
         })
     }

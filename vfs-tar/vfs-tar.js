@@ -2,7 +2,8 @@ const async = require('async')
 const Path = require('path')
 const tar = require("tar-stream");
 
-const {base, errors, Node} = require('@kba/vfs')
+const errors = require('@kba/vfs-errors')
+const {base, Node} = require('@kba/vfs')
 const {hasDecompressor, getDecompressor, createReadableWrapper} = require('@kba/vfs-util')
 
 /** 
@@ -62,7 +63,7 @@ class tarvfs extends base {
                 stream.resume() // just auto drain the stream 
             },
             finish: () => {
-                super.sync()
+                this.emit('sync')
             }
         })
     }
@@ -85,13 +86,13 @@ class tarvfs extends base {
         return wrapper
     }
 
-    _stat(path, cb) {
+    _stat(path, options, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         if (!this._files.has(path)) return cb(errors.NoSuchFileError(path))
         return cb(null, this._files.get(path))
     }
 
-    _readdir(path, cb) {
+    _readdir(path, options, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
         return cb(null, Array.from(this._files.keys())
             .filter(filePath => filePath.indexOf(path) === 0)

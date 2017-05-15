@@ -2,7 +2,7 @@
   "name": "@kba/vfs",
   "version": "0.0.1",
   "description": "Virtual File Systems with a node fs-like API",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "tap -Rspec test/*.test.js"
   },
