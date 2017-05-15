@@ -1,8 +1,8 @@
 {
-  "name": "@kba/vfs-errors",
+  "name": "@kba/vfs-util-errors",
   "version": "0.0.1",
   "description": "Virtual File Systems with a node fs-like API - Utilities",
-  "main": "errors.js",
+  "main": "util-errors.js",
   "scripts": {
     "test": "tap -Rspec test/*.test.js"
   },

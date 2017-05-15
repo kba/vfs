@@ -4,7 +4,7 @@ const ar = require("ar-async");
 const {getDecompressor} = require('@kba/vfs-util-compression')
 
 const {base, Node} = require('@kba/vfs')
-const errors = require('@kba/vfs-errors')
+const errors = require('@kba/vfs-util-errors')
 
 /** 
  * A VFS over UNIX archives, e.g. Debian packages

@@ -1,4 +1,4 @@
-const {UnsupportedFormatError} = require('@kba/vfs-errors')
+const {UnsupportedFormatError} = require('@kba/vfs-util-errors')
 
 const decompress = {
     gzip: require('zlib').createGunzip,

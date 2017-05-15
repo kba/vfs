@@ -10,7 +10,7 @@
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@kba/vfs-errors": "^0.0.1",
+    "@kba/vfs-util-errors": "^0.0.1",
     "unbzip2-stream": "^1.0.11",
     "xz": "^1.2.2"
   }

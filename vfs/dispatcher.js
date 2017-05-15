@@ -1,5 +1,5 @@
 const urlParse = require('url').parse
-const {UnsupportedFormatError} = require('@kba/vfs-errors')
+const {UnsupportedFormatError} = require('@kba/vfs-util-errors')
 
 class VfsDispatcher {
 

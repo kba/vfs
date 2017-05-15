@@ -6,7 +6,7 @@ const {
     UnsupportedFormatError,
     PathNotAbsoluteError,
     NoSuchFileError,
-} = require('@kba/vfs-errors')
+} = require('@kba/vfs-util-errors')
 const {hasDecompressor, getDecompressor} = require('@kba/vfs-util-compression')
 const {createReadableWrapper} = require('@kba/vfs-util-stream')
 
