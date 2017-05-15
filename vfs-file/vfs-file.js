@@ -8,7 +8,7 @@ const {base, Node} = require('@kba/vfs')
  * @implements base
  * @alias file
  */
-class vfsFile extends base {
+class filevfs extends base {
 
     static get scheme() { return 'file' }
 
@@ -56,4 +56,4 @@ class vfsFile extends base {
     _writeFile(path, ...args)         { return fs.writeFile(this._resolvePath(path), ...args) }
 }
 
-module.exports = vfsFile
+module.exports = filevfs

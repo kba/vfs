@@ -1,6 +1,7 @@
 const async = require('async')
 const fs = require('fs')
 const Path = require('path')
+const PathUtils = require('@kba/vfs-util-path')
 const JSZip = require("jszip");
 const {Readable} = require('stream')
 
@@ -71,9 +72,9 @@ class zipvfs extends base {
 
     _readdir(dir, options, cb) {
         if (!(Path.isAbsolute(dir))) return cb(errors.PathNotAbsoluteError(dir))
-        dir = this._removeTrailingSep(dir)
+        dir = PathUtils.removeTrailingSep(dir)
         var ret = Object.keys(this.zipRoot.files)
-            .map(filename => this._removeTrailingSep('/' + filename))
+            .map(filename => PathUtils.removeTrailingSep('/' + filename))
             .filter(filename => filename !== dir && filename.indexOf(dir) === 0)
             .map(filename => filename.replace(dir + '/', ''))
             .filter(filename => ! filename.match('/'))

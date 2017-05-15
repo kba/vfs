@@ -71,10 +71,6 @@ class base extends api {
             .map(prop => ret.add(prop))
         return ret
     }
-    // to utils TODO 
-    _removeTrailingSep(path) {
-        return path.replace(/\/$/, '')
-    }
 
     _applyPlugins(fn, args, cb) {
         const plugins = this.plugins.filter(plugin => plugin[fn])
