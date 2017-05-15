@@ -12,10 +12,6 @@
   },
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "tap": "^10.0.0",
-    "tap-only": "0.0.5"
-  },
   "dependencies": {
     "@kba/vfs-errors": "^0.0.1",
     "async": "^2.1.4"

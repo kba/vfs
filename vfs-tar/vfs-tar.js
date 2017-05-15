@@ -1,10 +1,14 @@
-const async = require('async')
 const Path = require('path')
 const tar = require("tar-stream");
 
-const errors = require('@kba/vfs-errors')
 const {base, Node} = require('@kba/vfs')
-const {hasDecompressor, getDecompressor, createReadableWrapper} = require('@kba/vfs-util')
+const {
+    UnsupportedFormatError,
+    PathNotAbsoluteError,
+    NoSuchFileError,
+} = require('@kba/vfs-errors')
+const {hasDecompressor, getDecompressor} = require('@kba/vfs-util-compression')
+const {createReadableWrapper} = require('@kba/vfs-util-stream')
 
 /** 
  * A VFS over tarballs
@@ -22,7 +26,7 @@ class tarvfs extends base {
         if (!(options.location instanceof Node))
             throw new Error("'location' must be a vfs.Node")
         if (options.compression && !hasDecompressor(options.compression))
-            throw errors.UnsupportedFormatError(options.compression)
+            throw UnsupportedFormatError(options.compression)
         super(options)
         this._files = new Map()
     }
@@ -69,8 +73,8 @@ class tarvfs extends base {
     }
 
     _createReadStream(path, options) {
-        if (!Path.isAbsolute(path)) throw errors.PathNotAbsoluteError(path)
-        if (!this._files.has(path)) throw errors.NoSuchFileError(path)
+        if (!Path.isAbsolute(path)) throw PathNotAbsoluteError(path)
+        if (!this._files.has(path)) throw NoSuchFileError(path)
         const wrapper = createReadableWrapper()
         this._extract({
             entry: (header, stream, next) => {
@@ -87,13 +91,13 @@ class tarvfs extends base {
     }
 
     _stat(path, options, cb) {
-        if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
-        if (!this._files.has(path)) return cb(errors.NoSuchFileError(path))
+        if (!(Path.isAbsolute(path))) return cb(PathNotAbsoluteError(path))
+        if (!this._files.has(path)) return cb(NoSuchFileError(path))
         return cb(null, this._files.get(path))
     }
 
     _readdir(path, options, cb) {
-        if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
+        if (!(Path.isAbsolute(path))) return cb(PathNotAbsoluteError(path))
         return cb(null, Array.from(this._files.keys())
             .filter(filePath => filePath.indexOf(path) === 0)
             .map(filePath => filePath.replace(path, '').replace(/^\//, ''))

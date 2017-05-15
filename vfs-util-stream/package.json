@@ -1,23 +1,15 @@
 {
-  "name": "@kba/vfs-util",
+  "name": "@kba/vfs-util-stream",
   "version": "0.0.1",
   "description": "Virtual File Systems with a node fs-like API - Utilities",
-  "main": "util.js",
+  "main": "util-stream.js",
   "scripts": {
     "test": "tap -Rspec test/*.test.js"
   },
   "repository": "github:kba/node-vfs",
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "tap": "^10.0.0",
-    "tap-only": "0.0.5"
-  },
   "dependencies": {
-    "@kba/vfs-errors": "^0.0.1",
-    "async": "^2.1.4",
-    "mime-types": "^2.1.14",
-    "unbzip2-stream": "^1.0.11",
-    "xz": "^1.2.2"
+    "async": "^2.1.4"
   }
 }
