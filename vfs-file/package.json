@@ -10,7 +10,7 @@
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@kba/vfs": "0.0.1",
+    "@kba/vfs": "^0.0.1",
     "async": "^2.4.0"
   }
 }

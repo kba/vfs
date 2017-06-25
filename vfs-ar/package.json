@@ -10,9 +10,9 @@
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@kba/vfs": "0.0.1",
-    "@kba/vfs-util-compression": "0.0.1",
-    "@kba/vfs-util-errors": "0.0.1",
+    "@kba/vfs": "^0.0.1",
+    "@kba/vfs-util-compression": "^0.0.1",
+    "@kba/vfs-util-errors": "^0.0.1",
     "ar-async": "^0.1.4"
   }
 }
