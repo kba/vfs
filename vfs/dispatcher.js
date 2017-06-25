@@ -27,6 +27,7 @@ class VfsDispatcher {
             parts = urlParse(url, options.parseQueryString, options.slashDenoteHost)
         }
         parts.protocol = parts.protocol.replace(/:$/, '')
+        if (parts.path) parts.path = decodeURIComponent(parts.path)
         if (!(parts.protocol in this.byScheme)) {
             throw UnsupportedFormatError(`${parts.protocol} not available. Did you run
             vfs.enable(require('@kba/vfs-${parts.protocol}') ?`)
