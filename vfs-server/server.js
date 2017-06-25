@@ -5,25 +5,33 @@ const morgan = require('morgan')
 function vfsMiddleware({dispatcher}) {
     return (req, res, next) => {
         console.log('yay')
-        const ret = {
-            options: {},
-            urlParsed: {},
-            url: null,
-        }
+        const options = {}
+        var urlParsed = {}
+        var url = null
         if (req.header['x-vfs-options'])
-            Object.assign(ret.options, JSON.parse(req.header['x-vfs-options']))
+            Object.assign(options, JSON.parse(req.header['x-vfs-options']))
         if (req.query.options)
-            Object.assign(ret.options, JSON.parse(req.query.options))
+            Object.assign(options, JSON.parse(req.query.options))
+        Object.keys(req.query)
+            .filter(k => k.match(/^opt\./))
+            .forEach(k => {
+                try {
+                    options[k.substr(4)] = JSON.parse(req.query[k])
+                } catch(e) {
+                    options[k.substr(4)] = req.query[k]
+                }
+            })
         if (req.header['x-vfs-url'])
-            ret.url = req.header['x-vfs-url']
+            url = req.header['x-vfs-url']
         if (req.query.url) {
-            ret.url = req.query.url
+            url = req.query.url
         }
-        if (ret.url) {
-            ret.urlParsed = dispatcher.parseUrl(ret.url, ret.options)
-            ret.url = ret.urlParsed.href
+        if (url) {
+            urlParsed = dispatcher.parseUrl(url, options)
+            url = urlParsed.href
         }
-        req.vfs = ret
+        console.log('vfsMiddleware', {url, options})
+        req.vfs = {url, urlParsed, options}
         next()
     }
 }
@@ -37,9 +45,17 @@ function createServer({dispatcher, port}) {
     app.get('/stat', (req, res, next) => {
         const {url, urlParsed, options} = req.vfs
         const vfs = dispatcher.instantiate(url, options)
-        vfs.stat(urlParsed.path, options, (err, stat) => {
+        const {path} = req.vfs.urlParsed
+        vfs.stat(path, options, (err, stat) => {
             if (err) return next(err)
-            return res.send({stat})
+            if (! stat.isDirectory) {
+                return res.send({stat})
+            } else {
+                vfs.getdir(path, options, (err, ls) => {
+                    if (err) return next(err)
+                    return res.send(ls)
+                })
+            }
         })
     })
 
