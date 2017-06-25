@@ -4,7 +4,6 @@ const morgan = require('morgan')
 
 function vfsMiddleware({dispatcher}) {
     return (req, res, next) => {
-        console.log('yay')
         const options = {}
         var urlParsed = {}
         var url = null
@@ -27,7 +26,7 @@ function vfsMiddleware({dispatcher}) {
             url = req.query.url
         }
         if (url) {
-            urlParsed = dispatcher.parseUrl(url, options)
+            urlParsed = dispatcher.parseUrl(decodeURIComponent(url), options)
             url = urlParsed.href
         }
         console.log('vfsMiddleware', {url, options})
@@ -37,7 +36,7 @@ function vfsMiddleware({dispatcher}) {
 }
 
 function createServer({dispatcher, port}) {
-    const app = new express()
+    const app = new express.Router()
     app.use(vfsMiddleware({dispatcher}))
     app.use(bodyParser.json())
     app.use(morgan('dev'))
