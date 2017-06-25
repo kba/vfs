@@ -17,8 +17,6 @@ class api {
      */
     constructor(options={}) {
         this.options = options
-        // TODO plugins
-        this.plugins = []
 
         this[_EVENT] = new EventEmitter()
         ;['on', 'once', 'emit'].forEach(k => {
@@ -27,6 +25,13 @@ class api {
                 value: this[_EVENT][k].bind(this[_EVENT]),
             })
         })
+
+        this.plugins = []
+        if ('plugins' in options) {
+            options.plugins.forEach(([pluginClass, pluginOptions]) => {
+                this.use(pluginClass, pluginOptions)
+            })
+        }
     }
 
     use(pluginClass, pluginOptions) {
