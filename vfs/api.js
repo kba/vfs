@@ -34,6 +34,12 @@ class api {
         }
     }
 
+    /**
+     * #### `use(pluginClass, pluginOptions)`
+     * 
+     * Enable a plugin
+     *
+     */
     use(pluginClass, pluginOptions) {
         const plugin = new pluginClass(pluginOptions)
         this.plugins.push(plugin)
@@ -60,9 +66,12 @@ class api {
 
     /**
      * #### `mkdir(path, mode, callback)`
-     * @param {string} path absolute path to the folder
-     * @param {errorCallback} cb
-     * @see {@link https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback fs#mkdir}
+     * 
+     * Create a directory
+     * 
+     * - `@param {string} path` absolute path to the folder
+     * - `@param {errorCallback} cb`
+     * - @see [fs#mkdir](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback)
      */
     mkdir(path, mode, cb) {
         if (typeof mode === 'function') [cb, mode] = [mode, {}]
@@ -74,7 +83,7 @@ class api {
      * 
      * Initialize the filesystem.
      * 
-     * By default only calls #sync and emits {@link 'ready'} on {@link 'sync'}
+     * By default only calls #sync and emits [`ready`](#events-ready) on [`sync`](#events-sync)}
      */
     init() {
         this.once('sync', () => this.emit('ready'))
@@ -278,6 +287,40 @@ class api {
         if (typeof options === 'function') [cb, options] = [options, {}]
         this._readdir(path, options, cb)
     }
+
+    /**
+     * #### `nextFile(path, options, callback)`
+     * 
+     * Find the next file starting from path
+     *
+     * - `@param {string} path` absolute path to the file
+     * - `@param {object} options`
+     *   - `@param {boolean} delta` Offset. Set to negative to get previous file. Default: +1
+     *   - `@param {function(path)} whitelistFn` Consider only paths for which this fn returns true
+     *   - `@param {function(path)} blacklistFn` Discard all paths for which this fn returns true
+     *   - `@param {String} wrapStrategy` What to do when hitting a directory boundary
+     *      - `throw` Throw an error when files are exhausted
+     *      - `wrap` Jump from beginning to end / vice versa (Default)
+     *      - `jump` Jump to first file in next folder / last file in previous folder
+     * - `@param {function(err, nextPath)} callback`
+     *   - `@param {Error} err`
+     *   - `@param {array} filenames` list of relative path names in this folder
+     */
+    nextFile(path, options, cb) {
+        if (typeof options === 'function') [cb, options] = [options, {}]
+        if (!(options.delta)) options.delta = +1
+        if (!(options.wrapStrategy)) options.wrapStrategy = 'wrap'
+        if (!(options.whitelistFn)) options.whitelistFn = p => true
+        if (!(options.blacklistFn)) options.blacklistFn = p => false
+        this._nextFile(path, options, cb)
+    }
+
+    /**
+     * #### Events
+     *
+     * ##### Events: `ready`
+     * ##### Events: `sync`
+     */
 
 
 }

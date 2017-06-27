@@ -14,6 +14,7 @@
 		* [`(static) capabilities`](#static-capabilities)
 	* [vfs.api](#vfsapi)
 		* [Constructor](#constructor)
+		* [`use(pluginClass, pluginOptions)`](#usepluginclass-pluginoptions)
 		* [`stat(path, options, callback)`](#statpath-options-callback)
 		* [`mkdir(path, mode, callback)`](#mkdirpath-mode-callback)
 		* [`init()`](#init)
@@ -29,10 +30,15 @@
 		* [`find(path, callback)`](#findpath-callback)
 		* [`du(path, callback)`](#dupath-callback)
 		* [`readdir(path, options, callback)`](#readdirpath-options-callback)
+		* [`nextFile(path, options, callback)`](#nextfilepath-options-callback)
+		* [Events](#events)
+			* [Events: `ready`](#events-ready)
+			* [Events: `sync`](#events-sync)
 	* [vfs.Node](#vfsnode)
 		* [Constructor](#constructor-1)
 		* [Properties](#properties)
 			* [`vfs`](#vfs)
+			* [`path`](#path)
 			* [`mtime`](#mtime)
 			* [`mode`](#mode)
 			* [`mimetype`](#mimetype)
@@ -66,7 +72,21 @@ fs module](http://nodejs.org/api/fs.html).
 * `tar` - a VFS on top of tarball content (compressions: gzip, bzip2, xz)
 
 <!-- BEGIN-EVAL nodejs test/z.smoke.test.js|sed -e 's/\x1b.[0-9]*m//g' -e '1,3d' |head -n -4 -->
-
+	                    zip  file tar  ar   
+	stat                 ✓    ✓    ✓    ✓   
+	mkdir                ✗    ✓    ✗    ✗   
+	createReadStream     ✓    ✓    ✓    ✓   
+	createWriteStream    ✗    ✓    ✗    ✗   
+	readFile             ✓    ✓    ✓    ✓   
+	writeFile            ✓    ✓    ✗    ✗   
+	unlink               ✓    ✓    ✗    ✗   
+	mkdirRecursive       ✗    ✓    ✗    ✗   
+	copyFile             ✓    ✓    ✗    ✗   
+	getdir               ✓    ✓    ✓    ✓   
+	find                 ✓    ✓    ✓    ✓   
+	du                   ✓    ✓    ✓    ✓   
+	readdir              ✓    ✓    ✓    ✓   
+	nextFile             ✗    ✗    ✗    ✗   
 
 <!-- END-EVAL -->
 
@@ -88,7 +108,7 @@ Provides default implementations for [some api methods](#vfsapi).
 
 #### `(static) NODE_TYPES`
 
-Types a {@link Node} can have.
+Types a [vfs.Node](#vfsnode) can have.
 
 Currently:
  - `Directory`
@@ -97,8 +117,7 @@ Currently:
 
 Lists the capabilities of a VFS, i.e. which methods are available
 
-@return {Set} set of available methods
-@static
+- `@return {Set}` set of available methods
 
 <!-- END-RENDER -->
 
@@ -106,20 +125,26 @@ Lists the capabilities of a VFS, i.e. which methods are available
 ### vfs.api
 Interface of all vfs
 #### Constructor
+#### `use(pluginClass, pluginOptions)`
+
+Enable a plugin
 #### `stat(path, options, callback)`
 
 Get metadata about a node in the vfs.
 - `@param {String} path` absolute path to the file
 - `@param {Function} callback` error or {@link Node}
 #### `mkdir(path, mode, callback)`
-@param {string} path absolute path to the folder
-@param {errorCallback} cb
-@see {@link https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback fs#mkdir}
+
+Create a directory
+
+- `@param {string} path` absolute path to the folder
+- `@param {errorCallback} cb`
+- @see [fs#mkdir](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback)
 #### `init()`
 
 Initialize the filesystem.
 
-By default only calls #sync and emits {@link 'ready'} on {@link 'sync'}
+By default only calls #sync and emits [`ready`](#events-ready) on [`sync`](#events-sync)}
 #### `sync(options)`
 
 Sync the filesystem.
@@ -173,10 +198,12 @@ Copy file, possibly across different VFS.
 
 Get directory contents as {@link Node} objects.
 Essentially a shortcut for {@link api#stat} applied to {@link api#getdir}.
-@param {string} dir
-@param {object} options
-@param {Node} options.parent=null
-@return {function(err, nodes)} cb
+- @param {string} dir
+- @param {object} options
+  - @param {Node} options.parent=null
+  - @param {string} options.sortBy=null
+  - @param {number} options.sortDir=-1
+- @return {function(err, nodes)} cb
 #### `find(path, callback)`
 
 List recursive folder contents
@@ -194,6 +221,24 @@ List the nodes in a folder.
 - `@param {function(err, filenames)} callback`
   - `@param {Error} err`
   - `@param {array} filenames` list of relative path names in this folder
+#### `nextFile(path, options, callback)`
+
+Find the next file starting from path
+- `@param {string} path` absolute path to the file
+- `@param {object} options`
+  - `@param {boolean} delta` Offset. Set to negative to get previous file. Default: +1
+  - `@param {function(path)} whitelistFn` Consider only paths for which this fn returns true
+  - `@param {function(path)} blacklistFn` Discard all paths for which this fn returns true
+  - `@param {String} wrapStrategy` What to do when hitting a directory boundary
+     - `throw` Throw an error when files are exhausted
+     - `wrap` Jump from beginning to end / vice versa (Default)
+     - `jump` Jump to first file in next folder / last file in previous folder
+- `@param {function(err, nextPath)} callback`
+  - `@param {Error} err`
+  - `@param {array} filenames` list of relative path names in this folder
+#### Events
+##### Events: `ready`
+##### Events: `sync`
 
 <!-- END-RENDER -->
 
@@ -212,6 +257,8 @@ Class representing file metadata
 #### Properties
 ##### `vfs`
 Parent vfs instance, e.g. a [file](./vfs-file)
+##### `path`
+Absolute, normalized path of the node within the vfs
 ##### `mtime`
 Date of last modification
 ##### `mode`

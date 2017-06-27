@@ -14,57 +14,73 @@ const testFunctions = module.exports = {
                     t.deepEquals(err, undefined, 'no error')
                     t.equals(node.size, 11, '11 bytes long')
                     t.equals(node.isDirectory, false, 'not a Directory')
-                    t.end()
-                    return cb()
+                    return cb(t.end())
                 })
             }),
             cb => t.test('readdir', (t) => {
                 fs.readdir('/lib', (err, files) => {
                     t.equals(files.length, 3, '3 files in /lib')
-                    t.end()
-                    return cb()
+                    return cb(t.end())
                 })
             }),
             cb => t.test('getdir', (t) => {
                 fs.getdir('/lib', (err, files) => {
                     t.equals(files.length, 3, '3 files in /lib')
-                    t.end()
-                    return cb()
+                    return cb(t.end())
                 })
             }),
             cb => t.test('getdir {sortBy:mtime, sortDir: 1}', (t) => {
                 fs.getdir('/lib', {sortBy: 'mtime', sortDir: 1}, (err, files) => {
                     t.equals(files[0].mtime.getTime() < files[2].mtime.getTime(), true, '0 < 2')
-                    t.end()
-                    return cb()
+                    return cb(t.end())
                 })
             }),
             cb => t.test('getdir {sortBy:mtime, sortDir: -1}', (t) => {
                 fs.getdir('/lib', {sortBy: 'mtime', sortDir: -1}, (err, files) => {
                     t.equals(files[0].mtime.getTime() > files[2].mtime.getTime(), true, '0 > 2')
-                    t.end()
-                    return cb()
+                    return cb(t.end())
+                })
+            }),
+            cb => t.test('nextFile', t => {
+                fs.nextFile('/lib/file1', (err, nextFile) => {
+                    t.equals(nextFile.path, '/lib/file2.txt', 'file1 -> file2.txt')
+                    return cb(t.end())
+                })
+            }),
+            cb => t.test('nextFile', t => {
+                fs.nextFile('/lib/file3.png', (err, nextFile) => {
+                    t.equals(nextFile.path, '/lib/file1', 'file3.png -> file1')
+                    return cb(t.end())
+                })
+            }),
+            cb => t.test('nextFile {delta: -1}', t => {
+                fs.nextFile('/lib/file1', {delta: -1}, (err, nextFile) => {
+                    t.equals(nextFile.path, '/lib/file3.png', 'file1 -> file3.png')
+                    return cb(t.end())
+                })
+            }),
+            cb => t.test('nextFile {blacklistFn}', t => {
+                fs.nextFile('/lib/file2.txt', {blacklistFn: f => f['%base'] !== 'file3.png'}, (err, nextFile) => {
+                    t.equals(nextFile.path, '/lib/file1', 'file2.txt -> file1')
+                    return cb(t.end())
                 })
             }),
             cb => t.test('find', (t) => {
                 fs.find('/', (err, files) => {
                     t.notOk(err, 'no error')
                     t.equals(files.length, 4, '4 files in the fs')
-                    t.end()
-                    return cb()
+                    return cb(t.end())
                 })
             }),
             cb => t.test('createReadStream', t =>{
                 if (!(fs.constructor.capabilities.has('createReadStream'))) {
                     t.comment('Not implemented')
-                    t.end()
-                    return cb()
+                    return cb(t.end())
                 }
                 const stream = fs.createReadStream(testFilePath)
                 stream.on('data', (data) => t.equals(data.toString(), testFileContents))
                 stream.on('end', () => {
-                    t.end()
-                    return cb()
+                    return cb(t.end())
                 })
             }),
             cb => t.test('readFile/string', t => {
@@ -79,16 +95,14 @@ const testFunctions = module.exports = {
                 fs.readFile(testFilePath, (err, buf) => {
                     t.deepEquals(err, undefined, 'no error')
                     t.deepEquals(buf, new Buffer(testFileContents))
-                    t.end()
-                    return cb()
+                    return cb(t.end())
                 })
             }),
             cb => cb(),
             // cb => t.test('writeFile', t => {
             //     vfs.writeFile(dummyPath, dummyData, (err) => {
             //         t.deepEquals(err, undefined, 'writeFile/String: no error')
-            //         t.end()
-            //         return cb()
+            //         return cb(t.end())
             //     })
             // }),
             // cb => t.test('readFile/string', t => {
@@ -96,29 +110,25 @@ const testFunctions = module.exports = {
             //         t.deepEquals(err, undefined, 'readFile/string: no error')
             //         t.equals(typeof data, 'string', 'is a string')
             //         t.equals(data.length, dummyData.length, `${dummyData.length} characters long`)
-            //         t.end()
-            //         return cb()
+            //         return cb(t.end())
             //     })
             // }),
             // cb => t.test('copyFile(string, {vfs:fs, path: /tmp/foo})', t => {
             //     vfs.copyFile(dummyPath, {vfs: fs, path: '/tmp/foo'}, (err) => {
             //         t.notOk(err, 'no error')
-            //         t.end()
-            //         return cb()
+            //         return cb(t.end())
             //     })
             // }),
             // cb => t.test('unlink', t => {
             //     vfs.unlink(dummyPath, (err) => {
             //         t.deepEquals(err, undefined, 'unlink: no error')
-            //         t.end()
-            //         return cb()
+            //         return cb(t.end())
             //     })
             // }),
             // cb => t.test('stat after unlink', t => {
             //     vfs.stat(dummyPath, (err, x) => {
             //         t.ok(err.message.match('NoSuchFileError'), 'stat fails after delete')
-            //         t.end()
-            //         return cb()
+            //         return cb(t.end())
             //     })
             // }),
         ], cb))

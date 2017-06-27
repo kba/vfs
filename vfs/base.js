@@ -33,7 +33,7 @@ class base extends api {
     /**
      * #### `(static) NODE_TYPES`
      * 
-     * Types a {@link Node} can have.
+     * Types a [vfs.Node](#vfsnode) can have.
      * 
      * Currently:
      *  - `Directory`
@@ -47,8 +47,7 @@ class base extends api {
      * 
      * Lists the capabilities of a VFS, i.e. which methods are available
      * 
-     * @return {Set} set of available methods
-     * @static
+     * - `@return {Set}` set of available methods
      */
     static get capabilities() {
         const toSkip = new Set(['constructor'])
@@ -77,7 +76,6 @@ class base extends api {
         if (plugins.length === 0) return cb()
         return async.each(plugins, (plugin, done) => {return plugin[fn](...args, done)}, cb)
     }
-
 
     /* readFile default implementation */
     _readFile(path, options, cb) {
@@ -153,6 +151,33 @@ class base extends api {
                 data = new Buffer(data)
             }
             to.vfs.writeFile(to.path, data, cb)
+        })
+    }
+
+    _nextFile(path, options, cb) {
+        // TODO normalize path
+        this.stat(path, (err, node) => {
+            if (err) return cb(err)
+            if (node['%dir'] === path) return cb(new Error("Already at root"))
+            this.getdir(node['%dir'], (err, files) => {
+                if (err) return cb(err)
+                const idx = files
+                    .filter(f => options.whitelistFn(f))
+                    .filter(f => ! options.blacklistFn(f))
+                    // TODO filter whitelistFn / blacklistFn
+                    .findIndex(f => f.path == path)
+                var nextIdx = idx + options.delta
+                if (nextIdx >= files.length || nextIdx < 0) {
+                    if (options.wrapStrategy === 'wrap') {
+                        nextIdx %= files.length
+                        if (nextIdx < 0) nextIdx = files.length + nextIdx
+                    } else {
+                        cb(errors.NotImplementedError(`wrapStrategy ${options.wrapStrategy}`))
+                    }
+                }
+                const nextFile = files[nextIdx]
+                return cb(null, nextFile)
+            })
         })
     }
 

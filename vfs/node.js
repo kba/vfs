@@ -19,6 +19,8 @@ const mimeTypes = require('mime-types')
  * #### Properties
  * ##### `vfs`
  * Parent vfs instance, e.g. a [file](./vfs-file)
+ * ##### `path`
+ * Absolute, normalized path of the node within the vfs
  * ##### `mtime`
  * Date of last modification
  * ##### `mode`
