@@ -159,13 +159,13 @@ class base extends api {
         this.stat(path, (err, node) => {
             if (err) return cb(err)
             if (node['%dir'] === path) return cb(new Error("Already at root"))
-            this.getdir(node['%dir'], (err, files) => {
+            this.getdir(node['%dir'], (err, _files) => {
                 if (err) return cb(err)
-                const idx = files
+                const files = _files
                     .filter(f => options.whitelistFn(f))
                     .filter(f => ! options.blacklistFn(f))
-                    // TODO filter whitelistFn / blacklistFn
-                    .findIndex(f => f.path == path)
+                // console.log(filtered.map(p => p.path))
+                const idx = files.findIndex(f => f.path == path)
                 var nextIdx = idx + options.delta
                 if (nextIdx >= files.length || nextIdx < 0) {
                     if (options.wrapStrategy === 'wrap') {
