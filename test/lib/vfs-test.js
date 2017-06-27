@@ -32,6 +32,20 @@ const testFunctions = module.exports = {
                     return cb()
                 })
             }),
+            cb => t.test('getdir {sortBy:mtime, sortDir: 1}', (t) => {
+                fs.getdir('/lib', {sortBy: 'mtime', sortDir: 1}, (err, files) => {
+                    t.equals(files[0].mtime.getTime() < files[2].mtime.getTime(), true, '0 < 2')
+                    t.end()
+                    return cb()
+                })
+            }),
+            cb => t.test('getdir {sortBy:mtime, sortDir: -1}', (t) => {
+                fs.getdir('/lib', {sortBy: 'mtime', sortDir: -1}, (err, files) => {
+                    t.equals(files[0].mtime.getTime() > files[2].mtime.getTime(), true, '0 > 2')
+                    t.end()
+                    return cb()
+                })
+            }),
             cb => t.test('find', (t) => {
                 fs.find('/', (err, files) => {
                     t.notOk(err, 'no error')

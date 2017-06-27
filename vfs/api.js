@@ -201,12 +201,15 @@ class api {
      *
      * Essentially a shortcut for {@link api#stat} applied to {@link api#getdir}.
      *
-     * @param {string} dir
-     * @param {object} options
-     * @param {Node} options.parent=null
-     * @return {function(err, nodes)} cb
+     * - @param {string} dir
+     * - @param {object} options
+     *   - @param {Node} options.parent=null
+     *   - @param {string} options.sortBy=null
+     *   - @param {number} options.sortDir=-1
+     * - @return {function(err, nodes)} cb
      */
     getdir(dir, options, cb) {
+        if (typeof options === 'function') [cb, options] = [options, {}]
         return this._getdir(dir, options, cb)
     }
 

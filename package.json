@@ -7,6 +7,7 @@
   "devDependencies": {
     "lerna": "2.0.0-beta.38",
     "supertest": "^3.0.0",
+    "tap": "^10.7.0",
     "tape": "^4.6.3"
   }
 }

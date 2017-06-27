@@ -110,6 +110,19 @@ class base extends api {
                 })
             }, (err, ret) => {
                 if (err) return cb(err)
+                if (options.sortBy) {
+                    let {sortBy, sortDir} = options
+                    sortDir = sortDir || + 1
+                    ret = ret.sort((objA, objB) => {
+                        const [a, b] = [objA, objB].map(x => {
+                            x = x[sortBy]
+                            if (x instanceof Date) x = x.getTime()
+                            return x
+                        })
+                        return sortDir * (a == b ? 0 : a < b ? -1 : +1)
+                    })
+                }
+                // console.log(ret.map(x => x.path))
                 if (! options.parent) 
                     return cb(null, ret)
                 options.parent.vfs.stat(Path.join(options.parent.path, '..'), (err, parent) => {
