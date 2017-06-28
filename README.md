@@ -90,6 +90,7 @@ fs module](http://nodejs.org/api/fs.html).
 	du                   X    X    X    X    X   
 	readdir              X    X    X    X    X   
 	nextFile             -    -    -    -    -   
+	rmdir                -    X    -    -    -   
 
 <!-- END-EVAL -->
 

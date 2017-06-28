@@ -179,6 +179,7 @@ class api {
      * @see {@link https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback fs#unlink}
      */
     unlink(path, options, cb) {
+        if (typeof options === 'function') [cb, options] = [options, {}]
         return this._unlink(path, options, cb)
     }
 
@@ -324,6 +325,11 @@ class api {
         if (!(options.whitelistFn)) options.whitelistFn = p => true
         if (!(options.blacklistFn)) options.blacklistFn = p => false
         this._nextFile(path, options, cb)
+    }
+
+    rmdir(path, options, cb) {
+        if (typeof options === 'function') [cb, options] = [options, {}]
+        this._rmdir(path, options, cb)
     }
 
     /**
