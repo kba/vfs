@@ -7,6 +7,10 @@ const testFunctions = module.exports = {
     vfsReadTest(t, fs, cb) {
         const testFileContents = 'ÜÄ✓✗\n'
         const testFilePath = '/lib/file2.txt'
+        fs.on('error', err => {
+            console.error("ERROR", err)
+            fs.end()
+        })
         fs.once('sync', () => async.waterfall([
             cb => t.test('stat', t => {
                 t.equals(fs.constructor.capabilities.has('stat'), true, 'implements stat')
@@ -98,7 +102,10 @@ const testFunctions = module.exports = {
                     return cb(t.end())
                 })
             }),
-            cb => cb(),
+            cb => {
+                fs.end()
+                cb()
+            },
             // cb => t.test('writeFile', t => {
             //     vfs.writeFile(dummyPath, dummyData, (err) => {
             //         t.deepEquals(err, undefined, 'writeFile/String: no error')
