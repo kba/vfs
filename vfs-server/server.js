@@ -37,6 +37,8 @@ function vfsMiddleware({dispatcher}) {
 
 function createServer({dispatcher, port}) {
     const app = new express.Router()
+    app.use(morgan('dev'))
+    app.use(vfsMiddleware({dispatcher}))
     app.use('/dav', [
         bodyParser.text({type: 'application/xml'}),
         require('./route/webdav')({
@@ -44,9 +46,7 @@ function createServer({dispatcher, port}) {
             basepath: '/dav'
         })
     ])
-    app.use(vfsMiddleware({dispatcher}))
     app.use(bodyParser.json())
-    app.use(morgan('dev'))
 
     app.get('/stat', (req, res, next) => {
         const {url, urlParsed, options} = req.vfs
