@@ -1,4 +1,5 @@
 const {Router} = require('express')
+const bodyParser = require('body-parser')
 
 /**
  * WebDAV route
@@ -49,6 +50,53 @@ class DavRoute {
         resp.send(ret)
     }
 
+    _respond404(path) {
+        const ret =`
+<response>
+    <href>${this.basepath}${path}</href>
+    <propstat>
+        <status>HTTP/1.1 404 Not found</status>
+    </propstat
+</response>
+            `
+        return ret
+    }
+
+    delete(req, resp, next) {
+        const path = '/' + req.params.path
+        const vfs = this.dispatcher.instantiate(path, req.vfsOptions)
+        vfs.stat(path, (err, stat) => {
+            if (err) {
+                this._sendMultistatus(resp, this._respond404(path))
+                return
+            }
+            console.log(stat.isDirectory ? 'rmdir' : 'unlink')
+            vfs[stat.isDirectory ? 'rmdir' : 'unlink'](path, req.vfsOptions, err => {
+                if (err) {
+                    console.log("ERROR", err)
+                    resp.status(403)
+                    resp.end()
+                } else {
+                    resp.status(200)
+                    resp.end()
+                }
+            })
+        })
+    }
+
+    put(req, resp, next) {
+        const path = '/' + req.params.path
+        const vfs = this.dispatcher.instantiate(path, req.vfsOptions)
+        const outstream = vfs.createWriteStream(path, req.vfsOptions)
+        outstream.on('finish', () => {
+            resp.status(200)
+            resp.end()
+        })
+        outstream.write(req.body)
+        outstream.end()
+        resp.end()
+    }
+
     mkcol(req, resp, next) {
         const path = '/' + req.params.path
         const vfs = this.dispatcher.instantiate(path, req.vfsOptions)
@@ -71,6 +119,10 @@ class DavRoute {
         console.log("BODY", body)
         const vfs = this.dispatcher.instantiate(path, req.vfsOptions)
         vfs.stat(path, (err, pathNode) => {
+            if (err) {
+                this._sendMultistatus(resp, this._respond404(path))
+                return
+            }
             let out = this._nodeToDavResponse(pathNode)
             if (pathNode.isDirectory) {
                 vfs.getdir(pathNode.path, (err, files) => {
@@ -88,9 +140,25 @@ class DavRoute {
 
     create() {
         const route = new Router()
-        route.get('/:path(*)', this.propfind.bind(this))
-        route.mkcol('/:path(*)', this.mkcol.bind(this))
-        route.propfind('/:path(*)', this.propfind.bind(this))
+        route.get('/:path(*)', [
+            bodyParser.text({type: 'application/xml'}),
+            this.propfind.bind(this)
+        ])
+        route.mkcol('/:path(*)', [
+            bodyParser.text({type: 'application/xml'}),
+            this.mkcol.bind(this)
+        ])
+        route.put('/:path(*)', [
+            bodyParser.raw(),
+            this.put.bind(this)
+        ])
+        route.propfind('/:path(*)', [
+            bodyParser.text({type: 'application/xml'}),
+            this.propfind.bind(this)
+        ])
+        route.delete('/:path(*)', [
+            this.delete.bind(this)
+        ])
         route.options('/:path(*)', (req, resp, next) => {
             resp.header('DAV', '1,2,3')
             resp.end()
