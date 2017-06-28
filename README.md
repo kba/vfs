@@ -18,6 +18,7 @@
 		* [`stat(path, options, callback)`](#statpath-options-callback)
 		* [`mkdir(path, mode, callback)`](#mkdirpath-mode-callback)
 		* [`init()`](#init)
+		* [`end()`](#end)
 		* [`sync(options)`](#syncoptions)
 		* [`createReadStream(path, options)`](#createreadstreampath-options)
 		* [`createWriteStream(path, options)`](#createwritestreampath-options)
@@ -34,6 +35,8 @@
 		* [Events](#events)
 			* [Events: `ready`](#events-ready)
 			* [Events: `sync`](#events-sync)
+			* [Events: `error`](#events-error)
+			* [Events: `end`](#events-end)
 	* [vfs.Node](#vfsnode)
 		* [Constructor](#constructor-1)
 		* [Properties](#properties)
@@ -75,6 +78,7 @@ fs module](http://nodejs.org/api/fs.html).
 	                    zip  file tar  ar   
 	stat                 ✓    ✓    ✓    ✓   
 	mkdir                ✗    ✓    ✗    ✗   
+	end                  ✗    ✗    ✗    ✗   
 	createReadStream     ✓    ✓    ✓    ✓   
 	createWriteStream    ✗    ✓    ✗    ✗   
 	readFile             ✓    ✓    ✓    ✓   
@@ -145,6 +149,8 @@ Create a directory
 Initialize the filesystem.
 
 By default only calls #sync and emits [`ready`](#events-ready) on [`sync`](#events-sync)}
+#### `end()`
+Un-initialize the filesystem, e.g. disconnect a client.
 #### `sync(options)`
 
 Sync the filesystem.
@@ -239,6 +245,8 @@ Find the next file starting from path
 #### Events
 ##### Events: `ready`
 ##### Events: `sync`
+##### Events: `error`
+##### Events: `end`
 
 <!-- END-RENDER -->
 

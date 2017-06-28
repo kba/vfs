@@ -91,6 +91,17 @@ class api {
     }
 
     /**
+     * #### `end()`
+     *
+     * Un-initialize the filesystem, e.g. disconnect a client.
+     *
+     */
+    end() {
+        if (this._end) this._end()
+        else this.emit('end')
+    }
+
+    /**
      * #### `sync(options)`
      * 
      * Sync the filesystem.
@@ -320,6 +331,8 @@ class api {
      *
      * ##### Events: `ready`
      * ##### Events: `sync`
+     * ##### Events: `error`
+     * ##### Events: `end`
      */
 
 
