@@ -19,7 +19,10 @@ const PathUtils = {
      * Remove trailing separators (slashes) from `path`.
      */
     removeTrailingSep(path) {
-        return path.replace(/\/$/, '')
+        path = path.replace(/\/$/, '')
+        if (path === '') path = '/'
+        return path
+
     }
 }
 
