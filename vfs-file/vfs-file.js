@@ -47,7 +47,8 @@ class filevfs extends base {
         })
     }
 
-    _unlink(path, ...args)            { return fs.unlink(this._resolvePath(path), ...args) }
+    _unlink(path, options, ...args)            { return fs.unlink(this._resolvePath(path), ...args) }
+    _rmdir(path, options, ...args)    { return fs.rmdir(this._resolvePath(path), ...args) }
     _mkdir(path, ...args)             { return fs.mkdir(this._resolvePath(path), ...args) }
     _createReadStream(path, ...args)  { return fs.createReadStream(this._resolvePath(path), ...args) }
     _createWriteStream(path, ...args) { return fs.createWriteStream(this._resolvePath(path), ...args) }
