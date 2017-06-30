@@ -62,6 +62,17 @@ class DavRoute {
         return ret
     }
 
+    move(req, resp, next) {
+        const source = '/' + req.params.path
+        const dest = req.headers.destination
+            .replace(/^https?:\/\//, '')
+            .replace(/^[^\/]+/, '')
+            .replace(this.basepath, '')
+        console.log(`${source} -> ${dest}`)
+        resp.status(404)
+        return resp.end()
+    }
+
     delete(req, resp, next) {
         const path = '/' + req.params.path
         const vfs = this.dispatcher.instantiate(path, req.vfsOptions)
@@ -158,6 +169,9 @@ class DavRoute {
         ])
         route.delete('/:path(*)', [
             this.delete.bind(this)
+        ])
+        route.move('/:path(*)', [
+            this.move.bind(this)
         ])
         route.options('/:path(*)', (req, resp, next) => {
             resp.header('DAV', '1,2,3')
