@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-sftp",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Virtual File Systems with a node fs-like API - SFTP adapter",
   "main": "vfs-sftp.js",
   "scripts": {
@@ -10,10 +10,10 @@
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@kba/vfs": "^0.0.1",
-    "@kba/vfs-util-path": "^0.0.1",
-    "@kba/vfs-util-errors": "^0.0.1",
-    "@kba/vfs-util-stream": "^0.0.1",
+    "@kba/vfs": "^0.0.3",
+    "@kba/vfs-util-path": "^0.0.3",
+    "@kba/vfs-util-errors": "^0.0.3",
+    "@kba/vfs-util-stream": "^0.0.3",
     "ssh2-sftp-client": "^1.1.0",
     "async": "^2.4.0"
   }

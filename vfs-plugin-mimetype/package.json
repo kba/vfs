@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-plugin-mimetype",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Virtual File Systems with a node fs-like API - MIME type plugin",
   "main": "vfs-plugin-mimetype.js",
   "scripts": {

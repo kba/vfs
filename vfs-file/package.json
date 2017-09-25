@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-file",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Virtual File Systems with a node fs-like API - fs adapter",
   "main": "vfs-file.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@kba/vfs": "^0.0.1",
+    "@kba/vfs": "^0.0.3",
     "async": "^2.4.0"
   }
 }

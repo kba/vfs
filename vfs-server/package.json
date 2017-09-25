@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-server",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Virtual File Systems with a node fs-like API - Server",
   "main": "server.js",
   "scripts": {
@@ -14,9 +14,9 @@
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@kba/vfs": "^0.0.1",
-    "@kba/vfs-file": "^0.0.1",
-    "@kba/vfs-util-path": "^0.0.1",
+    "@kba/vfs": "^0.0.3",
+    "@kba/vfs-file": "^0.0.3",
+    "@kba/vfs-util-path": "^0.0.3",
     "async": "^2.4.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
