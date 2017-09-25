@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Virtual File Systems with a node fs-like API",
   "main": "index.js",
   "scripts": {
@@ -12,9 +12,11 @@
   },
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
-  "engines" : {"node" : ">=7"},
+  "engines": {
+    "node": ">=7"
+  },
   "dependencies": {
-    "@kba/vfs-util-errors": "^0.0.3",
+    "@kba/vfs-util-errors": "^0.0.4",
     "async": "^2.1.4",
     "mime-types": "^2.1.15"
   }

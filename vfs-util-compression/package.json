@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-util-compression",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Node.JS Virtual File Systems - Compression Utilities",
   "main": "util-compression.js",
   "scripts": {
@@ -9,9 +9,11 @@
   "repository": "github:kba/vfs",
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
-  "engines" : {"node" : ">=7"},
+  "engines": {
+    "node": ">=7"
+  },
   "dependencies": {
-    "@kba/vfs-util-errors": "^0.0.3",
+    "@kba/vfs-util-errors": "^0.0.4",
     "unbzip2-stream": "^1.0.11",
     "xz": "^1.2.2"
   }

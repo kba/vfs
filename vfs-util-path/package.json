@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-util-path",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Virtual File Systems with a node fs-like API - Utilities",
   "main": "util-path.js",
   "scripts": {

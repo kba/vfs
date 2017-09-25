@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-ar",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Virtual File Systems with a node fs-like API - ZIP adapter",
   "main": "vfs-ar.js",
   "scripts": {
@@ -9,11 +9,13 @@
   "repository": "github:kba/vfs",
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
-  "engines": {"node": ">= 7"},
+  "engines": {
+    "node": ">= 7"
+  },
   "dependencies": {
-    "@kba/vfs": "^0.0.3",
-    "@kba/vfs-util-compression": "^0.0.3",
-    "@kba/vfs-util-errors": "^0.0.3",
+    "@kba/vfs": "^0.0.4",
+    "@kba/vfs-util-compression": "^0.0.4",
+    "@kba/vfs-util-errors": "^0.0.4",
     "ar-async": "^0.1.4"
   }
 }

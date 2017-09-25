@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-plugin-mimetype",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Virtual File Systems with a node fs-like API - MIME type plugin",
   "main": "vfs-plugin-mimetype.js",
   "scripts": {
@@ -9,7 +9,9 @@
   "repository": "github:kba/vfs",
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
-  "engines" : {"node" : ">=7"},
+  "engines": {
+    "node": ">=7"
+  },
   "dependencies": {
     "mime-types": "^2.1.14"
   }
