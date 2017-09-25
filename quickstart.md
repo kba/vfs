@@ -1,1 +1,1 @@
-x
+Always include `@kba/vfs` for implementation-independent functionality and the dispatcher.
