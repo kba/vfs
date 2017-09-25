@@ -12,6 +12,7 @@
   },
   "author": "Konstantin Baierer <unixprog@gmail.com>",
   "license": "MIT",
+  "engines" : {"node" : ">=7"},
   "dependencies": {
     "@kba/vfs-util-errors": "^0.0.3",
     "async": "^2.1.4",

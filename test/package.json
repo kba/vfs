@@ -8,6 +8,7 @@
   },
   "repository": "github:kba/vfs",
   "author": "Konstantin Baierer <unixprog@gmail.com>",
+  "engines" : {"node" : ">=7"},
   "license": "MIT",
   "dependencies": {
     "@kba/vfs": "^0.0.3",
