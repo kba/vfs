@@ -33,15 +33,15 @@ const testFunctions = module.exports = {
                     return cb(t.end())
                 })
             }),
-            cb => t.test('getdir {sortBy:mtime, sortDir: 1}', (t) => {
+            cb => t.test('getdir {sortBy: "mtime", sortDir: 1}', (t) => {
                 fs.getdir('/lib', {sortBy: 'mtime', sortDir: 1}, (err, files) => {
-                    t.equals(files[0].mtime.getTime() < files[2].mtime.getTime(), true, '0 < 2')
+                    t.equals(files[0].mtime.getTime() < files[2].mtime.getTime(), true, 'mtime: 0 < 2')
                     return cb(t.end())
                 })
             }),
             cb => t.test('getdir {sortBy:mtime, sortDir: -1}', (t) => {
                 fs.getdir('/lib', {sortBy: 'mtime', sortDir: -1}, (err, files) => {
-                    t.equals(files[0].mtime.getTime() > files[2].mtime.getTime(), true, '0 > 2')
+                    t.equals(files[0].mtime.getTime() > files[2].mtime.getTime(), true, 'mtime: 0 > 2')
                     return cb(t.end())
                 })
             }),
@@ -64,7 +64,7 @@ const testFunctions = module.exports = {
                 })
             }),
             cb => t.test('nextFile {blacklistFn}', t => {
-                fs.nextFile('/lib/file2.txt', {blacklistFn: f => f['%base'] !== 'file3.png'}, (err, nextFile) => {
+                fs.nextFile('/lib/file2.txt', {blacklistFn: f => f['%base'] === 'file3.png'}, (err, nextFile) => {
                     t.equals(nextFile.path, '/lib/file1', 'file2.txt -> file1')
                     return cb(t.end())
                 })

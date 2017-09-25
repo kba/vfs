@@ -1,5 +1,4 @@
 const async = require('async')
-const {EventEmitter} = require('events')
 const Node = require('./node')
 const Path = require('path')
 const api = require('./api')
@@ -15,8 +14,6 @@ const NODE_TYPES = [
     // 'FIFO',
     // 'Socket',
 ]
-
-const _EVENT = Symbol('event')
 
 /**
  * ### vfs.base
@@ -71,6 +68,8 @@ class base extends api {
         return ret
     }
 
+    constructor(...args) {super(...args)}
+
     _applyPlugins(fn, args, cb) {
         const plugins = this.plugins.filter(plugin => plugin[fn])
         if (plugins.length === 0) return cb()
@@ -102,7 +101,8 @@ class base extends api {
         this.readdir(dir, (err, filenames) => {
             if (err) return cb(err)
             async.map(filenames, (filename, done) => {
-                this.stat(Path.join(dir, filename), (err, node) => {
+                filename = Path.join(dir, filename)
+                this.stat(filename, (err, node) => {
                     if (err) return done(err)
                     return done(null, node)
                 })
@@ -120,7 +120,6 @@ class base extends api {
                         return sortDir * (a == b ? 0 : a < b ? -1 : +1)
                     })
                 }
-                // console.log(ret.map(x => x.path))
                 if (! options.parent)
                     return cb(null, ret)
                 options.parent.vfs.stat(Path.join(options.parent.path, '..'), (err, parent) => {
@@ -138,7 +137,7 @@ class base extends api {
     /* copyFile default implementation */
     _copyFile(from, to, options, cb) {
         [from, to] = [from, to].map(arg => {
-            if (typeof arg === 'string') { arg = {vfs: this, path: arg} }
+            if (typeof arg === 'string') {arg = {vfs: this, path: arg}}
             if (typeof arg === 'object') {
                 if (!(arg.vfs instanceof api)) throw new Error("'arg.vfs' must be a vfs")
                 if (typeof arg.path !== 'string') throw new Error("'arg.path' must be a string")
@@ -166,7 +165,7 @@ class base extends api {
                     .filter(f => ! options.blacklistFn(f))
                 // console.log(filtered.map(p => p.path))
                 const idx = files.findIndex(f => f.path == path)
-                var nextIdx = idx + options.delta
+                let nextIdx = idx + options.delta
                 if (nextIdx >= files.length || nextIdx < 0) {
                     if (options.wrapStrategy === 'wrap') {
                         nextIdx %= files.length

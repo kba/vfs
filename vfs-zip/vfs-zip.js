@@ -72,8 +72,8 @@ class zipvfs extends base {
 
     _readdir(dir, options, cb) {
         if (!(Path.isAbsolute(dir))) return cb(errors.PathNotAbsoluteError(dir))
-        dir = PathUtils.removeTrailingSep(dir)
-        var ret = Object.keys(this.zipRoot.files)
+        dir = PathUtils.removeTrailingSep(dir, false)
+        let ret = Object.keys(this.zipRoot.files)
             .map(filename => PathUtils.removeTrailingSep('/' + filename))
             .filter(filename => filename !== dir && filename.indexOf(dir) === 0)
             .map(filename => filename.replace(dir + '/', ''))

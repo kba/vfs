@@ -3,6 +3,7 @@ PATH := ./node_modules/.bin:$(PATH)
 PATH := ./test/node_modules/.bin:$(PATH)
 REPORTER = tap
 TAP = tap -R$(REPORTER)
+VFS = file
 
 help:
 	@echo "Targets"
@@ -13,6 +14,7 @@ help:
 
 bootstrap:
 	lerna bootstrap --loglevel info
+	touch -m test/fixtures/folder/lib/file3.png
 
 .PHONY: test
 test:
@@ -22,6 +24,10 @@ test:
 test-one:
 	$(MAKE) bootstrap
 	tap -R$(REPORTER) $(TEST)
+
+test-vfs:
+	$(MAKE) bootstrap
+	tap -R$(REPORTER) test/vfs/$(VFS).test.js
 
 .PHONY: doc doc/watch
 doc:

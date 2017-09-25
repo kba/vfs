@@ -1,3 +1,4 @@
+const Path = require('path')
 /**
  * ### PathUtils
  *
@@ -11,19 +12,38 @@
  * removeTrailingSep('/foo/') // '/foo'
  * ```
  */
-const PathUtils = {
+class PathUtils {
 
     /**
      * #### `(static) removeTrailingSep(path)`
      * 
      * Remove trailing separators (slashes) from `path`.
+     *
+     * @param {boolean} keepRoot Whether to remove or keep a single root slash
      */
-    removeTrailingSep(path) {
+    static removeTrailingSep(path, keepRoot=true) {
         path = path.replace(/\/$/, '')
-        if (path === '') path = '/'
+        if (path === '' && keepRoot) path = '/'
         return path
 
+    }
+
+    /**
+     * #### `(static) removeLeadingSep(path)`
+     * 
+     * Remove leading separators (slashes) from `path`.
+     */
+    static removeLeadingSep(path) {
+        return path.replace(/^\//, '')
+    }
+
+    static chrootPath(path, chroot) {
+        // console.log({path, chroot})
+        if (path.indexOf(chroot) === 0) return path
+        return Path.join(chroot, path)
     }
 }
 
 module.exports = PathUtils
+
+// vim: sw=4 ts=4

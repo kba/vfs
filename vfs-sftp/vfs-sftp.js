@@ -1,8 +1,5 @@
-const async = require('async')
-const fs = require('fs')
 const Path = require('path')
 const PathUtils = require('@kba/vfs-util-path')
-const {Readable} = require('stream')
 const sftpClient = require('ssh2-sftp-client')
 
 const {base, Node} = require('@kba/vfs')
@@ -62,36 +59,32 @@ class sftpvfs extends base {
 
     _stat(path, options, cb) {
         if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
-        const abspath = (this.options.chroot) ? Path.join(this.options.chroot, path) : path
-        const dir = Path.normalize(abspath + '/..')
-        const basename = Path.basename(path)
-        this.sftp.list(dir)
+        const abspath = PathUtils.chrootPath(path, this.options.chroot)
+        const dirname = Path.dirname(abspath)
+        const basename = Path.basename(abspath)
+      // console.log('_stat', {abspath, dirname, basename})
+        // XXX inefficient
+        this.sftp.list(dirname)
             .then(list => {
                 const e = list.find(e => e.name === basename)
                 if (!e) return cb(errors.NoSuchFileError(path))
                 return cb(null, this._sftpEntryToNode(path, e))
             })
-            .catch(err => cb(err))
+            .catch(err => {
+              console.warn(err)
+              cb(err)
+            })
     }
 
     _readdir(dir, options, cb) {
         if (!(Path.isAbsolute(dir))) return cb(errors.PathNotAbsoluteError(dir))
-        const abspath = (this.options.chroot) ? Path.join(this.options.chroot, dir) : dir
+        dir = PathUtils.chrootPath(dir, this.options.chroot)
         dir = PathUtils.removeTrailingSep(dir)
-        this.sftp.list(abspath)
+      // console.log('_readdir', {dir})
+        this.sftp.list(dir)
             .then(list => {
-                cb(null, list.map(e => Path.join(dir, e.name)))
-            })
-            .catch(err => cb(err))
-    }
-
-    _getdir(dir, options, cb) {
-        if (!(Path.isAbsolute(dir))) return cb(errors.PathNotAbsoluteError(dir))
-        const abspath = (this.options.chroot) ? Path.join(this.options.chroot, dir) : dir
-        dir = PathUtils.removeTrailingSep(dir)
-        this.sftp.list(abspath)
-            .then(list => {
-                cb(null, list.map(e => this._sftpEntryToNode(Path.join(dir, e.name), e)))
+                const ret = list.map(e => e.name)
+                return cb(null, ret)
             })
             .catch(err => cb(err))
     }
@@ -99,9 +92,8 @@ class sftpvfs extends base {
     _createReadStream(path, options={}) {
         if (!(Path.isAbsolute(path))) throw errors.PathNotAbsoluteError(path)
         const abspath = (this.options.chroot) ? Path.join(this.options.chroot, path) : path
-        const dir = Path.normalize(abspath + '/..')
         const wrapper = createReadableWrapper()
-        const streamPromise = this.sftp.get(
+        this.sftp.get(
             abspath,
             this.options.sshOptions.useCompression,
             options.encoding
@@ -115,3 +107,5 @@ class sftpvfs extends base {
 
 }
 module.exports = sftpvfs
+
+// vim: sw=4 ts=4

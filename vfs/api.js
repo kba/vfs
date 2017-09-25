@@ -1,6 +1,5 @@
 const async = require('async')
 const {EventEmitter} = require('events')
-const Node = require('./node')
 const Path = require('path')
 
 const _EVENT = Symbol('event')
@@ -152,7 +151,7 @@ class api {
      * - `@param {object} options.encoding=undefined` Encoding of the data. Setting this will return a String
      * - `@param {readFileCallback} cb`
      */
-    readFile(path, options, cb){
+    readFile(path, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
         return this._readFile(path, options, cb)
     }
@@ -194,7 +193,7 @@ class api {
     mkdirRecursive(path, cb) {
         if (!Path.isAbsolute(path)) throw new Error(`'path' must be absolute: ${path}`)
         path = path.substr(1)
-        var fullDir = ''
+        let fullDir = ''
         async.eachSeries(path.split('/'), (dir, done) => {
             fullDir += '/' + Path.join(fullDir, dir)
             this.mkdir(fullDir, done)
@@ -248,7 +247,7 @@ class api {
         this.getdir(path, (err, files) => {
             async.each(files, (file, done) => {
                 if (err) return done(err)
-                if (file.isDirectory) 
+                if (file.isDirectory)
                     this.find(file.path, (err, subfiles) => {
                         if (err) return done(err)
                         ret.push(file)
@@ -265,7 +264,7 @@ class api {
         })
     }
 
-    
+
     // TODO should accept options
     /**
      * #### `du(path, callback)`
@@ -275,7 +274,7 @@ class api {
      * @param {string} path absolute path to the file
      */
     du(path, cb) {
-        var totalSize = 0
+        let totalSize = 0
         this.find(path, (err, files) => {
             if (err) return cb(err)
             files.forEach(file => totalSize += file.size)
@@ -344,3 +343,5 @@ class api {
 
 }
 module.exports = api
+
+// vim: sw=4 ts=4
