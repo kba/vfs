@@ -60,9 +60,10 @@ class base extends api {
             'readFile':       ['stat', 'createReadStream'],
             'writeFile':      ['stat', 'writeFile'],
             'copyFile':       ['stat', 'readFile', 'writeFile'],
+            'nextFile':       ['stat', 'readdir'],
         }
-        Object.getOwnPropertyNames(api.prototype)
-            .filter(prop => !(toSkip.has(prop))
+        const props = Object.getOwnPropertyNames(api.prototype)
+        props.filter(prop => !(toSkip.has(prop))
                 && deps[prop] && deps[prop].every(prop => ret.has(prop)))
             .map(prop => ret.add(prop))
         return ret

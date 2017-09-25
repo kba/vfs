@@ -19,11 +19,10 @@ tap.test('summarize capabilities', t => {
     console.log('\t' + ' '.repeat(WIDTH_CAP) + vfsNames.map(
         str => rightPad(str, WIDTH_VFS)).join(''))
     const props = Object.getOwnPropertyNames(api.prototype)
-    // props.push(Object.getOwnPropertyNames(base.prototype))
     props.forEach(prop => {
         vfsNames.forEach(vfsName => {
             const vfsClass = require(`@kba/vfs-${vfsName}`)
-            if (prop !== 'constructor' && vfsClass.prototype.hasOwnProperty(prop)) {
+            if (prop.indexOf('constructor') === -1 && vfsClass.prototype.hasOwnProperty(prop)) {
                 throw new Error(`vfs-${vfsName} should not override ${prop}`)
             }
         })
