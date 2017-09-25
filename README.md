@@ -55,6 +55,7 @@
 		* [`(static) getDecompressor(format)`](#static-getdecompressorformat)
 	* [PathUtils](#pathutils)
 		* [`(static) removeTrailingSep(path)`](#static-removetrailingseppath)
+		* [`(static) removeLeadingSep(path)`](#static-removeleadingseppath)
 	* [StreamUtils](#streamutils)
 		* [`(static) createReadableWrapper()`](#static-createreadablewrapper)
 		* [`ReadableWrapper`](#readablewrapper)
@@ -310,6 +311,10 @@ removeTrailingSep('/foo/') // '/foo'
 #### `(static) removeTrailingSep(path)`
 
 Remove trailing separators (slashes) from `path`.
+@param {boolean} keepRoot Whether to remove or keep a single root slash
+#### `(static) removeLeadingSep(path)`
+
+Remove leading separators (slashes) from `path`.
 
 <!-- END-RENDER -->
 
