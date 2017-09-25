@@ -28,7 +28,7 @@ const _EVENT = Symbol('event')
  */
 class base extends api {
 
-    static get Node() { return Node }
+    static get Node() {return Node}
 
     /**
      * #### `(static) NODE_TYPES`
@@ -40,7 +40,7 @@ class base extends api {
      *  - `SymbolicLink`
      *
      */
-    static get NODE_TYPES() { return NODE_TYPES }
+    static get NODE_TYPES() {return NODE_TYPES}
 
     /**
      * #### `(static) capabilities`
@@ -81,7 +81,7 @@ class base extends api {
     _readFile(path, options, cb) {
         if (!Path.isAbsolute(path)) return cb(errors.PathNotAbsoluteError(path))
         try {
-            var inStream = this.createReadStream(path, options)
+            let inStream = this.createReadStream(path, options)
             const bufs = []
             inStream.on('data', data => bufs.push(data))
             inStream.on('error', err => cb(err))
@@ -121,7 +121,7 @@ class base extends api {
                     })
                 }
                 // console.log(ret.map(x => x.path))
-                if (! options.parent) 
+                if (! options.parent)
                     return cb(null, ret)
                 options.parent.vfs.stat(Path.join(options.parent.path, '..'), (err, parent) => {
                     if (parent) {

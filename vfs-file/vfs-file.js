@@ -10,7 +10,7 @@ const {base, Node} = require('@kba/vfs')
  */
 class filevfs extends base {
 
-    static get scheme() { return 'file' }
+    static get scheme() {return 'file'}
 
     /**
      *
@@ -36,7 +36,7 @@ class filevfs extends base {
         return Path.resolve(Path.join(this.options.chroot, path))
     }
 
-    _sync() { this.emit('sync') }
+    _sync() {this.emit('sync')}
 
     _stat(path, opts, cb) {
         if (!cb && typeof opts == 'function') [cb, opts] = [opts, {}]
@@ -47,14 +47,14 @@ class filevfs extends base {
         })
     }
 
-    _unlink(path, options, ...args)            { return fs.unlink(this._resolvePath(path), ...args) }
-    _rmdir(path, options, ...args)    { return fs.rmdir(this._resolvePath(path), ...args) }
-    _mkdir(path, ...args)             { return fs.mkdir(this._resolvePath(path), ...args) }
-    _createReadStream(path, ...args)  { return fs.createReadStream(this._resolvePath(path), ...args) }
-    _createWriteStream(path, ...args) { return fs.createWriteStream(this._resolvePath(path), ...args) }
-    _readdir(path, ...args)           { return fs.readdir(this._resolvePath(path), ...args) }
-    _readFile(path, ...args)          { return fs.readFile(this._resolvePath(path), ...args) }
-    _writeFile(path, ...args)         { return fs.writeFile(this._resolvePath(path), ...args) }
+    _unlink(path, options, ...args)   {return fs.unlink(this._resolvePath(path), ...args)}
+    _rmdir(path, options, ...args)    {return fs.rmdir(this._resolvePath(path), ...args)}
+    _mkdir(path, ...args)             {return fs.mkdir(this._resolvePath(path), ...args)}
+    _createReadStream(path, ...args)  {return fs.createReadStream(this._resolvePath(path), ...args)}
+    _createWriteStream(path, ...args) {return fs.createWriteStream(this._resolvePath(path), ...args)}
+    _readdir(path, ...args)           {return fs.readdir(this._resolvePath(path), ...args)}
+    _readFile(path, ...args)          {return fs.readFile(this._resolvePath(path), ...args)}
+    _writeFile(path, ...args)         {return fs.writeFile(this._resolvePath(path), ...args)}
 }
 
 module.exports = filevfs

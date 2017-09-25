@@ -1,6 +1,7 @@
 const tap = require('tap')
 const vfs = require('@kba/vfs')
 const api = require('@kba/vfs/api')
+const base = require('@kba/vfs/base')
 
 const RESET = '\x1b[0m'
 const OK = '\x1b[32mX'
@@ -17,7 +18,9 @@ tap.test('summarize capabilities', t => {
     const vfsNames = ['zip', 'file', 'tar', 'ar', 'sftp']
     console.log('\t' + ' '.repeat(WIDTH_CAP) + vfsNames.map(
         str => rightPad(str, WIDTH_VFS)).join(''))
-    Object.getOwnPropertyNames(api.prototype).forEach(prop => {
+    const props = Object.getOwnPropertyNames(api.prototype)
+    // props.push(Object.getOwnPropertyNames(base.prototype))
+    props.forEach(prop => {
         vfsNames.forEach(vfsName => {
             const vfsClass = require(`@kba/vfs-${vfsName}`)
             if (prop !== 'constructor' && vfsClass.prototype.hasOwnProperty(prop)) {
@@ -25,7 +28,7 @@ tap.test('summarize capabilities', t => {
             }
         })
         if (['constructor', 'use', 'sync', 'init', 'end'].indexOf(prop) > -1) return
-        var row = [RESET, rightPad(prop, WIDTH_CAP)]
+        let row = [RESET, rightPad(prop, WIDTH_CAP)]
         vfsNames.forEach(vfsName => {
             const vfsClass = require(`@kba/vfs-${vfsName}`)
             const sign = (vfsClass.capabilities.has(prop)) ? OK : NOT_OK
