@@ -1,5 +1,8 @@
 # Summary
 
-* [vfs](README.md)
+* [README](README.md)
 * [Quickstart](quickstart.md)
+  * [Installation](quickstart.md#installation)
+  * [Instantiation](quickstart.md#instantiation)
+* [Plugins](plugins.md)
 
