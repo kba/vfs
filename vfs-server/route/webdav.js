@@ -150,32 +150,20 @@ class DavRoute {
 
   initRoute() {
     const route = new Router()
-    route.get('/:path(*)', [
-      bodyParser.text({type: 'application/xml'}),
-      this.propfind.bind(this)
-    ])
-    route.mkcol('/:path(*)', [
-      bodyParser.text({type: 'application/xml'}),
-      this.mkcol.bind(this)
-    ])
-    route.put('/:path(*)', [
-      bodyParser.raw(),
-      this.put.bind(this)
-    ])
-    route.propfind('/:path(*)', [
-      bodyParser.text({type: 'application/xml'}),
-      this.propfind.bind(this)
-    ])
-    route.delete('/:path(*)', [
-      this.delete.bind(this)
-    ])
-    route.move('/:path(*)', [
-      this.move.bind(this)
-    ])
+
+    const xmlBodyParser = bodyParser.text({type: 'application/xml'})
+
+    route.get('/:path(*)', [xmlBodyParser, this.propfind.bind(this)])
+    route.mkcol('/:path(*)', [xmlBodyParser, this.mkcol.bind(this)])
+    route.put('/:path(*)', [bodyParser.raw(), this.put.bind(this)])
+    route.propfind('/:path(*)', [xmlBodyParser, this.propfind.bind(this)])
+    route.delete('/:path(*)', [this.delete.bind(this)])
+    route.move('/:path(*)', [this.move.bind(this)])
     route.options('/:path(*)', (req, resp, next) => {
       resp.header('DAV', '1,2,3')
       resp.end()
     })
+
     return route
   }
 }
