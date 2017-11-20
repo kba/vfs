@@ -5,8 +5,8 @@ const morgan = require('morgan')
 function vfsMiddleware({dispatcher}) {
     return (req, res, next) => {
         const options = {}
-        var urlParsed = {}
-        var url = null
+        let urlParsed = {}
+        let url = null
         if (req.header['x-vfs-options'])
             Object.assign(options, JSON.parse(req.header['x-vfs-options']))
         if (req.query.options)
@@ -16,7 +16,7 @@ function vfsMiddleware({dispatcher}) {
             .forEach(k => {
                 try {
                     options[k.substr(4)] = JSON.parse(req.query[k])
-                } catch(e) {
+                } catch (e) {
                     options[k.substr(4)] = req.query[k]
                 }
             })
@@ -29,6 +29,7 @@ function vfsMiddleware({dispatcher}) {
             urlParsed = dispatcher.parseUrl(decodeURIComponent(url), options)
             url = urlParsed.href
         }
+        res.header('Access-Control-Allow-Origin', '*')
         console.log('vfsMiddleware', {url, options})
         req.vfs = {url, urlParsed, options}
         next()
