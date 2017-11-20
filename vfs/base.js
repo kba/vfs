@@ -83,7 +83,11 @@ class base extends api {
         try {
             let inStream = this.createReadStream(path, options)
             const bufs = []
-            inStream.on('data', data => bufs.push(data))
+            inStream.on('data', data => {
+              if (typeof data === 'string')
+                data = Buffer.from(data)
+              bufs.push(data)
+            })
             inStream.on('error', err => cb(err))
             inStream.on('end', () => {
                 const buf = Buffer.concat(bufs)
