@@ -1,0 +1,19 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "vfs documentation\n\n\nDispatcher\n\n\nThe dispatcher instantiates VFS instances from URL and caches instances for better performance.\n\n\nURL are parsed with Node.js' \nurl\n module, the positional options to \nurl.parse\n can be provided as options.\n\n\ndispatcher\n.\nparseUrl\n(\nsftp:///?q=xs\n,\n \n{\nslashesDenoteHost\n:\n \ntrue\n,\n \nparseQueryString\n:\n \nfalse\n})", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#vfs-documentation", 
+            "text": "", 
+            "title": "vfs documentation"
+        }, 
+        {
+            "location": "/#dispatcher", 
+            "text": "The dispatcher instantiates VFS instances from URL and caches instances for better performance.  URL are parsed with Node.js'  url  module, the positional options to  url.parse  can be provided as options.  dispatcher . parseUrl ( sftp:///?q=xs ,   { slashesDenoteHost :   true ,   parseQueryString :   false })", 
+            "title": "Dispatcher"
+        }
+    ]
+}
