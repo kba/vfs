@@ -3,7 +3,7 @@ const vfsFile = require('@kba/vfs-file')
 
 class TestPlugin {
 
-    stat(node, cb) {
+    after_stat(node, cb) {
         node.foo = '42'
         cb()
     }

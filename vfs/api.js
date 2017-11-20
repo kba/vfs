@@ -57,7 +57,7 @@ class api {
         if (typeof options === 'function') [cb, options] = [options, {}]
         this._stat(path, options, (err, node) => {
             if (err) return cb(err)
-            this._applyPlugins('stat', [node], (err) => {
+            this._applyPlugins('after_stat', [node], (err) => {
                 return cb(err, node)
             })
         })
