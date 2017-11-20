@@ -21,7 +21,7 @@ class VfsDispatcher {
             options.parseQueryString = false
         if (!('slashDenoteHost' in options))
             options.slashDenoteHost = false
-        var parts = urlParse(url, options.parseQueryString, options.slashDenoteHost)
+        let parts = urlParse(url, options.parseQueryString, options.slashDenoteHost)
         if (!(parts.protocol)) {
             url = 'file://' + url
             parts = urlParse(url, options.parseQueryString, options.slashDenoteHost)

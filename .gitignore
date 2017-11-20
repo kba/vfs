@@ -5,3 +5,4 @@ lerna-debug.log
 npm-debug.log
 vfs-cli
 package-lock.json
+vuex
