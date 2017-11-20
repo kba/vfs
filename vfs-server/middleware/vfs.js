@@ -25,7 +25,7 @@ module.exports = function vfsMiddleware({dispatcher}) {
             urlParsed = dispatcher.parseUrl(decodeURIComponent(url), options)
             url = urlParsed.href
         }
-        console.log('vfsMiddleware', {url, options})
+        // console.log('vfsMiddleware', {url, options})
         req.vfs = {url, urlParsed, options}
         next()
     }
