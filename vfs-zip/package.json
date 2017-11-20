@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-zip",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Virtual File Systems with a node fs-like API - ZIP adapter",
   "main": "vfs-zip.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "node": ">= 7"
   },
   "dependencies": {
-    "@kba/vfs": "^0.0.4",
+    "@kba/vfs": "^0.0.5",
     "@kba/vfs-util-path": "^0.0.4",
     "async": "^2.4.0",
     "jszip": "^3.1.3"

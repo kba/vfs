@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-sftp",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Virtual File Systems with a node fs-like API - SFTP adapter",
   "main": "vfs-sftp.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "node": ">=7"
   },
   "dependencies": {
-    "@kba/vfs": "^0.0.4",
+    "@kba/vfs": "^0.0.5",
     "@kba/vfs-util-path": "^0.0.4",
     "@kba/vfs-util-errors": "^0.0.4",
     "@kba/vfs-util-stream": "^0.0.4",

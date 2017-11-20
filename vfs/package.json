@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Virtual File Systems with a node fs-like API",
   "main": "index.js",
   "scripts": {
