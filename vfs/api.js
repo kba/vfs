@@ -331,6 +331,10 @@ class api {
         this._rmdir(path, options, cb)
     }
 
+    _urlForNode(node) {
+        return this.constructor.scheme + '://' + node.path
+    }
+
     /**
      * #### Events
      *
