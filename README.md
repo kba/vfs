@@ -90,8 +90,9 @@ fs module](http://nodejs.org/api/fs.html).
 	find                 X    X    X    X    X   
 	du                   X    X    X    X    X   
 	readdir              X    X    X    X    X   
-	nextFile             -    -    -    -    -   
+	nextFile             X    X    X    X    X   
 	rmdir                -    X    -    -    -   
+	_urlForNode          -    -    -    -    -   
 
 <!-- END-EVAL -->
 
