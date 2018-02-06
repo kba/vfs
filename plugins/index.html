@@ -10,20 +10,20 @@
       
       
       
-        <link rel="shortcut icon" href="./assets/images/favicon.png">
+        <link rel="shortcut icon" href="../assets/images/favicon.png">
       
       <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
     
     
       
-        <title>vfs Documentation</title>
+        <title>Plugins - vfs Documentation</title>
       
     
     
-      <script src="./assets/javascripts/modernizr-e826f8942a.js"></script>
+      <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application-9011e2d3f8.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application-9011e2d3f8.css">
       
     
     
@@ -61,7 +61,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="." title="vfs Documentation" class="md-header-nav__button md-logo">
+        <a href=".." title="vfs Documentation" class="md-header-nav__button md-logo">
           
             <i class="md-icon md-icon--home"></i>
           
@@ -76,7 +76,7 @@
             
               
             
-            Home
+            Plugins
           
         </span>
       </div>
@@ -148,7 +148,7 @@
         
   <li class="md-tabs__item">
     
-      <a href="." title="Home" class="md-tabs__link md-tabs__link--active">
+      <a href=".." title="Home" class="md-tabs__link md-tabs__link--active">
         Home
       </a>
     
@@ -208,47 +208,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="toc">
-        Home
-      </label>
-    
-    <a href="." title="Home" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
       Home
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#dispatcher" title="Dispatcher" class="md-nav__link">
-    Dispatcher
-  </a>
-  
-</li>
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -258,7 +222,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api/" title="Api" class="md-nav__link">
+    <a href="../api/" title="Api" class="md-nav__link">
       Api
     </a>
   </li>
@@ -268,11 +232,63 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="plugins/" title="Plugins" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Plugins
+      </label>
+    
+    <a href="./" title="Plugins" class="md-nav__link md-nav__link--active">
       Plugins
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#plugins" title="Plugins" class="md-nav__link">
+    Plugins
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instantiation" title="Instantiation" class="md-nav__link">
+    Instantiation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hooks" title="Hooks" class="md-nav__link">
+    Hooks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
     
@@ -290,16 +306,34 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
     <label class="md-nav__title" for="toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#dispatcher" title="Dispatcher" class="md-nav__link">
-    Dispatcher
+  <a href="#plugins" title="Plugins" class="md-nav__link">
+    Plugins
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instantiation" title="Instantiation" class="md-nav__link">
+    Instantiation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hooks" title="Hooks" class="md-nav__link">
+    Hooks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -318,15 +352,19 @@
               
                 
                 
-                <h1 id="vfs-documentation">vfs documentation<a class="headerlink" href="#vfs-documentation" title="Permanent link">&para;</a></h1>
-<h2 id="dispatcher">Dispatcher<a class="headerlink" href="#dispatcher" title="Permanent link">&para;</a></h2>
-<p>The dispatcher instantiates VFS instances from URL and caches instances for better performance.</p>
-<p>URL are parsed with Node.js' <a href="https://nodejs.org/api/url.html">url</a> module, the
-positional options to
-<a href="https://nodejs.org/api/url.html#url_url_parse_urlstring_parsequerystring_slashesdenotehost"><code class="codehilite">url.parse</code></a>
-can be provided as options.</p>
-<div class="codehilite"><pre><span></span><span class="nx">dispatcher</span><span class="p">.</span><span class="nx">parseUrl</span><span class="p">(</span><span class="s1">&#39;sftp:///?q=xs&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">slashesDenoteHost</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">parseQueryString</span><span class="o">:</span> <span class="kc">false</span><span class="p">})</span>
+                  <h1>Plugins</h1>
+                
+                <h2 id="plugins">Plugins<a class="headerlink" href="#plugins" title="Permanent link">&para;</a></h2>
+<p>Plugins can extend the functionality of a vfs by using hooks provided by the vfs.</p>
+<h3 id="instantiation">Instantiation<a class="headerlink" href="#instantiation" title="Permanent link">&para;</a></h3>
+<p>Plugins can be registered with a vfs by calling its <code class="codehilite">use</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="nx">vfs</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">pluginClass</span><span class="p">,</span> <span class="nx">pluginOptions</span><span class="p">)</span>
 </pre></div>
+
+<h3 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h3>
+<p>To hook into a vfs method, a plugin must provide a function <code class="codehilite">before_&lt;method&gt;</code> or <code class="codehilite">after_&lt;method&gt;</code>.</p>
+<p>The <code class="codehilite">before_&lt;method&gt;</code> method takes the same arguments as <code class="codehilite">&lt;method&gt;</code>.</p>
+<p>The <code class="codehilite">after_&lt;method&gt;</code> receives the result of the call to <code class="codehilite">&lt;method&gt;</code>.</p>
                 
                   
                 
@@ -345,20 +383,20 @@ can be provided as options.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-        
-          <a href="api/" title="Api" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../api/" title="Api" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
-                  Next
+                  Previous
                 </span>
                 Api
               </span>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
           </a>
+        
         
       </nav>
     </div>
@@ -382,10 +420,10 @@ can be provided as options.</p>
       
     </div>
     
-      <script src="./assets/javascripts/application-f3ab9e5ff8.js"></script>
+      <script src="../assets/javascripts/application-f3ab9e5ff8.js"></script>
       
       
-      <script>app.initialize({url:{base:"."}})</script>
+      <script>app.initialize({url:{base:".."}})</script>
       
     
     

@@ -1,0 +1,1433 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <link rel="shortcut icon" href="../assets/images/favicon.png">
+      
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.10.3">
+    
+    
+      
+        <title>Api - vfs Documentation</title>
+      
+    
+    
+      <script src="../assets/javascripts/modernizr-e826f8942a.js"></script>
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application-9011e2d3f8.css">
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+  
+  
+    <body>
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="vfs Documentation" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon md-icon--home"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+            
+            Api
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/kba/vfs" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      kba/vfs
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." title="Home" class="md-tabs__link md-tabs__link--active">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <div class="md-nav__button md-logo">
+      
+        <i class="md-icon md-icon--home"></i>
+      
+    </div>
+    vfs Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/kba/vfs" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      kba/vfs
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Api
+      </label>
+    
+    <a href="./" title="Api" class="md-nav__link md-nav__link--active">
+      Api
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#api" title="API" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vfsbase" title="vfs.base" class="md-nav__link">
+    vfs.base
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-node_types" title="(static) NODE_TYPES" class="md-nav__link">
+    (static) NODE_TYPES
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-capabilities" title="(static) capabilities" class="md-nav__link">
+    (static) capabilities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vfsapi" title="vfs.api" class="md-nav__link">
+    vfs.api
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" title="Constructor" class="md-nav__link">
+    Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usepluginclass-pluginoptions" title="use(pluginClass, pluginOptions)" class="md-nav__link">
+    use(pluginClass, pluginOptions)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statpath-options-callback" title="stat(path, options, callback)" class="md-nav__link">
+    stat(path, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdirpath-mode-callback" title="mkdir(path, mode, callback)" class="md-nav__link">
+    mkdir(path, mode, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init" title="init()" class="md-nav__link">
+    init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#end" title="end()" class="md-nav__link">
+    end()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncoptions" title="sync(options)" class="md-nav__link">
+    sync(options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createreadstreampath-options" title="createReadStream(path, options)" class="md-nav__link">
+    createReadStream(path, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createwritestreampath-options" title="createWriteStream(path, options)" class="md-nav__link">
+    createWriteStream(path, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readfilepath-options-callback" title="readFile(path, options, callback)" class="md-nav__link">
+    readFile(path, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writefilepath-data-options-callback" title="writeFile(path, data, options, callback)" class="md-nav__link">
+    writeFile(path, data, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unlinkpath-options-cb" title="unlink(path, options, cb)" class="md-nav__link">
+    unlink(path, options, cb)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdirrecursivepath-cb" title="mkdirRecursive(path, cb)" class="md-nav__link">
+    mkdirRecursive(path, cb)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copyfilefrom-to-options-cb" title="copyFile(from, to, options, cb)" class="md-nav__link">
+    copyFile(from, to, options, cb)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getdirdir-options-callback" title="getdir(dir, options, callback)" class="md-nav__link">
+    getdir(dir, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#findpath-callback" title="find(path, callback)" class="md-nav__link">
+    find(path, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dupath-callback" title="du(path, callback)" class="md-nav__link">
+    du(path, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readdirpath-options-callback" title="readdir(path, options, callback)" class="md-nav__link">
+    readdir(path, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nextfilepath-options-callback" title="nextFile(path, options, callback)" class="md-nav__link">
+    nextFile(path, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events" title="Events" class="md-nav__link">
+    Events
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#events-ready" title="Events: ready" class="md-nav__link">
+    Events: ready
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-sync" title="Events: sync" class="md-nav__link">
+    Events: sync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-error" title="Events: error" class="md-nav__link">
+    Events: error
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-end" title="Events: end" class="md-nav__link">
+    Events: end
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vfsnode" title="vfs.Node" class="md-nav__link">
+    vfs.Node
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_1" title="Constructor" class="md-nav__link">
+    Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" title="Properties" class="md-nav__link">
+    Properties
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vfs" title="vfs" class="md-nav__link">
+    vfs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path" title="path" class="md-nav__link">
+    path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mtime" title="mtime" class="md-nav__link">
+    mtime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode" title="mode" class="md-nav__link">
+    mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mimetype" title="mimetype" class="md-nav__link">
+    mimetype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root" title="%root" class="md-nav__link">
+    %root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dir" title="%dir" class="md-nav__link">
+    %dir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base" title="%base" class="md-nav__link">
+    %base
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ext" title="%ext" class="md-nav__link">
+    %ext
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name" title="%name" class="md-nav__link">
+    %name
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressionutils" title="CompressionUtils" class="md-nav__link">
+    CompressionUtils
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-hasdecompressorformat" title="(static) hasDecompressor(format)" class="md-nav__link">
+    (static) hasDecompressor(format)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-getdecompressorformat" title="(static) getDecompressor(format)" class="md-nav__link">
+    (static) getDecompressor(format)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pathutils" title="PathUtils" class="md-nav__link">
+    PathUtils
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-removetrailingseppath" title="(static) removeTrailingSep(path)" class="md-nav__link">
+    (static) removeTrailingSep(path)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-removeleadingseppath" title="(static) removeLeadingSep(path)" class="md-nav__link">
+    (static) removeLeadingSep(path)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streamutils" title="StreamUtils" class="md-nav__link">
+    StreamUtils
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-createreadablewrapper" title="(static) createReadableWrapper()" class="md-nav__link">
+    (static) createReadableWrapper()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readablewrapper" title="ReadableWrapper" class="md-nav__link">
+    ReadableWrapper
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wrapstreamstream" title="wrapStream(stream)" class="md-nav__link">
+    wrapStream(stream)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../plugins/" title="Plugins" class="md-nav__link">
+      Plugins
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#api" title="API" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vfsbase" title="vfs.base" class="md-nav__link">
+    vfs.base
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-node_types" title="(static) NODE_TYPES" class="md-nav__link">
+    (static) NODE_TYPES
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-capabilities" title="(static) capabilities" class="md-nav__link">
+    (static) capabilities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vfsapi" title="vfs.api" class="md-nav__link">
+    vfs.api
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" title="Constructor" class="md-nav__link">
+    Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usepluginclass-pluginoptions" title="use(pluginClass, pluginOptions)" class="md-nav__link">
+    use(pluginClass, pluginOptions)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statpath-options-callback" title="stat(path, options, callback)" class="md-nav__link">
+    stat(path, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdirpath-mode-callback" title="mkdir(path, mode, callback)" class="md-nav__link">
+    mkdir(path, mode, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init" title="init()" class="md-nav__link">
+    init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#end" title="end()" class="md-nav__link">
+    end()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncoptions" title="sync(options)" class="md-nav__link">
+    sync(options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createreadstreampath-options" title="createReadStream(path, options)" class="md-nav__link">
+    createReadStream(path, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createwritestreampath-options" title="createWriteStream(path, options)" class="md-nav__link">
+    createWriteStream(path, options)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readfilepath-options-callback" title="readFile(path, options, callback)" class="md-nav__link">
+    readFile(path, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writefilepath-data-options-callback" title="writeFile(path, data, options, callback)" class="md-nav__link">
+    writeFile(path, data, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unlinkpath-options-cb" title="unlink(path, options, cb)" class="md-nav__link">
+    unlink(path, options, cb)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdirrecursivepath-cb" title="mkdirRecursive(path, cb)" class="md-nav__link">
+    mkdirRecursive(path, cb)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copyfilefrom-to-options-cb" title="copyFile(from, to, options, cb)" class="md-nav__link">
+    copyFile(from, to, options, cb)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getdirdir-options-callback" title="getdir(dir, options, callback)" class="md-nav__link">
+    getdir(dir, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#findpath-callback" title="find(path, callback)" class="md-nav__link">
+    find(path, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dupath-callback" title="du(path, callback)" class="md-nav__link">
+    du(path, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readdirpath-options-callback" title="readdir(path, options, callback)" class="md-nav__link">
+    readdir(path, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nextfilepath-options-callback" title="nextFile(path, options, callback)" class="md-nav__link">
+    nextFile(path, options, callback)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events" title="Events" class="md-nav__link">
+    Events
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#events-ready" title="Events: ready" class="md-nav__link">
+    Events: ready
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-sync" title="Events: sync" class="md-nav__link">
+    Events: sync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-error" title="Events: error" class="md-nav__link">
+    Events: error
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-end" title="Events: end" class="md-nav__link">
+    Events: end
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vfsnode" title="vfs.Node" class="md-nav__link">
+    vfs.Node
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_1" title="Constructor" class="md-nav__link">
+    Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" title="Properties" class="md-nav__link">
+    Properties
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vfs" title="vfs" class="md-nav__link">
+    vfs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path" title="path" class="md-nav__link">
+    path
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mtime" title="mtime" class="md-nav__link">
+    mtime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode" title="mode" class="md-nav__link">
+    mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mimetype" title="mimetype" class="md-nav__link">
+    mimetype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#root" title="%root" class="md-nav__link">
+    %root
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dir" title="%dir" class="md-nav__link">
+    %dir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base" title="%base" class="md-nav__link">
+    %base
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ext" title="%ext" class="md-nav__link">
+    %ext
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name" title="%name" class="md-nav__link">
+    %name
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compressionutils" title="CompressionUtils" class="md-nav__link">
+    CompressionUtils
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-hasdecompressorformat" title="(static) hasDecompressor(format)" class="md-nav__link">
+    (static) hasDecompressor(format)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-getdecompressorformat" title="(static) getDecompressor(format)" class="md-nav__link">
+    (static) getDecompressor(format)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pathutils" title="PathUtils" class="md-nav__link">
+    PathUtils
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-removetrailingseppath" title="(static) removeTrailingSep(path)" class="md-nav__link">
+    (static) removeTrailingSep(path)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-removeleadingseppath" title="(static) removeLeadingSep(path)" class="md-nav__link">
+    (static) removeLeadingSep(path)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streamutils" title="StreamUtils" class="md-nav__link">
+    StreamUtils
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-createreadablewrapper" title="(static) createReadableWrapper()" class="md-nav__link">
+    (static) createReadableWrapper()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readablewrapper" title="ReadableWrapper" class="md-nav__link">
+    ReadableWrapper
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wrapstreamstream" title="wrapStream(stream)" class="md-nav__link">
+    wrapStream(stream)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Api</h1>
+                
+                <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<!-- BEGIN-RENDER vfs/base.js -->
+
+<h3 id="vfsbase">vfs.base<a class="headerlink" href="#vfsbase" title="Permanent link">&para;</a></h3>
+<p>Base class of all vfs</p>
+<p>Provides default implementations for <a href="#vfsapi">some api methods</a>.</p>
+<h4 id="static-node_types"><code class="codehilite">(static) NODE_TYPES</code><a class="headerlink" href="#static-node_types" title="Permanent link">&para;</a></h4>
+<p>Types a <a href="#vfsnode">vfs.Node</a> can have.</p>
+<p>Currently:
+ - <code class="codehilite">Directory</code>
+ - <code class="codehilite">SymbolicLink</code></p>
+<h4 id="static-capabilities"><code class="codehilite">(static) capabilities</code><a class="headerlink" href="#static-capabilities" title="Permanent link">&para;</a></h4>
+<p>Lists the capabilities of a VFS, i.e. which methods are available</p>
+<ul>
+<li><code class="codehilite">@return {Set}</code> set of available methods</li>
+</ul>
+<!-- END-RENDER -->
+
+<!-- BEGIN-RENDER vfs/api.js -->
+
+<h3 id="vfsapi">vfs.api<a class="headerlink" href="#vfsapi" title="Permanent link">&para;</a></h3>
+<p>Interface of all vfs</p>
+<h4 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h4>
+<h4 id="usepluginclass-pluginoptions"><code class="codehilite">use(pluginClass, pluginOptions)</code><a class="headerlink" href="#usepluginclass-pluginoptions" title="Permanent link">&para;</a></h4>
+<p>Enable a plugin</p>
+<h4 id="statpath-options-callback"><code class="codehilite">stat(path, options, callback)</code><a class="headerlink" href="#statpath-options-callback" title="Permanent link">&para;</a></h4>
+<p>Get metadata about a node in the vfs.
+- <code class="codehilite">@param {String} path</code> absolute path to the file
+- <code class="codehilite">@param {Function} callback</code> error or {@link Node}</p>
+<h4 id="mkdirpath-mode-callback"><code class="codehilite">mkdir(path, mode, callback)</code><a class="headerlink" href="#mkdirpath-mode-callback" title="Permanent link">&para;</a></h4>
+<p>Create a directory</p>
+<ul>
+<li><code class="codehilite">@param {string} path</code> absolute path to the folder</li>
+<li><code class="codehilite">@param {errorCallback} cb</code></li>
+<li>@see <a href="https://nodejs.org/api/fs.html#fs_fs_mkdir_path_mode_callback">fs#mkdir</a></li>
+</ul>
+<h4 id="init"><code class="codehilite">init()</code><a class="headerlink" href="#init" title="Permanent link">&para;</a></h4>
+<p>Initialize the filesystem.</p>
+<p>By default only calls #sync and emits <a href="#events-ready"><code class="codehilite">ready</code></a> on <a href="#events-sync"><code class="codehilite">sync</code></a>}</p>
+<h4 id="end"><code class="codehilite">end()</code><a class="headerlink" href="#end" title="Permanent link">&para;</a></h4>
+<p>Un-initialize the filesystem, e.g. disconnect a client.</p>
+<h4 id="syncoptions"><code class="codehilite">sync(options)</code><a class="headerlink" href="#syncoptions" title="Permanent link">&para;</a></h4>
+<p>Sync the filesystem.</p>
+<h4 id="createreadstreampath-options"><code class="codehilite">createReadStream(path, options)</code><a class="headerlink" href="#createreadstreampath-options" title="Permanent link">&para;</a></h4>
+<p>See <a href="https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options">fs.createReadStream</a>
+Create a ReadableStream from a file
+@param {string} path absolute path to the file</p>
+<h4 id="createwritestreampath-options"><code class="codehilite">createWriteStream(path, options)</code><a class="headerlink" href="#createwritestreampath-options" title="Permanent link">&para;</a></h4>
+<p>Create a WritableStream to a file</p>
+<p>See <a href="https://nodejs.org/api/fs.html#fs_fs_createwritestream_path_options">fs.createWriteStream</a>.
+@param {string} path absolute path to the file
+@callback readFileCallback
+@param {Error} err
+@param {Buffer|String} data the file data as a buffer or stream</p>
+<h4 id="readfilepath-options-callback"><code class="codehilite">readFile(path, options, callback)</code><a class="headerlink" href="#readfilepath-options-callback" title="Permanent link">&para;</a></h4>
+<p>@see {@link <a href="https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback">https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback</a> fs#readFile}</p>
+<ul>
+<li><code class="codehilite">@param {string} path</code> absolute path to the file</li>
+<li><code class="codehilite">@param {object} options</code></li>
+<li><code class="codehilite">@param {object} options.encoding=undefined</code> Encoding of the data. Setting this will return a String</li>
+<li><code class="codehilite">@param {readFileCallback} cb</code></li>
+</ul>
+<h4 id="writefilepath-data-options-callback"><code class="codehilite">writeFile(path, data, options, callback)</code><a class="headerlink" href="#writefilepath-data-options-callback" title="Permanent link">&para;</a></h4>
+<p>@see {@link <a href="https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback">https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback</a> fs#writeFile}</p>
+<ul>
+<li><code class="codehilite">@param {string} path</code> absolute path to the file</li>
+<li><code class="codehilite">@param {object} options</code></li>
+<li><code class="codehilite">@param {function(err)}</code> cb</li>
+</ul>
+<h4 id="unlinkpath-options-cb"><code class="codehilite">unlink(path, options, cb)</code><a class="headerlink" href="#unlinkpath-options-cb" title="Permanent link">&para;</a></h4>
+<p>@param {string} path absolute path to the folder
+@param {errorCallback} cb
+@see {@link <a href="https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback">https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback</a> fs#unlink}</p>
+<h4 id="mkdirrecursivepath-cb"><code class="codehilite">mkdirRecursive(path, cb)</code><a class="headerlink" href="#mkdirrecursivepath-cb" title="Permanent link">&para;</a></h4>
+<p>mkdir -p</p>
+<p>@param {string} path absolute path to the folder to create
+@param {errorCallback} cb</p>
+<h4 id="copyfilefrom-to-options-cb"><code class="codehilite">copyFile(from, to, options, cb)</code><a class="headerlink" href="#copyfilefrom-to-options-cb" title="Permanent link">&para;</a></h4>
+<p>Copy file, possibly across different VFS.</p>
+<p>@param {string|Node} from
+@param {string|Node} to
+@param {errorCallback} cb</p>
+<h4 id="getdirdir-options-callback"><code class="codehilite">getdir(dir, options, callback)</code><a class="headerlink" href="#getdirdir-options-callback" title="Permanent link">&para;</a></h4>
+<p>Get directory contents as {@link Node} objects.
+Essentially a shortcut for {@link api#stat} applied to {@link api#getdir}.
+- @param {string} dir
+- @param {object} options
+  - @param {Node} options.parent=null
+  - @param {string} options.sortBy=null
+  - @param {number} options.sortDir=-1
+- @return {function(err, nodes)} cb</p>
+<h4 id="findpath-callback"><code class="codehilite">find(path, callback)</code><a class="headerlink" href="#findpath-callback" title="Permanent link">&para;</a></h4>
+<p>List recursive folder contents
+@param path string path
+@param cb function (err, files)</p>
+<h4 id="dupath-callback"><code class="codehilite">du(path, callback)</code><a class="headerlink" href="#dupath-callback" title="Permanent link">&para;</a></h4>
+<p>Recursive size of a node.
+@param {string} path absolute path to the file</p>
+<h4 id="readdirpath-options-callback"><code class="codehilite">readdir(path, options, callback)</code><a class="headerlink" href="#readdirpath-options-callback" title="Permanent link">&para;</a></h4>
+<p>List the nodes in a folder.
+@see <a href="https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback">fs#readdir</a>.
+- <code class="codehilite">@param {string} path</code> absolute path to the folder
+- <code class="codehilite">@param {function(err, filenames)} callback</code>
+  - <code class="codehilite">@param {Error} err</code>
+  - <code class="codehilite">@param {array} filenames</code> list of relative path names in this folder</p>
+<h4 id="nextfilepath-options-callback"><code class="codehilite">nextFile(path, options, callback)</code><a class="headerlink" href="#nextfilepath-options-callback" title="Permanent link">&para;</a></h4>
+<p>Find the next file starting from path
+- <code class="codehilite">@param {string} path</code> absolute path to the file
+- <code class="codehilite">@param {object} options</code>
+  - <code class="codehilite">@param {boolean} delta</code> Offset. Set to negative to get previous file. Default: +1
+  - <code class="codehilite">@param {function(path)} whitelistFn</code> Consider only paths for which this fn returns true
+  - <code class="codehilite">@param {function(path)} blacklistFn</code> Discard all paths for which this fn returns true
+  - <code class="codehilite">@param {String} wrapStrategy</code> What to do when hitting a directory boundary
+     - <code class="codehilite">throw</code> Throw an error when files are exhausted
+     - <code class="codehilite">wrap</code> Jump from beginning to end / vice versa (Default)
+     - <code class="codehilite">jump</code> Jump to first file in next folder / last file in previous folder
+- <code class="codehilite">@param {function(err, nextPath)} callback</code>
+  - <code class="codehilite">@param {Error} err</code>
+  - <code class="codehilite">@param {array} filenames</code> list of relative path names in this folder</p>
+<h4 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h4>
+<h5 id="events-ready">Events: <code class="codehilite">ready</code><a class="headerlink" href="#events-ready" title="Permanent link">&para;</a></h5>
+<h5 id="events-sync">Events: <code class="codehilite">sync</code><a class="headerlink" href="#events-sync" title="Permanent link">&para;</a></h5>
+<h5 id="events-error">Events: <code class="codehilite">error</code><a class="headerlink" href="#events-error" title="Permanent link">&para;</a></h5>
+<h5 id="events-end">Events: <code class="codehilite">end</code><a class="headerlink" href="#events-end" title="Permanent link">&para;</a></h5>
+<!-- END-RENDER -->
+
+<!-- BEGIN-RENDER vfs/node.js -->
+
+<h3 id="vfsnode">vfs.Node<a class="headerlink" href="#vfsnode" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="k">new</span> <span class="nx">fsvfs</span><span class="p">.</span><span class="nx">Node</span><span class="p">({</span><span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/...&quot;</span><span class="p">,</span> <span class="nx">vfs</span><span class="o">:</span> <span class="nx">vfsInstance</span><span class="p">})</span>
+</pre></div>
+
+<p>Class representing file metadata</p>
+<h4 id="constructor_1">Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code class="codehilite">@param {object} options</code> Options that will be passed</li>
+<li><code class="codehilite">@param {string} options.path</code> Absolute path to the node</li>
+<li><code class="codehilite">@param {fsvfs} options.vfs</code> Instance of a {@link fsvfs}</li>
+</ul>
+<h4 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h4>
+<h5 id="vfs"><code class="codehilite">vfs</code><a class="headerlink" href="#vfs" title="Permanent link">&para;</a></h5>
+<p>Parent vfs instance, e.g. a <a href="../vfs-file">file</a></p>
+<h5 id="path"><code class="codehilite">path</code><a class="headerlink" href="#path" title="Permanent link">&para;</a></h5>
+<p>Absolute, normalized path of the node within the vfs</p>
+<h5 id="mtime"><code class="codehilite">mtime</code><a class="headerlink" href="#mtime" title="Permanent link">&para;</a></h5>
+<p>Date of last modification</p>
+<h5 id="mode"><code class="codehilite">mode</code><a class="headerlink" href="#mode" title="Permanent link">&para;</a></h5>
+<h5 id="mimetype"><code class="codehilite">mimetype</code><a class="headerlink" href="#mimetype" title="Permanent link">&para;</a></h5>
+<p>MIME type of this node</p>
+<h5 id="root"><code class="codehilite"><span class="nf">%root</span></code><a class="headerlink" href="#root" title="Permanent link">&para;</a></h5>
+<p>See <a href="https://nodejs.org/api/path.html#path_path_parse_path">path.parse(path)</a></p>
+<h5 id="dir"><code class="codehilite"><span class="nf">%dir</span></code><a class="headerlink" href="#dir" title="Permanent link">&para;</a></h5>
+<p>See <a href="https://nodejs.org/api/path.html#path_path_parse_path">path.parse(path)</a></p>
+<h5 id="base"><code class="codehilite"><span class="nf">%base</span></code><a class="headerlink" href="#base" title="Permanent link">&para;</a></h5>
+<p>See <a href="https://nodejs.org/api/path.html#path_path_parse_path">path.parse(path)</a></p>
+<h5 id="ext"><code class="codehilite"><span class="nf">%ext</span></code><a class="headerlink" href="#ext" title="Permanent link">&para;</a></h5>
+<p>See <a href="https://nodejs.org/api/path.html#path_path_parse_path">path.parse(path)</a></p>
+<h5 id="name"><code class="codehilite"><span class="nf">%name</span></code><a class="headerlink" href="#name" title="Permanent link">&para;</a></h5>
+<p>See <a href="https://nodejs.org/api/path.html#path_path_parse_path">path.parse(path)</a></p>
+<!-- END-RENDER -->
+
+<!-- BEGIN-RENDER vfs-util-compression/util-compression.js -->
+
+<h3 id="compressionutils">CompressionUtils<a class="headerlink" href="#compressionutils" title="Permanent link">&para;</a></h3>
+<h4 id="static-hasdecompressorformat"><code class="codehilite">(static) hasDecompressor(format)</code><a class="headerlink" href="#static-hasdecompressorformat" title="Permanent link">&para;</a></h4>
+<p>Whether a decompression format is supported</p>
+<h4 id="static-getdecompressorformat"><code class="codehilite">(static) getDecompressor(format)</code><a class="headerlink" href="#static-getdecompressorformat" title="Permanent link">&para;</a></h4>
+<p>Instantiate a decompression stream
+@memberof util</p>
+<!-- END-RENDER -->
+
+<!-- BEGIN-RENDER vfs-util-path/util-path.js -->
+
+<h3 id="pathutils">PathUtils<a class="headerlink" href="#pathutils" title="Permanent link">&para;</a></h3>
+<p>Enhancing <a href="https://nodejs.org/api/path.html">path</a>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">PathUtils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@kba/vfs-util-path&#39;</span><span class="p">)</span>
+<span class="nx">PathUtils</span><span class="p">.</span><span class="nx">removeTrailingSep</span><span class="p">(</span><span class="s1">&#39;/foo/&#39;</span><span class="p">)</span> <span class="c1">// &#39;/foo&#39;</span>
+<span class="c1">// or</span>
+<span class="kr">const</span> <span class="p">{</span><span class="nx">removeTrailingSep</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@kba/vfs-util-path&#39;</span><span class="p">)</span>
+<span class="nx">removeTrailingSep</span><span class="p">(</span><span class="s1">&#39;/foo/&#39;</span><span class="p">)</span> <span class="c1">// &#39;/foo&#39;</span>
+</pre></div></p>
+<h4 id="static-removetrailingseppath"><code class="codehilite">(static) removeTrailingSep(path)</code><a class="headerlink" href="#static-removetrailingseppath" title="Permanent link">&para;</a></h4>
+<p>Remove trailing separators (slashes) from <code class="codehilite">path</code>.
+@param {boolean} keepRoot Whether to remove or keep a single root slash</p>
+<h4 id="static-removeleadingseppath"><code class="codehilite">(static) removeLeadingSep(path)</code><a class="headerlink" href="#static-removeleadingseppath" title="Permanent link">&para;</a></h4>
+<p>Remove leading separators (slashes) from <code class="codehilite">path</code>.</p>
+<!-- END-RENDER -->
+
+<!-- BEGIN-RENDER vfs-util-stream/util-stream.js -->
+
+<h3 id="streamutils">StreamUtils<a class="headerlink" href="#streamutils" title="Permanent link">&para;</a></h3>
+<h4 id="static-createreadablewrapper"><code class="codehilite">(static) createReadableWrapper()</code><a class="headerlink" href="#static-createreadablewrapper" title="Permanent link">&para;</a></h4>
+<p>Wraps another ReadableStream to allow synchronously returning a stream
+that will become readable only later.
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span><span class="nx">createReadableWrapper</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@kba/vfs-util-stream&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">readable</span> <span class="o">=</span> <span class="nx">createReadableWrapper</span><span class="p">()</span>
+<span class="c1">// TODO, see vfs-tar</span>
+</pre></div></p>
+<h4 id="readablewrapper"><code class="codehilite">ReadableWrapper</code><a class="headerlink" href="#readablewrapper" title="Permanent link">&para;</a></h4>
+<p>TODO</p>
+<h5 id="wrapstreamstream"><code class="codehilite">wrapStream(stream)</code><a class="headerlink" href="#wrapstreamstream" title="Permanent link">&para;</a></h5>
+<p>TODO</p>
+<!-- END-RENDER -->
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../plugins/" title="Plugins" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Plugins
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application-f3ab9e5ff8.js"></script>
+      
+      
+      <script>app.initialize({url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

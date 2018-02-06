@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "vfs documentation\n\n\nDispatcher\n\n\nThe dispatcher instantiates VFS instances from URL and caches instances for better performance.\n\n\nURL are parsed with Node.js' \nurl\n module, the positional options to \nurl.parse\n can be provided as options.\n\n\ndispatcher\n.\nparseUrl\n(\nsftp:///?q=xs\n,\n \n{\nslashesDenoteHost\n:\n \ntrue\n,\n \nparseQueryString\n:\n \nfalse\n})", 
+            "text": "vfs documentation\n\n\nDispatcher\n\n\nThe dispatcher instantiates VFS instances from URL and caches instances for better performance.\n\n\nURL are parsed with Node.js' \nurl\n module, the\npositional options to\n\nurl.parse\n\ncan be provided as options.\n\n\ndispatcher\n.\nparseUrl\n(\nsftp:///?q=xs\n,\n \n{\nslashesDenoteHost\n:\n \ntrue\n,\n \nparseQueryString\n:\n \nfalse\n})", 
             "title": "Home"
         }, 
         {
@@ -12,8 +12,293 @@
         }, 
         {
             "location": "/#dispatcher", 
-            "text": "The dispatcher instantiates VFS instances from URL and caches instances for better performance.  URL are parsed with Node.js'  url  module, the positional options to  url.parse  can be provided as options.  dispatcher . parseUrl ( sftp:///?q=xs ,   { slashesDenoteHost :   true ,   parseQueryString :   false })", 
+            "text": "The dispatcher instantiates VFS instances from URL and caches instances for better performance.  URL are parsed with Node.js'  url  module, the\npositional options to url.parse \ncan be provided as options.  dispatcher . parseUrl ( sftp:///?q=xs ,   { slashesDenoteHost :   true ,   parseQueryString :   false })", 
             "title": "Dispatcher"
+        }, 
+        {
+            "location": "/api/", 
+            "text": "API\n\n\n\n\n\nvfs.base\n\n\nBase class of all vfs\n\n\nProvides default implementations for \nsome api methods\n.\n\n\n(static) NODE_TYPES\n\n\nTypes a \nvfs.Node\n can have.\n\n\nCurrently:\n - \nDirectory\n\n - \nSymbolicLink\n\n\n(static) capabilities\n\n\nLists the capabilities of a VFS, i.e. which methods are available\n\n\n\n\n@return {Set}\n set of available methods\n\n\n\n\n\n\n\n\n\n\nvfs.api\n\n\nInterface of all vfs\n\n\nConstructor\n\n\nuse(pluginClass, pluginOptions)\n\n\nEnable a plugin\n\n\nstat(path, options, callback)\n\n\nGet metadata about a node in the vfs.\n- \n@param {String} path\n absolute path to the file\n- \n@param {Function} callback\n error or {@link Node}\n\n\nmkdir(path, mode, callback)\n\n\nCreate a directory\n\n\n\n\n@param {string} path\n absolute path to the folder\n\n\n@param {errorCallback} cb\n\n\n@see \nfs#mkdir\n\n\n\n\ninit()\n\n\nInitialize the filesystem.\n\n\nBy default only calls #sync and emits \nready\n on \nsync\n}\n\n\nend()\n\n\nUn-initialize the filesystem, e.g. disconnect a client.\n\n\nsync(options)\n\n\nSync the filesystem.\n\n\ncreateReadStream(path, options)\n\n\nSee \nfs.createReadStream\n\nCreate a ReadableStream from a file\n@param {string} path absolute path to the file\n\n\ncreateWriteStream(path, options)\n\n\nCreate a WritableStream to a file\n\n\nSee \nfs.createWriteStream\n.\n@param {string} path absolute path to the file\n@callback readFileCallback\n@param {Error} err\n@param {Buffer|String} data the file data as a buffer or stream\n\n\nreadFile(path, options, callback)\n\n\n@see {@link \nhttps://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback\n fs#readFile}\n\n\n\n\n@param {string} path\n absolute path to the file\n\n\n@param {object} options\n\n\n@param {object} options.encoding=undefined\n Encoding of the data. Setting this will return a String\n\n\n@param {readFileCallback} cb\n\n\n\n\nwriteFile(path, data, options, callback)\n\n\n@see {@link \nhttps://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback\n fs#writeFile}\n\n\n\n\n@param {string} path\n absolute path to the file\n\n\n@param {object} options\n\n\n@param {function(err)}\n cb\n\n\n\n\nunlink(path, options, cb)\n\n\n@param {string} path absolute path to the folder\n@param {errorCallback} cb\n@see {@link \nhttps://nodejs.org/api/fs.html#fs_fs_unlink_path_callback\n fs#unlink}\n\n\nmkdirRecursive(path, cb)\n\n\nmkdir -p\n\n\n@param {string} path absolute path to the folder to create\n@param {errorCallback} cb\n\n\ncopyFile(from, to, options, cb)\n\n\nCopy file, possibly across different VFS.\n\n\n@param {string|Node} from\n@param {string|Node} to\n@param {errorCallback} cb\n\n\ngetdir(dir, options, callback)\n\n\nGet directory contents as {@link Node} objects.\nEssentially a shortcut for {@link api#stat} applied to {@link api#getdir}.\n- @param {string} dir\n- @param {object} options\n  - @param {Node} options.parent=null\n  - @param {string} options.sortBy=null\n  - @param {number} options.sortDir=-1\n- @return {function(err, nodes)} cb\n\n\nfind(path, callback)\n\n\nList recursive folder contents\n@param path string path\n@param cb function (err, files)\n\n\ndu(path, callback)\n\n\nRecursive size of a node.\n@param {string} path absolute path to the file\n\n\nreaddir(path, options, callback)\n\n\nList the nodes in a folder.\n@see \nfs#readdir\n.\n- \n@param {string} path\n absolute path to the folder\n- \n@param {function(err, filenames)} callback\n\n  - \n@param {Error} err\n\n  - \n@param {array} filenames\n list of relative path names in this folder\n\n\nnextFile(path, options, callback)\n\n\nFind the next file starting from path\n- \n@param {string} path\n absolute path to the file\n- \n@param {object} options\n\n  - \n@param {boolean} delta\n Offset. Set to negative to get previous file. Default: +1\n  - \n@param {function(path)} whitelistFn\n Consider only paths for which this fn returns true\n  - \n@param {function(path)} blacklistFn\n Discard all paths for which this fn returns true\n  - \n@param {String} wrapStrategy\n What to do when hitting a directory boundary\n     - \nthrow\n Throw an error when files are exhausted\n     - \nwrap\n Jump from beginning to end / vice versa (Default)\n     - \njump\n Jump to first file in next folder / last file in previous folder\n- \n@param {function(err, nextPath)} callback\n\n  - \n@param {Error} err\n\n  - \n@param {array} filenames\n list of relative path names in this folder\n\n\nEvents\n\n\nEvents: \nready\n\n\nEvents: \nsync\n\n\nEvents: \nerror\n\n\nEvents: \nend\n\n\n\n\n\n\n\n\nvfs.Node\n\n\nnew\n \nfsvfs\n.\nNode\n({\npath\n:\n \n/...\n,\n \nvfs\n:\n \nvfsInstance\n})\n\n\n\n\n\nClass representing file metadata\n\n\nConstructor\n\n\n\n\n@param {object} options\n Options that will be passed\n\n\n@param {string} options.path\n Absolute path to the node\n\n\n@param {fsvfs} options.vfs\n Instance of a {@link fsvfs}\n\n\n\n\nProperties\n\n\nvfs\n\n\nParent vfs instance, e.g. a \nfile\n\n\npath\n\n\nAbsolute, normalized path of the node within the vfs\n\n\nmtime\n\n\nDate of last modification\n\n\nmode\n\n\nmimetype\n\n\nMIME type of this node\n\n\n%root\n\n\nSee \npath.parse(path)\n\n\n%dir\n\n\nSee \npath.parse(path)\n\n\n%base\n\n\nSee \npath.parse(path)\n\n\n%ext\n\n\nSee \npath.parse(path)\n\n\n%name\n\n\nSee \npath.parse(path)\n\n\n\n\n\n\n\n\nCompressionUtils\n\n\n(static) hasDecompressor(format)\n\n\nWhether a decompression format is supported\n\n\n(static) getDecompressor(format)\n\n\nInstantiate a decompression stream\n@memberof util\n\n\n\n\n\n\n\n\nPathUtils\n\n\nEnhancing \npath\n\n\nconst\n \nPathUtils\n \n=\n \nrequire\n(\n@kba/vfs-util-path\n)\n\n\nPathUtils\n.\nremoveTrailingSep\n(\n/foo/\n)\n \n// \n/foo\n\n\n// or\n\n\nconst\n \n{\nremoveTrailingSep\n}\n \n=\n \nrequire\n(\n@kba/vfs-util-path\n)\n\n\nremoveTrailingSep\n(\n/foo/\n)\n \n// \n/foo\n\n\n\n\n(static) removeTrailingSep(path)\n\n\nRemove trailing separators (slashes) from \npath\n.\n@param {boolean} keepRoot Whether to remove or keep a single root slash\n\n\n(static) removeLeadingSep(path)\n\n\nRemove leading separators (slashes) from \npath\n.\n\n\n\n\n\n\n\n\nStreamUtils\n\n\n(static) createReadableWrapper()\n\n\nWraps another ReadableStream to allow synchronously returning a stream\nthat will become readable only later.\n\nconst\n \n{\ncreateReadableWrapper\n}\n \n=\n \nrequire\n(\n@kba/vfs-util-stream\n)\n\n\nconst\n \nreadable\n \n=\n \ncreateReadableWrapper\n()\n\n\n// TODO, see vfs-tar\n\n\n\n\nReadableWrapper\n\n\nTODO\n\n\nwrapStream(stream)\n\n\nTODO", 
+            "title": "Api"
+        }, 
+        {
+            "location": "/api/#api", 
+            "text": "", 
+            "title": "API"
+        }, 
+        {
+            "location": "/api/#vfsbase", 
+            "text": "Base class of all vfs  Provides default implementations for  some api methods .", 
+            "title": "vfs.base"
+        }, 
+        {
+            "location": "/api/#static-node_types", 
+            "text": "Types a  vfs.Node  can have.  Currently:\n -  Directory \n -  SymbolicLink", 
+            "title": "(static) NODE_TYPES"
+        }, 
+        {
+            "location": "/api/#static-capabilities", 
+            "text": "Lists the capabilities of a VFS, i.e. which methods are available   @return {Set}  set of available methods", 
+            "title": "(static) capabilities"
+        }, 
+        {
+            "location": "/api/#vfsapi", 
+            "text": "Interface of all vfs", 
+            "title": "vfs.api"
+        }, 
+        {
+            "location": "/api/#constructor", 
+            "text": "", 
+            "title": "Constructor"
+        }, 
+        {
+            "location": "/api/#usepluginclass-pluginoptions", 
+            "text": "Enable a plugin", 
+            "title": "use(pluginClass, pluginOptions)"
+        }, 
+        {
+            "location": "/api/#statpath-options-callback", 
+            "text": "Get metadata about a node in the vfs.\n-  @param {String} path  absolute path to the file\n-  @param {Function} callback  error or {@link Node}", 
+            "title": "stat(path, options, callback)"
+        }, 
+        {
+            "location": "/api/#mkdirpath-mode-callback", 
+            "text": "Create a directory   @param {string} path  absolute path to the folder  @param {errorCallback} cb  @see  fs#mkdir", 
+            "title": "mkdir(path, mode, callback)"
+        }, 
+        {
+            "location": "/api/#init", 
+            "text": "Initialize the filesystem.  By default only calls #sync and emits  ready  on  sync }", 
+            "title": "init()"
+        }, 
+        {
+            "location": "/api/#end", 
+            "text": "Un-initialize the filesystem, e.g. disconnect a client.", 
+            "title": "end()"
+        }, 
+        {
+            "location": "/api/#syncoptions", 
+            "text": "Sync the filesystem.", 
+            "title": "sync(options)"
+        }, 
+        {
+            "location": "/api/#createreadstreampath-options", 
+            "text": "See  fs.createReadStream \nCreate a ReadableStream from a file\n@param {string} path absolute path to the file", 
+            "title": "createReadStream(path, options)"
+        }, 
+        {
+            "location": "/api/#createwritestreampath-options", 
+            "text": "Create a WritableStream to a file  See  fs.createWriteStream .\n@param {string} path absolute path to the file\n@callback readFileCallback\n@param {Error} err\n@param {Buffer|String} data the file data as a buffer or stream", 
+            "title": "createWriteStream(path, options)"
+        }, 
+        {
+            "location": "/api/#readfilepath-options-callback", 
+            "text": "@see {@link  https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback  fs#readFile}   @param {string} path  absolute path to the file  @param {object} options  @param {object} options.encoding=undefined  Encoding of the data. Setting this will return a String  @param {readFileCallback} cb", 
+            "title": "readFile(path, options, callback)"
+        }, 
+        {
+            "location": "/api/#writefilepath-data-options-callback", 
+            "text": "@see {@link  https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback  fs#writeFile}   @param {string} path  absolute path to the file  @param {object} options  @param {function(err)}  cb", 
+            "title": "writeFile(path, data, options, callback)"
+        }, 
+        {
+            "location": "/api/#unlinkpath-options-cb", 
+            "text": "@param {string} path absolute path to the folder\n@param {errorCallback} cb\n@see {@link  https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback  fs#unlink}", 
+            "title": "unlink(path, options, cb)"
+        }, 
+        {
+            "location": "/api/#mkdirrecursivepath-cb", 
+            "text": "mkdir -p  @param {string} path absolute path to the folder to create\n@param {errorCallback} cb", 
+            "title": "mkdirRecursive(path, cb)"
+        }, 
+        {
+            "location": "/api/#copyfilefrom-to-options-cb", 
+            "text": "Copy file, possibly across different VFS.  @param {string|Node} from\n@param {string|Node} to\n@param {errorCallback} cb", 
+            "title": "copyFile(from, to, options, cb)"
+        }, 
+        {
+            "location": "/api/#getdirdir-options-callback", 
+            "text": "Get directory contents as {@link Node} objects.\nEssentially a shortcut for {@link api#stat} applied to {@link api#getdir}.\n- @param {string} dir\n- @param {object} options\n  - @param {Node} options.parent=null\n  - @param {string} options.sortBy=null\n  - @param {number} options.sortDir=-1\n- @return {function(err, nodes)} cb", 
+            "title": "getdir(dir, options, callback)"
+        }, 
+        {
+            "location": "/api/#findpath-callback", 
+            "text": "List recursive folder contents\n@param path string path\n@param cb function (err, files)", 
+            "title": "find(path, callback)"
+        }, 
+        {
+            "location": "/api/#dupath-callback", 
+            "text": "Recursive size of a node.\n@param {string} path absolute path to the file", 
+            "title": "du(path, callback)"
+        }, 
+        {
+            "location": "/api/#readdirpath-options-callback", 
+            "text": "List the nodes in a folder.\n@see  fs#readdir .\n-  @param {string} path  absolute path to the folder\n-  @param {function(err, filenames)} callback \n  -  @param {Error} err \n  -  @param {array} filenames  list of relative path names in this folder", 
+            "title": "readdir(path, options, callback)"
+        }, 
+        {
+            "location": "/api/#nextfilepath-options-callback", 
+            "text": "Find the next file starting from path\n-  @param {string} path  absolute path to the file\n-  @param {object} options \n  -  @param {boolean} delta  Offset. Set to negative to get previous file. Default: +1\n  -  @param {function(path)} whitelistFn  Consider only paths for which this fn returns true\n  -  @param {function(path)} blacklistFn  Discard all paths for which this fn returns true\n  -  @param {String} wrapStrategy  What to do when hitting a directory boundary\n     -  throw  Throw an error when files are exhausted\n     -  wrap  Jump from beginning to end / vice versa (Default)\n     -  jump  Jump to first file in next folder / last file in previous folder\n-  @param {function(err, nextPath)} callback \n  -  @param {Error} err \n  -  @param {array} filenames  list of relative path names in this folder", 
+            "title": "nextFile(path, options, callback)"
+        }, 
+        {
+            "location": "/api/#events", 
+            "text": "", 
+            "title": "Events"
+        }, 
+        {
+            "location": "/api/#events-ready", 
+            "text": "", 
+            "title": "Events: ready"
+        }, 
+        {
+            "location": "/api/#events-sync", 
+            "text": "", 
+            "title": "Events: sync"
+        }, 
+        {
+            "location": "/api/#events-error", 
+            "text": "", 
+            "title": "Events: error"
+        }, 
+        {
+            "location": "/api/#events-end", 
+            "text": "", 
+            "title": "Events: end"
+        }, 
+        {
+            "location": "/api/#vfsnode", 
+            "text": "new   fsvfs . Node ({ path :   /... ,   vfs :   vfsInstance })   Class representing file metadata", 
+            "title": "vfs.Node"
+        }, 
+        {
+            "location": "/api/#constructor_1", 
+            "text": "@param {object} options  Options that will be passed  @param {string} options.path  Absolute path to the node  @param {fsvfs} options.vfs  Instance of a {@link fsvfs}", 
+            "title": "Constructor"
+        }, 
+        {
+            "location": "/api/#properties", 
+            "text": "", 
+            "title": "Properties"
+        }, 
+        {
+            "location": "/api/#vfs", 
+            "text": "Parent vfs instance, e.g. a  file", 
+            "title": "vfs"
+        }, 
+        {
+            "location": "/api/#path", 
+            "text": "Absolute, normalized path of the node within the vfs", 
+            "title": "path"
+        }, 
+        {
+            "location": "/api/#mtime", 
+            "text": "Date of last modification", 
+            "title": "mtime"
+        }, 
+        {
+            "location": "/api/#mode", 
+            "text": "", 
+            "title": "mode"
+        }, 
+        {
+            "location": "/api/#mimetype", 
+            "text": "MIME type of this node", 
+            "title": "mimetype"
+        }, 
+        {
+            "location": "/api/#root", 
+            "text": "See  path.parse(path)", 
+            "title": "%root"
+        }, 
+        {
+            "location": "/api/#dir", 
+            "text": "See  path.parse(path)", 
+            "title": "%dir"
+        }, 
+        {
+            "location": "/api/#base", 
+            "text": "See  path.parse(path)", 
+            "title": "%base"
+        }, 
+        {
+            "location": "/api/#ext", 
+            "text": "See  path.parse(path)", 
+            "title": "%ext"
+        }, 
+        {
+            "location": "/api/#name", 
+            "text": "See  path.parse(path)", 
+            "title": "%name"
+        }, 
+        {
+            "location": "/api/#compressionutils", 
+            "text": "", 
+            "title": "CompressionUtils"
+        }, 
+        {
+            "location": "/api/#static-hasdecompressorformat", 
+            "text": "Whether a decompression format is supported", 
+            "title": "(static) hasDecompressor(format)"
+        }, 
+        {
+            "location": "/api/#static-getdecompressorformat", 
+            "text": "Instantiate a decompression stream\n@memberof util", 
+            "title": "(static) getDecompressor(format)"
+        }, 
+        {
+            "location": "/api/#pathutils", 
+            "text": "Enhancing  path  const   PathUtils   =   require ( @kba/vfs-util-path )  PathUtils . removeTrailingSep ( /foo/ )   //  /foo  // or  const   { removeTrailingSep }   =   require ( @kba/vfs-util-path )  removeTrailingSep ( /foo/ )   //  /foo", 
+            "title": "PathUtils"
+        }, 
+        {
+            "location": "/api/#static-removetrailingseppath", 
+            "text": "Remove trailing separators (slashes) from  path .\n@param {boolean} keepRoot Whether to remove or keep a single root slash", 
+            "title": "(static) removeTrailingSep(path)"
+        }, 
+        {
+            "location": "/api/#static-removeleadingseppath", 
+            "text": "Remove leading separators (slashes) from  path .", 
+            "title": "(static) removeLeadingSep(path)"
+        }, 
+        {
+            "location": "/api/#streamutils", 
+            "text": "", 
+            "title": "StreamUtils"
+        }, 
+        {
+            "location": "/api/#static-createreadablewrapper", 
+            "text": "Wraps another ReadableStream to allow synchronously returning a stream\nthat will become readable only later. const   { createReadableWrapper }   =   require ( @kba/vfs-util-stream )  const   readable   =   createReadableWrapper ()  // TODO, see vfs-tar", 
+            "title": "(static) createReadableWrapper()"
+        }, 
+        {
+            "location": "/api/#readablewrapper", 
+            "text": "TODO", 
+            "title": "ReadableWrapper"
+        }, 
+        {
+            "location": "/api/#wrapstreamstream", 
+            "text": "TODO", 
+            "title": "wrapStream(stream)"
+        }, 
+        {
+            "location": "/plugins/", 
+            "text": "Plugins\n\n\nPlugins can extend the functionality of a vfs by using hooks provided by the vfs.\n\n\nInstantiation\n\n\nPlugins can be registered with a vfs by calling its \nuse\n method:\n\n\nvfs\n.\nuse\n(\npluginClass\n,\n \npluginOptions\n)\n\n\n\n\n\nHooks\n\n\nTo hook into a vfs method, a plugin must provide a function \nbefore_\nmethod\n or \nafter_\nmethod\n.\n\n\nThe \nbefore_\nmethod\n method takes the same arguments as \nmethod\n.\n\n\nThe \nafter_\nmethod\n receives the result of the call to \nmethod\n.", 
+            "title": "Plugins"
+        }, 
+        {
+            "location": "/plugins/#plugins", 
+            "text": "Plugins can extend the functionality of a vfs by using hooks provided by the vfs.", 
+            "title": "Plugins"
+        }, 
+        {
+            "location": "/plugins/#instantiation", 
+            "text": "Plugins can be registered with a vfs by calling its  use  method:  vfs . use ( pluginClass ,   pluginOptions )", 
+            "title": "Instantiation"
+        }, 
+        {
+            "location": "/plugins/#hooks", 
+            "text": "To hook into a vfs method, a plugin must provide a function  before_ method  or  after_ method .  The  before_ method  method takes the same arguments as  method .  The  after_ method  receives the result of the call to  method .", 
+            "title": "Hooks"
         }
     ]
 }
