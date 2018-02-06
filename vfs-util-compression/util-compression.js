@@ -29,7 +29,7 @@ function getDecompressor(format, ...args) {
     return decompress[format](...args)
 }
 
-module.exports = { 
+module.exports = {
     hasDecompressor,
     getDecompressor,
 }

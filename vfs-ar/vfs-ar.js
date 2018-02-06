@@ -1,6 +1,6 @@
-const Readable = require('stream').Readable;
+const Readable = require('stream').Readable
 const Path = require('path')
-const ar = require("ar-async");
+const ar = require("ar-async")
 const {getDecompressor} = require('@kba/vfs-util-compression')
 
 const {base, Node} = require('@kba/vfs')
@@ -42,7 +42,7 @@ class arvfs extends base {
     // TODO handle compression
     _extract(handlers) {
         const location = this.options.location
-        var inStream = location.vfs.createReadStream(location.path)
+        let inStream = location.vfs.createReadStream(location.path)
         const extract = ar.extract()
         Object.keys(handlers).forEach(event => {
             extract.on(event, handlers[event])

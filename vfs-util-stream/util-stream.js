@@ -1,4 +1,4 @@
-const Readable = require('stream').Readable;
+const Readable = require('stream').Readable
 /**
  * ### StreamUtils
  *
@@ -39,6 +39,6 @@ function createReadableWrapper() {
     return ret
 }
 
-module.exports = { 
+module.exports = {
     createReadableWrapper,
 }

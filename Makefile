@@ -41,3 +41,6 @@ doc/watch:
 
 doc/serve:
 	grip
+
+doc/clone:
+	git clone --depth 1 --branch gh-pages https://github.com/kba/vfs gh-pages

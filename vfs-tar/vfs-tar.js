@@ -1,5 +1,5 @@
 const Path = require('path')
-const tar = require("tar-stream");
+const tar = require("tar-stream")
 
 const {base, Node} = require('@kba/vfs')
 const {
@@ -46,7 +46,7 @@ class tarvfs extends base {
     // TODO handle compression
     _extract(handlers) {
         const location = this.options.location
-        var inStream = location.vfs.createReadStream(location.path)
+        let inStream = location.vfs.createReadStream(location.path)
         const extract = tar.extract()
         Object.keys(handlers).forEach(event => {
             extract.on(event, handlers[event])

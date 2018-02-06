@@ -1,8 +1,6 @@
-const async = require('async')
-const fs = require('fs')
 const Path = require('path')
 const PathUtils = require('@kba/vfs-util-path')
-const JSZip = require("jszip");
+const JSZip = require("jszip")
 const {Readable} = require('stream')
 
 const {base, errors, Node} = require('@kba/vfs')
@@ -47,7 +45,7 @@ class zipvfs extends base {
     }
 
     _sync() {
-        const new_zip = new JSZip();
+        const new_zip = new JSZip()
         const location = this.options.location
         location.vfs.readFile(location.path, (err, content) => {
             if (err) return this.emit('error', err)
@@ -86,8 +84,8 @@ class zipvfs extends base {
         if (!(Path.isAbsolute(path))) throw errors.PathNotAbsoluteError(path)
         const relpath = Path.normalize(path.substr(1))
         if (!(relpath in this.zipRoot.files)) throw errors.NoSuchFileError(path)
-        var self = this
-        var read = 0
+        let self = this
+        let read = 0
         return new Readable({
             read(size) {
                 if (read > 0) return
