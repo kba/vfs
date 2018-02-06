@@ -29,6 +29,9 @@ test-vfs:
 	$(MAKE) bootstrap
 	tap -R$(REPORTER) test/vfs/$(VFS).test.js
 
+server:
+	cd vfs-server && ./bin/vfs-server.js
+
 .PHONY: doc doc/watch
 doc:
 	shinclude -c xml -i README.md

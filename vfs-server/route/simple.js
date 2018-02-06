@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const bodyParser = require('body-parser')
+const {spawn} = require('child_process')
 
 /**
  * Simple API route
@@ -26,6 +27,23 @@ module.exports = ({dispatcher}) => {
           return res.send(ls)
         })
       }
+    })
+  })
+
+  route.get('/open', (req, resp, next) => {
+    const {url, options} = req.vfs
+    const {path} = req.vfs.urlParsed
+    const vfs = dispatcher.instantiate(url, options)
+    if (vfs.constructor.scheme !== 'file') {
+      return next(new Error("Currently, only opening 'file://' URL is supported"))
+    }
+    vfs.stat(path, options, (err, stat) => {
+      if (err) return next(err)
+      // TODO hard-coded
+      spawn('cvp', [stat.path], {
+        detached: true,
+        stdio: 'ignore'
+      })
     })
   })
 
