@@ -10,6 +10,14 @@ Plugins can be registered with a vfs by calling its `use` method:
 vfs.use(pluginClass, pluginOptions)
 ```
 
+Plugins can also be provided as options to the constructor of a vfs:
+
+```js
+const vfs = new vfs.file({plugins: [
+  [pluginClass, pluginOptions]
+]}
+```
+
 ### Hooks
 
 To hook into a vfs method, a plugin must provide a function `before_<method>` or `after_<method>`.
@@ -18,3 +26,4 @@ The `before_<method>` method takes the same arguments as `<method>`.
 
 The `after_<method>` receives the result of the call to `<method>`.
 
+#### after_stat
