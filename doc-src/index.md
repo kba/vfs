@@ -1,8 +1,18 @@
 # vfs documentation
 
-## Dispatcher
+## Glossary
 
-The dispatcher instantiates VFS instances from URL and caches instances for better performance.
+```
+   URL --> Dispatcher
+              |
+              v
+          VFS Cache
+              |
+              v
+             VFS --> VFS Node
+```
+
+### URL
 
 URL are parsed with Node.js' [url](https://nodejs.org/api/url.html) module, the
 positional options to
@@ -10,5 +20,36 @@ positional options to
 can be provided as options.
 
 ```js
-dispatcher.parseUrl('sftp:///?q=xs', {slashesDenoteHost: true, parseQueryString: false})
+dispatcher.parseUrl('sftp:///?q=xs', {
+  slashesDenoteHost: true,
+  parseQueryString: false
+})
 ```
+
+### Dispatcher
+
+The dispatcher instantiates VFS Nodes from URL and caches VFS instances for
+better performance.
+
+To register a protocol, use `dispatcher.user`:
+
+VFS is determined by the URL `protocol`.
+
+```js
+const fileVfs = require('@kba/vfs-file')
+dispatcher.parseUrl('file:///tmp/test') // throws 'UnsupportedFormatError'
+dispatcher.use('file', fileVfs)
+dispatcher.parseUrl('file:///tmp/test') // returns a VFS.Node
+```
+
+### VFS Cache
+
+TODO
+
+### VFS Node
+
+TODO
+
+### VFS
+
+TODO
