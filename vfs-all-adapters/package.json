@@ -1,8 +1,8 @@
 {
-  "name": "@kba/vfs-all",
+  "name": "@kba/vfs-all-adapters",
   "version": "0.0.6",
   "description": "Virtual File Systems with a node fs-like API - All adapters",
-  "main": "vfs-all.js",
+  "main": "vfs-all-adapters.js",
   "scripts": {
     "test": "tap -Rspec test/*.test.js"
   },
