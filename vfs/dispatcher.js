@@ -19,10 +19,15 @@ class VfsDispatcher {
     parseUrl(url, options={}) {
         Object.assign(options, {
           parseQueryString: false,
-          slashesDenoteHost: false
+          slashesDenoteHost: false,
+          cwd: process.env.PWD,
         }, options)
         let parts = urlParse(url, options.parseQueryString, options.slashesDenoteHost)
         if (!(parts.protocol)) {
+            if (!url.startsWith('/')) {
+              const path = require('path')
+              url = path.resolve(options.cwd, url)
+            }
             url = 'file://' + url
             parts = urlParse(url, options.parseQueryString, options.slashesDenoteHost)
         }
@@ -30,7 +35,7 @@ class VfsDispatcher {
         if (parts.path) parts.path = decodeURIComponent(parts.path)
         if (!(parts.protocol in this.byScheme)) {
             throw UnsupportedFormatError(`${parts.protocol} not available. Did you run
-            vfs.enable(require('@kba/vfs-${parts.protocol}') ?`)
+            vfs.enable(require('@kba/vfs-adapter-${parts.protocol}') ?`)
         }
         return parts
     }

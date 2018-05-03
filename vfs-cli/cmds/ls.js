@@ -12,7 +12,12 @@ module.exports = {
   },
   handler(argv) {
     const {url} = argv
+    const parts = dispatcher.parseUrl(url, {slashesDenotesHost: true})
+    console.log(parts)
     const vfs = dispatcher.instantiate(url).promisify()
-    vfs.stat('/').then(stat => console.log("Node", {stat}))
+    vfs.stat('/').then(stat => {
+      console.log("Node", {stat})
+      console.log(vfs.vfs)
+    })
   }
 }
