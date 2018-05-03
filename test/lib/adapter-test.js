@@ -4,7 +4,7 @@ const async = require('async')
 const vfsFile = require('@kba/vfs-adapter-file')
 
 const testFunctions = module.exports = {
-    vfsReadTest(t, fs, cb) {
+    adapterReadTest(t, fs, cb) {
         const testFileContents = 'ÜÄ✓✗\n'
         const testFilePath = '/lib/file2.txt'
         fs.on('error', err => {
@@ -143,14 +143,14 @@ const testFunctions = module.exports = {
     }
 }
 
-testFunctions.testVfs = function(vfsName, tests) {
-    const fileVfs = new vfsFile()
-    tap.test(`${vfsName} vfs`, t => {
-        const vfsClass = require(`@kba/vfs-adapter-${vfsName}`)
-        t.equals(vfsClass.scheme, vfsName, `scheme is ${vfsName}`)
+testFunctions.testAdapter = function(adapterName, tests) {
+    const fileAdapter = new vfsFile()
+    tap.test(`${adapterName} adapter`, t => {
+        const adapterClass = require(`@kba/vfs-adapter-${adapterName}`)
+        t.equals(adapterClass.scheme, adapterName, `scheme is ${adapterName}`)
         const runTests = (options, fns, done) => {
             fns.forEach(fn => {
-                testFunctions[fn](t, new(vfsClass)(options), err => {
+                testFunctions[fn](t, new(adapterClass)(options), err => {
                     if (err) return done(err)
                     return done()
                 })
@@ -159,7 +159,7 @@ testFunctions.testVfs = function(vfsName, tests) {
         async.eachSeries(tests, ([options, fns], done) => {
             if ('location' in options) {
                 const fixtureName = Path.join(__dirname, '..', 'fixtures', options.location)
-                fileVfs.stat(fixtureName, (err, location) => {
+                fileAdapter.stat(fixtureName, (err, location) => {
                     if (err) throw err
                     t.notOk(err, `read ${fixtureName}`)
                     options.location = location

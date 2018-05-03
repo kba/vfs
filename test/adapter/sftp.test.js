@@ -1,10 +1,10 @@
 const Path = require('path')
-const {testVfs} = require('../lib/vfs-test')
+const {testAdapter} = require('../lib/adapter-test')
 
 if (process.env.ENABLE_SFTP_TESTS !== 'true' && process.env.USER !== 'kba') {
   console.warn("Skipping SFTP test since ENABLE_SFTP_TESTS is not set in env and USER is not 'kba'")
 } else {
-  testVfs('sftp', [
+  testAdapter('sftp', [
     [{
       chroot: Path.resolve(__dirname+'/../fixtures/folder'),
       sshOptions: {
@@ -13,6 +13,6 @@ if (process.env.ENABLE_SFTP_TESTS !== 'true' && process.env.USER !== 'kba') {
         username: process.env.USER,
         privateKey: require('fs').readFileSync(`${process.env.HOME}/.ssh/id_rsa`)
       }
-    }, ['vfsReadTest']]
+    }, ['adapterReadTest']]
   ])
 }
