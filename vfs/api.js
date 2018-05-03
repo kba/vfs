@@ -226,6 +226,7 @@ class api {
      *   - @param {Node} options.parent=null
      *   - @param {string} options.sortBy=null
      *   - @param {number} options.sortDir=-1
+     *   - @param {number} options.directoriesFirst=false
      * - @return {function(err, nodes)} cb
      */
     getdir(dir, options, cb) {

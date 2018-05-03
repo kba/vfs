@@ -125,6 +125,13 @@ class base extends api {
                         return sortDir * (a == b ? 0 : a < b ? -1 : +1)
                     })
                 }
+                if (options.directoriesFirst) {
+                  const tmp = [[], []]
+                  ret.forEach(node => {
+                    tmp[node.isDirectory ? 0 : 1].push(node)
+                  })
+                  ret = [...tmp[0], ...tmp[1]]
+                }
                 if (! options.parent)
                     return cb(null, ret)
                 options.parent.vfs.stat(Path.join(options.parent.path, '..'), (err, parent) => {
