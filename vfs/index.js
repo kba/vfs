@@ -1,3 +1,5 @@
-module.exports = new(require('./dispatcher'))()
+const dispatcher = require('./dispatcher')
+module.exports = new(dispatcher)()
 module.exports.base = require('./base')
 module.exports.Node = require('./node')
+module.exports.dispatcher = require('./dispatcher')
