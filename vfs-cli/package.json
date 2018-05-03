@@ -1,0 +1,20 @@
+{
+  "name": "@kba/vfs-cli",
+  "version": "0.0.7",
+  "description": "Virtual File Systems with a node fs-like API - CLI",
+  "main": "vfs-cli.js",
+  "bin": {
+    "vfs": "vfs-cli.js"
+  },
+  "repository": "github:kba/vfs",
+  "author": "Konstantin Baierer <unixprog@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 7"
+  },
+  "dependencies": {
+    "@kba/vfs": "^0.0.7",
+    "@kba/vfs-all": "^0.0.7",
+    "yargs": "11.0.0"
+  }
+}

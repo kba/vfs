@@ -3,7 +3,6 @@ docs
 lerna-debug.log
 */node_modules
 npm-debug.log
-vfs-cli
 package-lock.json
 vuex
 site
