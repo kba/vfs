@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-adapter-file",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Virtual File Systems with a node fs-like API - fs adapter",
   "main": "vfs-adapter-file.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "node": ">= 7"
   },
   "dependencies": {
-    "@kba/vfs": "^0.0.6",
+    "@kba/vfs": "^0.0.7",
     "async": "^2.4.0"
   }
 }

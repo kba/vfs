@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-adapter-tar",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Virtual File Systems with a node fs-like API - ZIP adapter",
   "main": "vfs-adapter-tar.js",
   "scripts": {
@@ -13,9 +13,9 @@
     "node": ">=7"
   },
   "dependencies": {
-    "@kba/vfs": "^0.0.6",
+    "@kba/vfs": "^0.0.7",
     "@kba/vfs-util-errors": "^0.0.4",
-    "@kba/vfs-util-stream": "^0.0.6",
+    "@kba/vfs-util-stream": "^0.0.7",
     "@kba/vfs-util-compression": "^0.0.6",
     "tar-stream": "^1.5.2"
   }

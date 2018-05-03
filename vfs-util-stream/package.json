@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-util-stream",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Virtual File Systems with a node fs-like API - Utilities",
   "main": "util-stream.js",
   "scripts": {
