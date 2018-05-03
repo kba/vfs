@@ -1,8 +1,8 @@
 {
-  "name": "@kba/vfs-tar",
+  "name": "@kba/vfs-adapter-tar",
   "version": "0.0.6",
   "description": "Virtual File Systems with a node fs-like API - ZIP adapter",
-  "main": "vfs-tar.js",
+  "main": "vfs-adapter-tar.js",
   "scripts": {
     "test": "tap -Rspec *.test.js"
   },

@@ -1,7 +1,5 @@
 const tap = require('tap')
-const vfs = require('@kba/vfs')
 const api = require('@kba/vfs/api')
-const base = require('@kba/vfs/base')
 
 const RESET = '\x1b[0m'
 const OK = '\x1b[32mX'
@@ -13,28 +11,32 @@ function rightPad(str, pad) {
     return (str + ' '.repeat(100)).substr(0, pad)
 }
 
+const SILENT = process.env.SILENT === 'true'
+
 tap.test('summarize capabilities', t => {
     t.plan(0)
     const vfsNames = ['zip', 'file', 'tar', 'ar', 'sftp']
-    console.log('\t' + ' '.repeat(WIDTH_CAP) + vfsNames.map(
-        str => rightPad(str, WIDTH_VFS)).join(''))
+    if (!SILENT)
+      console.log('\t' + ' '.repeat(WIDTH_CAP) + vfsNames.map(
+          str => rightPad(str, WIDTH_VFS)).join(''))
     const props = Object.getOwnPropertyNames(api.prototype)
     props.forEach(prop => {
         vfsNames.forEach(vfsName => {
-            const vfsClass = require(`@kba/vfs-${vfsName}`)
+            const vfsClass = require(`@kba/vfs-adapter-${vfsName}`)
             if (prop.indexOf('constructor') === -1 && vfsClass.prototype.hasOwnProperty(prop)) {
-                throw new Error(`vfs-${vfsName} should not override ${prop}`)
+                throw new Error(`vfs-adapter-${vfsName} should not override ${prop}`)
             }
         })
         if (['constructor', 'use', 'sync', 'init', 'end'].indexOf(prop) > -1) return
         let row = [RESET, rightPad(prop, WIDTH_CAP)]
         vfsNames.forEach(vfsName => {
-            const vfsClass = require(`@kba/vfs-${vfsName}`)
+            const vfsClass = require(`@kba/vfs-adapter-${vfsName}`)
             const sign = (vfsClass.capabilities.has(prop)) ? OK : NOT_OK
             row.push(' ' + sign + ' '.repeat(WIDTH_VFS - 2))
             row.push(RESET)
         })
-        console.log('\t' + row.join(''))
+        if (!SILENT)
+          console.log('\t' + row.join(''))
     })
     t.end()
 })

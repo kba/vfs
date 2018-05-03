@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const dispatcher = require('@kba/vfs')
-dispatcher.enable(require('@kba/vfs-file'))
+dispatcher.enable(require('@kba/vfs-adapter-file'))
 const port = process.env.VFS_PORT || 3001
 
 const server = new(require('express'))()

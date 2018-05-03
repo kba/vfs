@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const tap = require('tape')
 
 const dispatcher = require('@kba/vfs')
-dispatcher.enable(require('@kba/vfs-file'))
+dispatcher.enable(require('@kba/vfs-adapter-file'))
 const app = require('./server')({dispatcher})
 
 tap.test(`/stat?url=${__filename}`, t => {

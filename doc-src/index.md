@@ -36,7 +36,7 @@ To register a protocol, use `dispatcher.user`:
 VFS is determined by the URL `protocol`.
 
 ```js
-const fileVfs = require('@kba/vfs-file')
+const fileVfs = require('@kba/vfs-adapter-file')
 dispatcher.parseUrl('file:///tmp/test') // throws 'UnsupportedFormatError'
 dispatcher.use('file', fileVfs)
 dispatcher.parseUrl('file:///tmp/test') // returns a VFS.Node

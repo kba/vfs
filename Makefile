@@ -48,6 +48,9 @@ test-vfs:
 	$(MAKE) bootstrap
 	tap -R$(REPORTER) test/vfs/$(VFS).test.js
 
+test-fun:
+	$(MAKE) test REPORTER=nyan SILENT=true
+
 # Run Server
 server:
 	cd vfs-server && ./bin/vfs-server.js

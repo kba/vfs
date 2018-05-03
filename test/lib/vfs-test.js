@@ -1,7 +1,7 @@
 const tap = require('tap')
 const Path = require('path')
 const async = require('async')
-const vfsFile = require('@kba/vfs-file')
+const vfsFile = require('@kba/vfs-adapter-file')
 
 const testFunctions = module.exports = {
     vfsReadTest(t, fs, cb) {
@@ -146,7 +146,7 @@ const testFunctions = module.exports = {
 testFunctions.testVfs = function(vfsName, tests) {
     const fileVfs = new vfsFile()
     tap.test(`${vfsName} vfs`, t => {
-        const vfsClass = require(`@kba/vfs-${vfsName}`)
+        const vfsClass = require(`@kba/vfs-adapter-${vfsName}`)
         t.equals(vfsClass.scheme, vfsName, `scheme is ${vfsName}`)
         const runTests = (options, fns, done) => {
             fns.forEach(fn => {

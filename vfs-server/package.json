@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@kba/vfs": "^0.0.6",
-    "@kba/vfs-file": "^0.0.6",
+    "@kba/vfs-adapter-file": "^0.0.6",
     "@kba/vfs-util-path": "^0.0.4",
     "async": "^2.4.0",
     "body-parser": "^1.17.2",

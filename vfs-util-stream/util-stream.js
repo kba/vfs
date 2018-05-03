@@ -10,7 +10,7 @@ const Readable = require('stream').Readable
  * ```js
  * const {createReadableWrapper} = require('@kba/vfs-util-stream')
  * const readable = createReadableWrapper()
- * // TODO, see vfs-tar
+ * // TODO, see vfs-adapter-tar
  * ```
  *
  */

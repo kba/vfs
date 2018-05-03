@@ -1,5 +1,5 @@
 const tap = require('tap')
-const vfsFile = require('@kba/vfs-file')
+const vfsFile = require('@kba/vfs-adapter-file')
 
 class TestPlugin {
 
