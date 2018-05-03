@@ -1,5 +1,5 @@
-const vfs = require('@kba/vfs')
-require('@kba/vfs-all').enableAll(vfs)
+const dispatcher = require('@kba/vfs')
+require('@kba/vfs-all-adapters').enableAll(dispatcher)
 
 module.exports = {
   command: 'ls <url>',
@@ -12,7 +12,7 @@ module.exports = {
   },
   handler(argv) {
     const {url} = argv
-    const node = vfs.parseUrl(url)
-    console.log("Node", [node, node.vfs])
+    const vfs = dispatcher.instantiate(url).promisify()
+    vfs.stat('/').then(stat => console.log("Node", {stat}))
   }
 }

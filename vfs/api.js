@@ -346,6 +346,39 @@ class api {
 
 
 }
+
+//
+// Promisified API
+//
+
+api.prototype.promisify = function() {
+  const store = this
+  const ret = {}
+  ;[
+    'stat',
+    'mkdir',
+    'createReadStream',
+    'createWriteStream',
+    'readFile',
+    'writeFile',
+    'unlink',
+    'mkdirRecursive',
+    'copyFile',
+    'getdir',
+    'find',
+    'du',
+    'readdir',
+    'nextFile',
+    'rmdir',
+  ].map(fn => {
+    ret[fn] = (...args) => {
+      return new Promise((resolve, reject) => {
+        return store[fn](...args, (err, ...ret) => err ? reject(err) : resolve(...ret))
+      })
+    }
+  })
+  return ret
+}
 module.exports = api
 
 // vim: sw=4 ts=4
