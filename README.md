@@ -93,6 +93,7 @@ fs module](http://nodejs.org/api/fs.html).
 	nextFile             X    X    X    X    X   
 	rmdir                -    X    -    -    -   
 	_urlForNode          -    -    -    -    -   
+	promisify            -    -    -    -    -   
 
 <!-- END-EVAL -->
 
@@ -211,6 +212,7 @@ Essentially a shortcut for {@link api#stat} applied to {@link api#getdir}.
   - @param {Node} options.parent=null
   - @param {string} options.sortBy=null
   - @param {number} options.sortDir=-1
+  - @param {number} options.directoriesFirst=false
 - @return {function(err, nodes)} cb
 #### `find(path, callback)`
 
@@ -266,7 +268,7 @@ Class representing file metadata
 
 #### Properties
 ##### `vfs`
-Parent vfs instance, e.g. a [file](./vfs-file)
+Parent vfs instance, e.g. a [file](./vfs-adapter-file)
 ##### `path`
 Absolute, normalized path of the node within the vfs
 ##### `mtime`
@@ -327,7 +329,7 @@ that will become readable only later.
 ```js
 const {createReadableWrapper} = require('@kba/vfs-util-stream')
 const readable = createReadableWrapper()
-// TODO, see vfs-tar
+// TODO, see vfs-adapter-tar
 ```
 #### `ReadableWrapper`
 TODO
