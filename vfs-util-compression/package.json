@@ -1,6 +1,6 @@
 {
   "name": "@kba/vfs-util-compression",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Node.JS Virtual File Systems - Compression Utilities",
   "main": "util-compression.js",
   "scripts": {

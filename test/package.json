@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@kba/vfs-test",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Virtual File Systems with a node fs-like API - Tests",
   "scripts": {
     "test": "tap -Rspec *.test.js"
@@ -13,12 +13,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@kba/vfs": "^0.0.5",
-    "@kba/vfs-ar": "^0.0.5",
-    "@kba/vfs-file": "^0.0.5",
-    "@kba/vfs-zip": "^0.0.5",
-    "@kba/vfs-tar": "^0.0.5",
-    "@kba/vfs-sftp": "^0.0.5",
+    "@kba/vfs": "^0.0.6",
+    "@kba/vfs-ar": "^0.0.6",
+    "@kba/vfs-file": "^0.0.6",
+    "@kba/vfs-zip": "^0.0.6",
+    "@kba/vfs-tar": "^0.0.6",
+    "@kba/vfs-sftp": "^0.0.6",
     "async": "^2.4.0",
     "tap": "^10.0.0"
   }
