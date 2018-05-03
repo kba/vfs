@@ -2,7 +2,7 @@ const dispatcher = require('@kba/vfs')
 require('@kba/vfs-all-adapters').enableAll(dispatcher)
 
 module.exports = {
-  command: 'ls <url>',
+  command: 'ls <location>',
   desc: 'ls(1) a vfs node',
   builder(argv) {
     argv
@@ -11,13 +11,23 @@ module.exports = {
       })
   },
   handler(argv) {
-    const {url} = argv
-    const parts = dispatcher.parseUrl(url, {slashesDenotesHost: true})
-    console.log(parts)
-    const vfs = dispatcher.instantiate(url).promisify()
-    vfs.stat('/').then(stat => {
-      console.log("Node", {stat})
-      console.log(vfs.vfs)
-    })
+    const {location} = argv
+    const {path} = dispatcher.parseUrl(location, {slashesDenotesHost: false})
+    const vfs = dispatcher.instantiate('/').promisify()
+    let ret = ''
+    const doit = async () => {
+      const node = await vfs.stat(path)
+      if (node.isDirectory) {
+        const contents = await vfs.getdir(path)
+        console.log(contents)
+        contents.forEach(f => ret += f['%base'])
+      } else {
+        ret += node['%base']
+      }
+      console.log(ret)
+      // console.log("Node", {node})
+      // console.log(node.vfs)
+    }
+    doit()
   }
 }
