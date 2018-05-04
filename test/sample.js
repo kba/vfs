@@ -1,21 +1,3 @@
-## Nested VFS
-
-File systems are hierarchical and VFS can be nested.
-
-### Example
-
-Imagine you wanted to read a file in an archive on a remote server:
-
-```
-sftp://server/path/to/file.zip
-
-      zip:///path/within/zip/target
-```
-
-Programmatically you can first instantiate the `sftp` VFS.Node and create a
-`zip` VFS.Node based on that:
-
-```js
 const sftpAdapter = require('@kba/vfs-adapter-sftp')
 const zipAdapter = require('@kba/vfs-adapter-zip')
 const sftp = new sftpAdapter({
@@ -29,6 +11,3 @@ const sftp = new sftpAdapter({
 const location = sftp.stat('/path/to/file.zip')
 const zip = new zipAdapter({location})
 const is = zip.createReadStream()
-```
-
-
