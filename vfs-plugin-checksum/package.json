@@ -1,0 +1,19 @@
+{
+  "name": "@kba/vfs-plugin-checksum",
+  "version": "0.0.6",
+  "description": "Virtual File Systems with a node fs-like API - Checksum plugin",
+  "main": "vfs-plugin-checksum.js",
+  "scripts": {
+    "preinstall": "make install-share"
+  },
+  "repository": "github:kba/vfs",
+  "author": "Konstantin Baierer <unixprog@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=7"
+  },
+  "dependencies": {
+    "@kba/vfs": "^0.0.7",
+    "@kba/vfs-all-adapters": "^0.0.7"
+  }
+}

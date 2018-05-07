@@ -1,4 +1,13 @@
-## Plugins
+# Plugins
+
+## CLI Plugins
+
+To add a command to `vfs`:
+
+1) Install a symlink `$PREFIX/share/vfs/vfs-name-of-command.js` that points to
+   the real location (which can itself be a symlink)
+
+## Vfs Plugins
 
 Plugins can extend the functionality of a vfs by using hooks provided by the vfs.
 
