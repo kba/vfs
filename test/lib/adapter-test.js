@@ -112,7 +112,7 @@ const testFunctions = module.exports = {
   adapterWriteTest(t, fs, cb) {
     const testFileContents = 'ÜÄ✓✗\n'
     const testFilePath = '/lib/file2.txt'
-    const tmpPath = 'tmpPath'
+    const tmpPath = '/tmp/foo'
 
     fs.on('error', err => {
       console.error("ERROR", err)
@@ -127,6 +127,7 @@ const testFunctions = module.exports = {
       }),
       cb => t.test('copyFile(string, {vfs:fs, path: tmpPath})', t => {
         fs.copyFile(testFilePath, {vfs: fs, path: tmpPath}, (err) => {
+          if (err) console.log({err})
           t.notOk(err, 'no error')
           return cb(t.end())
         })
@@ -142,12 +143,15 @@ const testFunctions = module.exports = {
       cb => t.test('unlink', t => {
         fs.unlink(tmpPath, (err) => {
           t.deepEquals(err, undefined, 'unlink: no error')
-          return cb(t.end())
+          fs.once('sync', () => cb(t.end()))
+          fs.sync()
         })
       }),
       cb => t.test('stat after unlink', t => {
         fs.stat(tmpPath, (err, x) => {
-          t.equals(err.code, 'ENOENT', 'stat fails after delete')
+          if (!err) console.log({err, x})
+          t.ok(err.message.match('NoSuchFileError'), 'stat fails after delete')
+          // t.equals(err.code, 'ENOENT', 'stat fails after delete')
           return cb(t.end())
         })
       }),

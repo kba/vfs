@@ -4,6 +4,14 @@ const Path = require('path')
 
 const _EVENT = Symbol('event')
 
+function markDirty(vfs, cb) {
+    return (err, ...args) => {
+        if (err) return cb(err)
+        vfs.isDirty = true
+        return cb(null, ...args)
+    }
+}
+
 /** 
  * ### vfs.api
  * Interface of all vfs
@@ -133,7 +141,9 @@ class api {
      * @param {string} path absolute path to the file
      */
     createWriteStream(path, ...args) {
-        return this._createWriteStream(path, ...args)
+        const os = this._createWriteStream(path, ...args)
+        os.on('end', () => this.isDirty = true)
+        return os
     }
 
     /**
@@ -167,7 +177,7 @@ class api {
      */
     writeFile(path, data, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
-        return this._writeFile(path, data, options, cb)
+        return this._writeFile(path, data, options, markDirty(this, cb))
     }
 
     /**
@@ -179,7 +189,7 @@ class api {
      */
     unlink(path, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
-        return this._unlink(path, options, cb)
+        return this._unlink(path, options, markDirty(this, cb))
     }
 
     /**
@@ -211,7 +221,7 @@ class api {
      */
     copyFile(from, to, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
-        this._copyFile(from, to, options, cb)
+        this._copyFile(from, to, options, markDirty(this, cb))
     }
 
     /**
@@ -329,7 +339,7 @@ class api {
 
     rmdir(path, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
-        this._rmdir(path, options, cb)
+        this._rmdir(path, options, markDirty(this, cb))
     }
 
     _urlForNode(node) {

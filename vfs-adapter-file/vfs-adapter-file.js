@@ -1,5 +1,6 @@
 const fs = require('fs')
 const Path = require('path')
+const errors = require('@kba/vfs-util-errors')
 const {base, Node} = require('@kba/vfs')
 
 /** 
@@ -42,7 +43,7 @@ class filevfs extends base {
         if (!cb && typeof opts == 'function') [cb, opts] = [opts, {}]
         path = this._resolvePath(path)
         fs.lstat(path, (err, stat) => {
-            if (err) return cb(err)
+            if (err) return cb(errors.NoSuchFileError(path))
             return cb(null, this._fsStatsToAttr(path, stat))
         })
     }

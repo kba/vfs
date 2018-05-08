@@ -3,7 +3,8 @@ const PathUtils = require('@kba/vfs-util-path')
 const JSZip = require("jszip")
 const {Readable} = require('stream')
 
-const {base, errors, Node} = require('@kba/vfs')
+const errors = require('@kba/vfs-util-errors')
+const {base, Node} = require('@kba/vfs')
 
 /** 
  * A VFS over ZIP content
@@ -47,17 +48,27 @@ class zipvfs extends base {
     _sync() {
         const new_zip = new JSZip()
         const location = this.options.location
-        location.vfs.readFile(location.path, (err, content) => {
-            if (err) return this.emit('error', err)
-            new_zip.loadAsync(content).then((zip) => {
-                this.zipRoot = zip
+        if (this.isDirty) {
+            this.isDirty = false
+            const os = location.vfs.createWriteStream(location.path)
+            const is = this.zipRoot.generateNodeStream()
+            is.on('end', () => {
                 this.emit('sync')
-            }).catch(err => this.emit('error', err))
-        })
+            })
+            is.pipe(os)
+        } else {
+            location.vfs.readFile(location.path, (err, content) => {
+                if (err) return this.emit('error', err)
+                new_zip.loadAsync(content).then((zip) => {
+                    this.zipRoot = zip
+                    this.emit('sync')
+                }).catch(err => this.emit('error', err))
+            })
+        }
     }
 
     _stat(path, options, cb) {
-        if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
+        if (!(Path.isAbsolute(path))) path = '/' + path
         path = Path.normalize(path.substr(1))
         if (!(path in this.zipRoot.files)) path += '/'
         if (!(path in this.zipRoot.files)) return cb(errors.NoSuchFileError(path))
@@ -69,7 +80,7 @@ class zipvfs extends base {
     }
 
     _readdir(dir, options, cb) {
-        if (!(Path.isAbsolute(dir))) return cb(errors.PathNotAbsoluteError(dir))
+        if (!(Path.isAbsolute(dir))) dir = '/' + dir
         dir = PathUtils.removeTrailingSep(dir, false)
         let ret = Object.keys(this.zipRoot.files)
             .map(filename => PathUtils.removeTrailingSep('/' + filename))
@@ -81,7 +92,7 @@ class zipvfs extends base {
     }
 
     _createReadStream(path, options={}) {
-        if (!(Path.isAbsolute(path))) throw errors.PathNotAbsoluteError(path)
+        if (!(Path.isAbsolute(path))) path = '/' + path
         const relpath = Path.normalize(path.substr(1))
         if (!(relpath in this.zipRoot.files)) throw errors.NoSuchFileError(path)
         let self = this
@@ -100,7 +111,7 @@ class zipvfs extends base {
 
     _readFile(path, options, cb) {
         if (typeof options === 'function') [cb, options] = [options, {}]
-        if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
+        if (!(Path.isAbsolute(path))) path = '/' + path
         path = path.substr(1)
         const format = options.encoding ? 'string' : 'arraybuffer'
         this.zipRoot.file(path).async(format)
@@ -111,7 +122,7 @@ class zipvfs extends base {
     }
 
     _writeFile(path, data, options, cb) {
-        if (!(Path.isAbsolute(path))) return cb(errors.PathNotAbsoluteError(path))
+        if (!(Path.isAbsolute(path))) path = '/' + path
         path = path.substr(1)
         if (typeof options === 'function') [cb, options] = [options, {}]
         this.zipRoot.file(path, data)
