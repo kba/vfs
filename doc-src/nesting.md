@@ -1,16 +1,26 @@
-## Nested VFS
+# Nested VFS
 
 File systems are hierarchical and VFS can be nested.
 
-### Example
+## Examples
 
 Imagine you wanted to read a file in an archive on a remote server:
 
 ```
-sftp://server/path/to/file.zip
+URL: zip:sftp://server/path/to/file.zip!/path/within/zip/target
 
-      zip:///path/within/zip/target
+sftp://server/path/to/file.zip -> zip:///path/within/zip/target
 ```
+
+Or a ZIP within a ZIP on an SFTP:
+
+```
+zip:zip:sftp://server/path/to/file.zip!/path/within/zip/target.zip!/path/within/inner/zip
+
+sftp://server/path/to/file.zip -> zip:///path/within/zip/target.zip -> zip:/path/within/inner/zip
+```
+
+## Programmatically
 
 Programmatically you can first instantiate the `sftp` VFS.Node and create a
 `zip` VFS.Node based on that:
@@ -28,7 +38,15 @@ const sftp = new sftpAdapter({
 })
 const location = sftp.stat('/path/to/file.zip')
 const zip = new zipAdapter({location})
-const is = zip.createReadStream()
+const is = zip.createReadStream('/path/within/zip/target')
 ```
+
+## URL notation
+
+```pest
+   URL = protocols + '://' + paths
+   protocols := 
+```
+
 
 

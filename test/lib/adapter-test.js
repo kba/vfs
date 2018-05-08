@@ -3,6 +3,8 @@ const Path = require('path')
 const async = require('async')
 const vfsFile = require('@kba/vfs-adapter-file')
 
+const FIXTURE_DIR = process.env.FIXTURE_DIR ? process.env.FIXTURE_DIR : Path.join(__dirname, '..', 'fixtures')
+
 const testFunctions = module.exports = {
     adapterReadTest(t, fs, cb) {
         const testFileContents = 'ÜÄ✓✗\n'
@@ -178,7 +180,7 @@ testFunctions.testAdapter = function(adapterName, tests) {
         }
         async.eachSeries(tests, ([options, fns], done) => {
             if ('location' in options) {
-                const fixtureName = Path.join(__dirname, '..', 'fixtures', options.location)
+                const fixtureName = Path.join(FIXTURE_DIR, options.location)
                 fileAdapter.stat(fixtureName, (err, location) => {
                     if (err) throw err
                     t.notOk(err, `read ${fixtureName}`)
