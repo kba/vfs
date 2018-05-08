@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // console.log(require)
 const dispatcher = require('@kba/vfs')
 require('@kba/vfs-all-adapters').enableAll(dispatcher)

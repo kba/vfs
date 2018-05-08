@@ -1,21 +1,15 @@
 #!/usr/bin/env node
 const path = require('path')
 const fs = require('fs')
-const VFS_CLI_PATH=process.env.VFS_CLI_PATH ? process.env.VFS_CLI_PATH : [
-    `${process.env.HOME}/.local`,
-    // '/usr/local',
-    // '/usr',
-  ].map(prefix => `${prefix}/share/vfs/`).join(':')
-
-// console.log(VFS_CLI_PATH)
 let yargs = require('yargs')
 
-;['cmds', ...VFS_CLI_PATH.split(':')].forEach(p => {
+process.env.PATH.split(':').forEach(p => {
   try {
     const stat = fs.statSync(p)
     if (stat.isDirectory()) {
-      fs.readdirSync(p).forEach(f => {
-        if (f.match(/^vfs-/)) {
+      fs.readdirSync(p)
+        .filter(f => f.match(/^vfs-cli-/))
+        .forEach(f => {
           // console.log(`Adding module ${p} @ ${f}`)
           try {
             f = path.join(p, f)
@@ -25,8 +19,7 @@ let yargs = require('yargs')
           } catch (e) {
             console.log(e)
           }
-        }
-      })
+        })
     }
   } catch (e) {
     // NOTE ignore errors
