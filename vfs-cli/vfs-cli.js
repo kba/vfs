@@ -27,9 +27,6 @@ let yargs = require('yargs')
           }
         }
       })
-      // yargs = yargs.commandDir(p, {
-      //   rename : fname => fname.replace(/^vfs-/, '')
-      // })
     }
   } catch (e) {
     // NOTE ignore errors
@@ -41,5 +38,8 @@ yargs = yargs
   .commandDir('cmds')
   .demandCommand()
   .help('h')
+  // .command('*', true, () => {
+  //   console.log('FOOO')
+  // })
 
 console.log(yargs.argv)
