@@ -72,7 +72,7 @@ const testFunctions = module.exports = {
             cb => t.test('find', (t) => {
                 fs.find('/', (err, files) => {
                     t.notOk(err, 'no error')
-                    t.equals(files.length, 4, '4 files in the fs')
+                    t.ok(files.length >= 4, '>= 4 files in the fs')
                     return cb(t.end())
                 })
             }),
@@ -106,41 +106,54 @@ const testFunctions = module.exports = {
                 fs.end()
                 cb()
             },
-            // cb => t.test('writeFile', t => {
-            //     vfs.writeFile(dummyPath, dummyData, (err) => {
-            //         t.deepEquals(err, undefined, 'writeFile/String: no error')
-            //         return cb(t.end())
-            //     })
-            // }),
-            // cb => t.test('readFile/string', t => {
-            //     vfs.readFile(dummyPath, {encoding: 'utf8'}, (err, data) => {
-            //         t.deepEquals(err, undefined, 'readFile/string: no error')
-            //         t.equals(typeof data, 'string', 'is a string')
-            //         t.equals(data.length, dummyData.length, `${dummyData.length} characters long`)
-            //         return cb(t.end())
-            //     })
-            // }),
-            // cb => t.test('copyFile(string, {vfs:fs, path: /tmp/foo})', t => {
-            //     vfs.copyFile(dummyPath, {vfs: fs, path: '/tmp/foo'}, (err) => {
-            //         t.notOk(err, 'no error')
-            //         return cb(t.end())
-            //     })
-            // }),
-            // cb => t.test('unlink', t => {
-            //     vfs.unlink(dummyPath, (err) => {
-            //         t.deepEquals(err, undefined, 'unlink: no error')
-            //         return cb(t.end())
-            //     })
-            // }),
-            // cb => t.test('stat after unlink', t => {
-            //     vfs.stat(dummyPath, (err, x) => {
-            //         t.ok(err.message.match('NoSuchFileError'), 'stat fails after delete')
-            //         return cb(t.end())
-            //     })
-            // }),
         ], cb))
         fs.init()
-    }
+    },
+  adapterWriteTest(t, fs, cb) {
+    const testFileContents = 'ÜÄ✓✗\n'
+    const testFilePath = '/lib/file2.txt'
+    const tmpPath = 'tmpPath'
+
+    fs.on('error', err => {
+      console.error("ERROR", err)
+      fs.end()
+    })
+    fs.once('sync', () => async.waterfall([
+      cb => t.test('writeFile', t => {
+        fs.writeFile(testFilePath, testFileContents, (err) => {
+          t.deepEquals(err, undefined, 'writeFile/String: no error')
+          return cb(t.end())
+        })
+      }),
+      cb => t.test('copyFile(string, {vfs:fs, path: tmpPath})', t => {
+        fs.copyFile(testFilePath, {vfs: fs, path: tmpPath}, (err) => {
+          t.notOk(err, 'no error')
+          return cb(t.end())
+        })
+      }),
+      cb => t.test('readFile/string', t => {
+        fs.readFile(tmpPath, {encoding: 'utf8'}, (err, data) => {
+          t.deepEquals(err, undefined, 'readFile/string: no error')
+          t.equals(typeof data, 'string', 'is a string')
+          t.equals(data.length, testFileContents.length, `${testFileContents.length} characters long`)
+          return cb(t.end())
+        })
+      }),
+      cb => t.test('unlink', t => {
+        fs.unlink(tmpPath, (err) => {
+          t.deepEquals(err, undefined, 'unlink: no error')
+          return cb(t.end())
+        })
+      }),
+      cb => t.test('stat after unlink', t => {
+        fs.stat(tmpPath, (err, x) => {
+          t.equals(err.code, 'ENOENT', 'stat fails after delete')
+          return cb(t.end())
+        })
+      }),
+    ], cb))
+    fs.init()
+  }
 }
 
 testFunctions.testAdapter = function(adapterName, tests) {
@@ -149,12 +162,15 @@ testFunctions.testAdapter = function(adapterName, tests) {
         const adapterClass = require(`@kba/vfs-adapter-${adapterName}`)
         t.equals(adapterClass.scheme, adapterName, `scheme is ${adapterName}`)
         const runTests = (options, fns, done) => {
-            fns.forEach(fn => {
+          async.eachSeries(fns, (fn, fnDone) => {
                 testFunctions[fn](t, new(adapterClass)(options), err => {
-                    if (err) return done(err)
-                    return done()
+                    if (err) return fnDone(err)
+                    return fnDone()
                 })
-            })
+          }, (err) => {
+            if (err) return done(err)
+            return done()
+          })
         }
         async.eachSeries(tests, ([options, fns], done) => {
             if ('location' in options) {

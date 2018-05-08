@@ -8,3 +8,4 @@ vuex
 site
 gh-pages
 doc
+test/fixtures/folder/tmp/*

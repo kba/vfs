@@ -148,7 +148,8 @@ class base extends api {
 
     /* copyFile default implementation */
     _copyFile(from, to, options, cb) {
-        [from, to] = [from, to].map(arg => {
+        if (typeof options === 'function') [cb, options] = [options, {}]
+        ;[from, to] = [from, to].map(arg => {
             if (typeof arg === 'string') {arg = {vfs: this, path: arg}}
             if (typeof arg === 'object') {
                 if (!(arg.vfs instanceof api)) throw new Error("'arg.vfs' must be a vfs")

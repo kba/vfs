@@ -45,7 +45,7 @@ class api {
     }
 
     /**
-     * #### `stat(path, options, callback)`
+     * #### `stat(path, options)`
      * 
      * Get metadata about a node in the vfs.
      *
