@@ -10,6 +10,6 @@
     "tape": "^4.6.3"
   },
   "dependencies": {
-    "lerna": "2.11.0"
+    "lerna": "^2.5.1"
   }
 }
