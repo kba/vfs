@@ -4,6 +4,7 @@ PATH := ./test/node_modules/.bin:$(PATH)
 REPORTER = tap
 TAP = tap -R$(REPORTER)
 VFS = file
+SHELL = zsh
 
 
 # BEGIN-EVAL makefile-parser --make-help Makefile
@@ -12,18 +13,19 @@ help:
 	@echo ""
 	@echo "  Targets"
 	@echo ""
-	@echo "    test          Run all tests"
-	@echo "    test-one      Run only the test given by TEST variable"
-	@echo "    test-vfs      Test all vfs"
-	@echo "    server        Run Server"
-	@echo "    doc           Build the README and static site"
-	@echo "    README        Regenerate the API doc in README (requires shinclude)"
-	@echo "    README/watch  Continuosly rebuild README"
-	@echo "    README/serve  Build README in browser"
-	@echo "    site          Build site"
-	@echo "    site/serve    Preview site"
-	@echo "    site/deploy   Deploy updated static site"
-	@echo "    gh-pages      Clone deployed site as 'gh-pages'"
+	@echo "    test            Run all tests"
+	@echo "    test-one        Run only the test given by TEST variable"
+	@echo "    test-adapter    Test all vfs"
+	@echo "    server          Run Server"
+	@echo "    doc             Build the README and static site"
+	@echo "    README          Regenerate the API doc in README (requires shinclude)"
+	@echo "    README/watch    Continuosly rebuild README"
+	@echo "    README/serve    Build README in browser"
+	@echo "    site            Build site"
+	@echo "    site/serve      Preview site"
+	@echo "    site/deploy     Deploy updated static site"
+	@echo "    gh-pages        Clone deployed site as 'gh-pages'"
+	@echo "    install-global  Install -g"
 
 # END-EVAL
 
@@ -44,9 +46,9 @@ test-one:
 	tap -R$(REPORTER) $(TEST)
 
 # Test all vfs
-test-vfs:
+test-adapter:
 	$(MAKE) bootstrap
-	tap -R$(REPORTER) test/vfs/$(VFS).test.js
+	tap -R$(REPORTER) test/adapter/$(VFS).test.js
 
 test-fun:
 	$(MAKE) test REPORTER=nyan SILENT=true
@@ -94,3 +96,12 @@ site/deploy:
 # Clone deployed site as 'gh-pages'
 gh-pages:
 	git clone --depth 1 --branch gh-pages https://github.com/kba/vfs gh-pages
+
+INSTALL_GLOBAL =  vfs-cli \
+				  vfs-plugin-checksum
+# Install -g
+install-global:
+	# lerna exec npm install -g
+	for mod in $(INSTALL_GLOBAL);do \
+		(cd $$mod && npm install -g); \
+	done
