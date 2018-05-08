@@ -53,7 +53,8 @@ class zipvfs extends base {
             const os = location.vfs.createWriteStream(location.path)
             const is = this.zipRoot.generateNodeStream()
             is.on('end', () => {
-                this.emit('sync')
+                location.vfs.on('sync', () => this.emit('sync'))
+                location.vfs.sync()
             })
             is.pipe(os)
         } else {
