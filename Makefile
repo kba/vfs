@@ -51,7 +51,7 @@ fixtures:
 # Run all tests
 test: fixtures
 	$(MAKE) bootstrap
-	$(TAP) test/*.test.js test/*/*.test.js
+	$(TAP) test/*.test.js test/*/*.test.js */*.test.js
 
 # Run only the test given by TEST variable
 test-one: fixtures
@@ -65,7 +65,8 @@ test-adapter: fixtures
 
 # Terse test output
 test-nyan:
-	$(MAKE) test REPORTER=nyan SILENT=true
+	@$(MAKE) test REPORTER=nyan SILENT=true 2>/tmp/vfs-test-stderr
+	@cat /tmp/vfs-test-stderr
 
 #
 # Server
