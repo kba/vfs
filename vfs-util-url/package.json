@@ -1,0 +1,19 @@
+{
+  "name": "@kba/vfs-util-url",
+  "version": "0.0.7",
+  "description": "Virtual File Systems with a node fs-like API - URL utils",
+  "main": "util-url.js",
+  "scripts": {
+    "test": "tap -Rspec test/*.test.js"
+  },
+  "repository": "github:kba/vfs",
+  "author": "Konstantin Baierer <unixprog@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=7"
+  },
+  "dependencies": {
+    "@kba/utils": "^0.3.1",
+    "tape": "4.9.0"
+  }
+}

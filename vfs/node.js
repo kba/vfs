@@ -19,6 +19,8 @@ const mimeTypes = require('mime-types')
  * #### Properties
  * ##### `vfs`
  * Parent vfs instance, e.g. a [file](./vfs-adapter-file)
+ * ##### `url`
+ * URL of the node: protocol is scheme of adapter, path is path
  * ##### `path`
  * Absolute, normalized path of the node within the vfs
  * ##### `mtime`
@@ -56,7 +58,6 @@ class Node {
             ? 'inode/directory'
             : mimeTypes.lookup(this.path) || 'application/octet-stream'
     }
-
 
 }
 
